@@ -1,4 +1,4 @@
-package com.senla.bookshop.book;
+package com.senla.bookshop.main;
 
 public class Date {
 	private int day;

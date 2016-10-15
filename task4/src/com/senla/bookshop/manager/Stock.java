@@ -1,9 +1,11 @@
-package com.senla.bookshop.book;
+package com.senla.bookshop.manager;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import com.danco.training.TextFileWorker;
+import com.senla.bookshop.entity.Book;
+import com.senla.bookshop.main.Date;
 
 public class Stock {
 	private Book[] books;
