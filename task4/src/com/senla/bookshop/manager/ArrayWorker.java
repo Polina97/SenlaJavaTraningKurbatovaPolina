@@ -2,61 +2,82 @@ package com.senla.bookshop.manager;
 
 import com.senla.bookshop.api.entities.IBaseEntity;
 import com.senla.bookshop.entity.BaseEntity;
+import com.senla.bookshop.entity.Book;
 import com.senla.bookshop.main.Printer;
 
-public class ArrayWorker {
-	private IBaseEntity[] array;
-	
+public abstract class ArrayWorker {
 
-	public ArrayWorker() {
-	}
-
-	public ArrayWorker(IBaseEntity[] array) {
-		this.array = array;
-	}
-
-	public IBaseEntity[] getArray() {
-		return array;
-	}
-
-	public void setArray(IBaseEntity[] array) {
-		this.array = array;
-	}
-
-	public void addEntity(IBaseEntity entity) {
-		if (this.array != null) {
-			if (!contains(entity)) {
-				IBaseEntity[] array2 = new BaseEntity[this.array.length + 1];
-				for (int i = 0; i < this.array.length; i++) {
-					array2[i] = this.array[i];
+	public static BaseEntity[] addEntity(BaseEntity entity, BaseEntity[] array) {
+		if (array != null) {
+			if (!contains(entity, array)) {
+				BaseEntity[] array2 = new BaseEntity[array.length + 1];
+				for (int i = 0; i < array.length; i++) {
+					array2[i] = array[i];
 				}
 				array2[array.length] = entity;
-				this.array = array2;
+				array = array2;
 			} else {
 			}
 
 		} else {
-			this.array = new BaseEntity[1];
-			this.array[0] = entity;
+			array = new BaseEntity[1];
+			array[0] = entity;
 		}
 		Printer.printAdd(entity);
+		return array;
 	}
 
-	public void deleteEntity(IBaseEntity entity) {
-		if (this.array != null && contains(entity)) {
-			IBaseEntity[] array2 = new BaseEntity[this.array.length - 1];
+	public static Book[] addBook(Book entity, Book[] array) {
+		if (array != null) {
+			if (!contains(entity, array)) {
+				Book[] array2 = new Book[array.length + 1];
+				for (int i = 0; i < array.length; i++) {
+					array2[i] = array[i];
+				}
+				array2[array.length] = entity;
+				array = array2;
+			} else {
+			}
+
+		} else {
+			array = new Book[1];
+			array[0] = entity;
+		}
+		Printer.printAdd(entity);
+		return array;
+	}
+
+	public static Book[] deleteBook(Book entity, Book[] array) {
+		if (array != null && contains(entity, array)) {
+			Book[] array2 = new Book[array.length - 1];
 			int i = 0;
-			for (IBaseEntity e : this.array) {
+			for (Book e : array) {
 				if (!e.equals(entity)) {
 					array2[i++] = e;
 				}
 			}
-			this.array = array2;
+			array = array2;
 		}
 		Printer.printDelete(entity);
+		return array;
 	}
 
-	public boolean contains(IBaseEntity entity) {
+	public static IBaseEntity[] deleteEntity(IBaseEntity entity, IBaseEntity[] array) {
+		if (array != null && contains(entity, array)) {
+			IBaseEntity[] array2 = new BaseEntity[array.length - 1];
+			int i = 0;
+			for (IBaseEntity e : array) {
+				if (!e.equals(entity)) {
+					array2[i++] = e;
+				}
+			}
+			array = array2;
+		}
+		Printer.printDelete(entity);
+		return array;
+	}
+
+	public static boolean contains(IBaseEntity entity, IBaseEntity[] array) {
 		boolean answer = false;
 		for (IBaseEntity e : array) {
 			if (e.equals(entity)) {
@@ -67,12 +88,18 @@ public class ArrayWorker {
 		return answer;
 	}
 
-	public String[] toStringArray() {
-		String[] arrayString = new String[this.array.length];
-		for (int i = 0; i < this.array.length; i++) {
-			arrayString[i] = this.array[i].toString();
+	public static String[] toStringArray(IBaseEntity[] array) {
+		String[] arrayString = new String[array.length];
+		for (int i = 0; i < array.length; i++) {
+			arrayString[i] = array[i].toString();
 		}
 		return arrayString;
+	}
+
+	public static void showArray(IBaseEntity[] array) {
+		for (IBaseEntity baseEntity : array) {
+			Printer.print(baseEntity.toString());
+		}
 	}
 
 }

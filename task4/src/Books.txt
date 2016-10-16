@@ -1,0 +1,5 @@
+Madame Bovary/Gustave Flaubert/15/7/2016/100000/15/1/2017/false/0/false
+The Great Gatsby/ F. Scott Fitzgerald/15/7/2016/180000/15/1/2017/true/0/false
+Hamlet/William Shakespeare/16/7/2016/250000/16/1/2017/false/0/false
+Anna Karenina/Leo Tolstoy/16/7/2016/300000/16/1/2017/false/0/true
+War and Peace/Leo Tolstoy/16/7/2016/360000/16/1/2017/true/0/false

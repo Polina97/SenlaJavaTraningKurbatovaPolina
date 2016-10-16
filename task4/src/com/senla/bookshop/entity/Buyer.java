@@ -4,6 +4,9 @@ import com.senla.bookshop.api.entities.IBuyer;
 
 public class Buyer extends BaseEntity implements IBuyer{
 
+	public Buyer(String description) {
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub

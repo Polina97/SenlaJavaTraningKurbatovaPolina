@@ -1,12 +1,11 @@
 package com.senla.bookshop.api.managers;
 
-import com.senla.bookshop.api.entities.IBaseEntity;
-import com.senla.bookshop.api.entities.IBook;
+import com.senla.bookshop.entity.BaseEntity;
 
 public interface IBaseManager {
 
-	void add(IBaseEntity entity);
+	void add(BaseEntity entity);
 
-	void delete(IBaseEntity entity);
+	void delete(BaseEntity entity);
 
 }

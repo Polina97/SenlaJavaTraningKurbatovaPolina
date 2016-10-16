@@ -1,6 +1,6 @@
 package com.senla.bookshop.main;
 
-public class Date {
+public class Date implements Comparable<Date> {
 	private int day;
 	private int month;
 	private int year;
@@ -11,11 +11,12 @@ public class Date {
 		this.month = month;
 		this.year = year;
 	}
-	public Date(String st){
+
+	public Date(String st) {
 		String[] nubers = st.split("/");
-        day  = Integer.parseInt(nubers[0]);
-        month  = Integer.parseInt(nubers[1]);
-        year  = Integer.parseInt(nubers[2]); 
+		day = Integer.parseInt(nubers[0]);
+		month = Integer.parseInt(nubers[1]);
+		year = Integer.parseInt(nubers[2]);
 	}
 
 	public int getDay() {
@@ -32,8 +33,8 @@ public class Date {
 
 	@Override
 	public String toString() {
-		builder = new StringBuilder(day);
-		return builder.append("/").append(month).append("/").append(year).toString();
+		builder = new StringBuilder();
+		return builder.append(day).append("/").append(month).append("/").append(year).toString();
 	}
 
 	public Date afterSixMonth() {
@@ -75,10 +76,22 @@ public class Date {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Date) {
-			return ((Date) obj).getDay() == day && ((Date) obj).getMonth() == month 
-					&& ((Date) obj).getYear() == year;
+			return ((Date) obj).getDay() == day && ((Date) obj).getMonth() == month && ((Date) obj).getYear() == year;
 		} else {
 			return false;
+		}
+	}
+
+	@Override
+	public int compareTo(Date newDate) {
+		if (this.year == newDate.getYear()) {
+			if (this.month == newDate.getMonth()) {
+				return this.day - newDate.getDay();
+			} else {
+				return this.month - newDate.getMonth();
+			}
+		}else {
+			return this.year - newDate.getYear();
 		}
 	}
 

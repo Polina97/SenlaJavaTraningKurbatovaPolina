@@ -1,5 +1,7 @@
 package com.senla.bookshop.entity;
 
+import java.util.Comparator;
+
 import com.senla.bookshop.api.entities.IBook;
 import com.senla.bookshop.main.Date;
 
@@ -7,29 +9,21 @@ public class Book extends BaseEntity implements IBook {
 	private String name;
 	private String author;
 	private Date dateSupply;
-	private int price;
+	private Integer price;
 	private Date dateOld;
 	private boolean inStock;
-	private int requests;
+	private Integer requests;
 	private boolean application;
 
-	public Book(String name, String author, int price) {
-		this.name = name;
-		this.author = author;
-		this.price = price;
-	}
-
-	public Book(String name, String author, Date dateSupply, int price, Date dateOld, boolean inStock, int requests,
-			boolean application) {
-		super();
+	public Book(String name, String author, Date dateSupply, Integer price) {
 		this.name = name;
 		this.author = author;
 		this.dateSupply = dateSupply;
 		this.price = price;
-		this.dateOld = dateOld;
-		this.inStock = inStock;
-		this.requests = requests;
-		this.application = application;
+		this.dateOld = dateSupply.afterSixMonth();
+		this.inStock = false;
+		this.requests = 0;
+		this.application = false;
 	}
 
 	public Book(String description) {
@@ -135,12 +129,8 @@ public class Book extends BaseEntity implements IBook {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Book) {
-			return ((Book) obj).getName() == this.name && ((Book) obj).getAuthor().equals(this.author)
-					&& ((Book) obj).getPrice() == this.price;
-		} else {
-			return false;
-		}
+		return ((Book) obj).getName().equals(this.name) && ((Book) obj).getAuthor().equals(this.author)
+				&& ((Book) obj).getPrice() == this.price;
 	}
 
 	@Override
@@ -162,7 +152,43 @@ public class Book extends BaseEntity implements IBook {
 		} else {
 			this.application = false;
 		}
-		
+
 	}
+
+	public static Comparator<Book> AlphabetComparator = new Comparator<Book>() {
+
+		@Override
+		public int compare(Book arg0, Book arg1) {
+			return arg0.getName().compareTo(arg1.getName());
+		}
+	};
+	public static Comparator<Book> PriceComparator = new Comparator<Book>() {
+
+		@Override
+		public int compare(Book o1, Book o2) {
+			return o1.getPrice() - o2.getPrice();
+		}
+	};
+	public static Comparator<Book> DateComparator = new Comparator<Book>() {
+
+		@Override
+		public int compare(Book o1, Book o2) {
+			return o1.getDateSupply().compareTo(o2.getDateSupply());
+		}
+	};
+	public static Comparator<Book> StockComparator = new Comparator<Book>() {
+
+		@Override
+		public int compare(Book o1, Book o2) {
+			int a1 = 0, a2 = 0;
+			if (o1.isInStock() == true) {
+				a1 = 1;
+			}
+			if (o2.isInStock() == true) {
+				a2 = 1;
+			}
+			return a1 - a2;
+		}
+	};
 
 }
