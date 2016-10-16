@@ -29,7 +29,7 @@ public interface IBook extends IBaseEntity {
 
 	int getRequests();
 
-	void setRequests(int requests);
+	void addRequest();
 
 	boolean isApplication();
 

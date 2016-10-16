@@ -1,10 +1,14 @@
 package com.senla.bookshop.main;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Date implements Comparable<Date> {
 	private int day;
 	private int month;
 	private int year;
 	private StringBuilder builder;
+	private final static Calendar CALENDAR = new GregorianCalendar();
 
 	public Date(int day, int month, int year) {
 		this.day = day;
@@ -93,6 +97,10 @@ public class Date implements Comparable<Date> {
 		}else {
 			return this.year - newDate.getYear();
 		}
+	}
+	public static Date getNowDate(){
+		return new Date(CALENDAR.get(Calendar.DAY_OF_MONTH), CALENDAR.get(Calendar.MONTH),
+				CALENDAR.get(Calendar.YEAR));
 	}
 
 }

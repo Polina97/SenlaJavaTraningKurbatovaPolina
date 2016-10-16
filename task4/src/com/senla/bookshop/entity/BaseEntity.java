@@ -8,9 +8,11 @@ public abstract class BaseEntity implements IBaseEntity{
 	public String getType() {
 		if(this instanceof Book){
 			return "Book";
+		}else if(this instanceof Order){
+			return "Order";
 		}else if(this instanceof Buyer){
 			return "Buyer";
-		}
+		}else
 		return null;
 	}
 

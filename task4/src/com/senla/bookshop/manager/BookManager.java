@@ -1,8 +1,6 @@
 package com.senla.bookshop.manager;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import com.senla.bookshop.api.entities.IBook;
 import com.senla.bookshop.api.managers.IBookManager;
@@ -15,13 +13,10 @@ public class BookManager implements IBookManager {
 	private Book[] oldBooks;
 	private Book[] stockBooks;
 	private Book[] applicationBooks;
-
-	private final Calendar CALENDAR = new GregorianCalendar();
 	private Date nowDate;
 
 	public BookManager() {
-		this.nowDate = new Date(CALENDAR.get(Calendar.DAY_OF_MONTH), CALENDAR.get(Calendar.MONTH),
-				CALENDAR.get(Calendar.YEAR));
+		this.nowDate = Date.getNowDate();
 		this.books = FileWorker.readBooks();
 		this.oldBooks = getOldBooks();
 		this.stockBooks = getStockBooks();
@@ -29,8 +24,7 @@ public class BookManager implements IBookManager {
 	}
 
 	public BookManager(Book[] books) {
-		nowDate = new Date(CALENDAR.get(Calendar.DAY_OF_MONTH), CALENDAR.get(Calendar.MONTH),
-				CALENDAR.get(Calendar.YEAR));
+		nowDate = Date.getNowDate();
 		this.books = FileWorker.readBooks();
 		for (Book book : books) {
 			this.books = ArrayWorker.addBook(book, this.books);
@@ -107,7 +101,7 @@ public class BookManager implements IBookManager {
 	@Override
 	public void deleteFromStock(IBook book) {
 		if (ArrayWorker.contains(book, this.books)) {
-			for (int i = 0; i <books.length; i++) {
+			for (int i = 0; i < books.length; i++) {
 				if (this.books[i].equals(book)) {
 					this.books[i].setInStock(false);
 				}
@@ -118,7 +112,7 @@ public class BookManager implements IBookManager {
 
 	public void submitApplication(Book book) {
 		if (ArrayWorker.contains(book, this.books)) {
-			for (int i = 0; i <books.length; i++) {
+			for (int i = 0; i < books.length; i++) {
 				if (this.books[i].equals(book) && !this.books[i].isInStock()) {
 					this.books[i].setApplication(true);
 				}
@@ -127,24 +121,28 @@ public class BookManager implements IBookManager {
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
 	public void sortAlphabet() {
 		Arrays.sort(this.books, Book.AlphabetComparator);
 		ArrayWorker.showArray(this.books);
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
 	public void sortPrice() {
 		Arrays.sort(this.books, Book.PriceComparator);
 		ArrayWorker.showArray(this.books);
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
 	public void sortDate() {
 		Arrays.sort(this.books, Book.DateComparator);
 		ArrayWorker.showArray(this.books);
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
 	public void sortStock() {
 		Arrays.sort(this.books, Book.StockComparator);
 		ArrayWorker.showArray(this.books);

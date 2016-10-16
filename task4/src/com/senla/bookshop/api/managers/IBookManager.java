@@ -18,4 +18,12 @@ public interface IBookManager extends IBaseManager {
 
 	public void submitApplication(Book book);
 
+	public void sortAlphabet();
+
+	void sortPrice();
+
+	void sortDate();
+
+	void sortStock();
+
 }
