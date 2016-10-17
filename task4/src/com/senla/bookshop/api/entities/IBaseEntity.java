@@ -9,6 +9,8 @@ public interface IBaseEntity {
 	 */
 	void createEntity(String description);
 
+	String getDescription();
+
 	@Override
 	boolean equals(Object obj);
 

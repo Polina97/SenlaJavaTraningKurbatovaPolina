@@ -1,4 +1,5 @@
-package com.senla.bookshop.main;
+package com.senla.bookshop.resources;
+
 
 import com.senla.bookshop.api.entities.IBaseEntity;
 

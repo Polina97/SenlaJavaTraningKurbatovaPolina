@@ -1,4 +1,4 @@
-package com.senla.bookshop.main;
+package com.senla.bookshop.resources;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

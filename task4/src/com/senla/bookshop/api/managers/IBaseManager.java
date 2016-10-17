@@ -8,4 +8,5 @@ public interface IBaseManager {
 
 	void delete(BaseEntity entity);
 
+
 }

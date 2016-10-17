@@ -1,17 +1,16 @@
-package com.senla.bookshop.manager;
+package com.senla.bookshop.resources;
 
 import com.senla.bookshop.api.entities.IBaseEntity;
-import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Book;
+import com.senla.bookshop.entity.Buyer;
 import com.senla.bookshop.entity.Order;
-import com.senla.bookshop.main.Printer;
 
 public abstract class ArrayWorker {
-
-	public static BaseEntity[] addEntity(BaseEntity entity, BaseEntity[] array) {
+	
+	public static Buyer[] addBuyer(Buyer entity, Buyer[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				BaseEntity[] array2 = new BaseEntity[array.length + 1];
+				Buyer[] array2 = new Buyer[array.length + 1];
 				for (int i = 0; i < array.length; i++) {
 					array2[i] = array[i];
 				}
@@ -21,12 +20,13 @@ public abstract class ArrayWorker {
 			}
 
 		} else {
-			array = new BaseEntity[1];
+			array = new Buyer[1];
 			array[0] = entity;
 		}
 		Printer.printAdd(entity);
 		return array;
 	}
+
 	public static Order[] addOrder(Order entity, Order[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
@@ -67,6 +67,21 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
+	public static Buyer[] deleteBuyer(Buyer entity, Buyer[] array) {
+		if (array != null && contains(entity, array)) {
+			Buyer[] array2 = new Buyer[array.length - 1];
+			int i = 0;
+			for (Buyer e : array) {
+				if (!e.equals(entity)) {
+					array2[i++] = e;
+				}
+			}
+			array = array2;
+		}
+		Printer.printDelete(entity);
+		return array;
+	}
+
 	public static Book[] deleteBook(Book entity, Book[] array) {
 		if (array != null && contains(entity, array)) {
 			Book[] array2 = new Book[array.length - 1];
@@ -81,26 +96,12 @@ public abstract class ArrayWorker {
 		Printer.printDelete(entity);
 		return array;
 	}
+
 	public static Order[] deleteOrder(Order entity, Order[] array) {
 		if (array != null && contains(entity, array)) {
 			Order[] array2 = new Order[array.length - 1];
 			int i = 0;
 			for (Order e : array) {
-				if (!e.equals(entity)) {
-					array2[i++] = e;
-				}
-			}
-			array = array2;
-		}
-		Printer.printDelete(entity);
-		return array;
-	}
-
-	public static IBaseEntity[] deleteEntity(IBaseEntity entity, IBaseEntity[] array) {
-		if (array != null && contains(entity, array)) {
-			IBaseEntity[] array2 = new BaseEntity[array.length - 1];
-			int i = 0;
-			for (IBaseEntity e : array) {
 				if (!e.equals(entity)) {
 					array2[i++] = e;
 				}
@@ -132,7 +133,7 @@ public abstract class ArrayWorker {
 
 	public static void showArray(IBaseEntity[] array) {
 		for (IBaseEntity baseEntity : array) {
-			Printer.print(baseEntity.toString());
+			Printer.print(baseEntity.getDescription());
 		}
 	}
 

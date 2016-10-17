@@ -8,7 +8,11 @@ public interface IBookManager extends IBaseManager {
 
 	Book[] getOldBooks();
 
+	void setOldBooks(Book[] oldBooks);
+
 	Book[] getStockBooks();
+
+	void setStockBooks(Book[] stockBooks);
 
 	Book[] getApplicationBooks();
 
@@ -19,6 +23,8 @@ public interface IBookManager extends IBaseManager {
 	public void submitApplication(Book book);
 
 	public void sortAlphabet();
+
+	boolean isInStock(Book book);
 
 	void sortPrice();
 

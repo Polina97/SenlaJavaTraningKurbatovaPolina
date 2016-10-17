@@ -3,20 +3,35 @@ package com.senla.bookshop.entity;
 import java.util.Comparator;
 
 import com.senla.bookshop.api.entities.*;
-import com.senla.bookshop.main.Date;
+import com.senla.bookshop.manager.BookManager;
+import com.senla.bookshop.manager.BuyerManager;
+import com.senla.bookshop.resources.Date;
 
 public class Order extends BaseEntity implements IOrder {
+	private Integer id;
 	private IBuyer buyer;
 	private IBook[] books;
 	private Integer price;
 	private Date date;
 	private EStatusOrder status;
+	private BookManager bookManager = new BookManager();
+	private BuyerManager buyerManager = new BuyerManager();
 
-	public Order(IBuyer buyer, IBook[] books, Date date, EStatusOrder status) {
+	public Order(Integer id, IBuyer buyer, IBook[] books, Date date, EStatusOrder status) {
 		super();
-		this.buyer = buyer;
-		this.books = books;
-		this.price =0;
+		this.id= id;
+		this.buyer = buyerManager.getById(buyer.getId());
+		this.books = new Book[books.length];
+		for (int i = 0; i < books.length; i++) {
+			this.books[i] = bookManager.getBook((Book) books[i]);
+		}
+		for (int i = 0; i < books.length; i++) {
+			if (!bookManager.isInStock((Book) books[i])) {
+				this.bookManager.submitApplication((Book) books[i]);
+			}
+			books[i].addRequest();
+		}
+		this.price = 0;
 		for (IBook book : this.books) {
 			this.price += book.getPrice();
 		}
@@ -26,6 +41,15 @@ public class Order extends BaseEntity implements IOrder {
 
 	public Order(String description) {
 		createEntity(description);
+	}
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public IBuyer getBuyer() {
@@ -72,7 +96,8 @@ public class Order extends BaseEntity implements IOrder {
 	public void createEntity(String description) {
 		String[] stringOrder = description.split("/");
 		int j = 0;
-		this.buyer = new Buyer(stringOrder[j++]);
+		this.id = Integer.parseInt(stringOrder[j++]);
+		this.buyer = buyerManager.getById(Integer.parseInt(stringOrder[j++]));
 		this.books = new Book[Integer.parseInt(stringOrder[j++])];
 		for (int i = 0; i < this.books.length; i++) {
 			String nameB = stringOrder[j++];
@@ -80,7 +105,8 @@ public class Order extends BaseEntity implements IOrder {
 			Date dateB = new Date(Integer.parseInt(stringOrder[j++]), Integer.parseInt(stringOrder[j++]),
 					Integer.parseInt(stringOrder[j++]));
 			Integer priceB = Integer.parseInt(stringOrder[j++]);
-			books[i] = new Book(nameB, authorB, dateB, priceB);
+			Book newBook = new Book(nameB, authorB, dateB, priceB);
+			books[i] = bookManager.getBook(newBook);
 			books[i].addRequest();
 		}
 		this.price = Integer.parseInt(stringOrder[j++]);
@@ -104,18 +130,16 @@ public class Order extends BaseEntity implements IOrder {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.buyer.equals(((Order) obj).getBuyer()) && this.price == ((Order) obj).getPrice()
-				&& this.date.equals(((Order) obj).getDate())
-				&& this.status.toString().equals(((Order) obj).getStatus().toString());
+		return this.id == ((Order)obj).getId();
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.buyer.getName()).append("/").append(this.books.length).append("/");
+		builder.append(this.id).append("/").append(this.buyer.getId()).append("/").append(this.books.length).append("/");
 		for (IBook book : this.books) {
-			builder.append(book.getName()).append("/").append(book.getAuthor()).append("/")
-					.append(book.getDateSupply()).append("/").append(book.getPrice()).append("/");
+			builder.append(this.id).append("/").append(book.getName()).append("/").append(book.getAuthor()).append("/").append(book.getDateSupply())
+					.append("/").append(book.getPrice()).append("/");
 		}
 		return builder.append("/").append(this.price).append("/").append(this.date.toString()).append("/")
 				.append(this.status.toString()).toString();
@@ -147,4 +171,16 @@ public class Order extends BaseEntity implements IOrder {
 			return o1.getStatus().compareTo(o2.getStatus());
 		}
 	};
+
+	@Override
+	public String getDescription() {
+		StringBuilder str = new StringBuilder();
+		str.append("Name of Buyer: ").append(this.buyer.getName()).append(" Books: ");
+		for (IBook book : this.books) {
+			str.append(book.getName()).append(", ");
+		}
+		str.append(", Price: ").append(this.price).append(", Date: ").append(this.date).append(" Status: ")
+				.append(this.status);
+		return str.toString();
+	}
 }

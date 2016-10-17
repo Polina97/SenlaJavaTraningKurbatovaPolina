@@ -6,7 +6,9 @@ import com.senla.bookshop.api.entities.IBook;
 import com.senla.bookshop.api.managers.IBookManager;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Book;
-import com.senla.bookshop.main.Date;
+import com.senla.bookshop.resources.ArrayWorker;
+import com.senla.bookshop.resources.Date;
+import com.senla.bookshop.resources.FileWorker;
 
 public class BookManager implements IBookManager {
 	private Book[] books;
@@ -35,6 +37,13 @@ public class BookManager implements IBookManager {
 		FileWorker.writeBooks(this.books);
 	}
 
+	public Book getBook(Book book){
+		for(int i=0; i< this.books.length; i++){
+			if(books[i].equals(book)){
+				return books[i];
+			}
+		}return null;
+	}
 	@Override
 	public void add(BaseEntity book) {
 		this.books = ArrayWorker.addBook((Book) book, this.books);
@@ -65,6 +74,11 @@ public class BookManager implements IBookManager {
 	}
 
 	@Override
+	public void setOldBooks(Book[] oldBooks) {
+		this.oldBooks = oldBooks;
+	}
+
+	@Override
 	public Book[] getStockBooks() {
 		for (Book b : this.books) {
 			if (b.isInStock()) {
@@ -72,6 +86,11 @@ public class BookManager implements IBookManager {
 			}
 		}
 		return this.stockBooks;
+	}
+
+	@Override
+	public void setStockBooks(Book[] stockBooks) {
+		this.stockBooks = stockBooks;
 	}
 
 	@Override
@@ -110,6 +129,7 @@ public class BookManager implements IBookManager {
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
 	public void submitApplication(Book book) {
 		if (ArrayWorker.contains(book, this.books)) {
 			for (int i = 0; i < books.length; i++) {
@@ -121,6 +141,10 @@ public class BookManager implements IBookManager {
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
+	public boolean isInStock(Book book){
+		return ArrayWorker.contains(book, this.getStockBooks());
+	}
 	@Override
 	public void sortAlphabet() {
 		Arrays.sort(this.books, Book.AlphabetComparator);
@@ -144,6 +168,7 @@ public class BookManager implements IBookManager {
 
 	@Override
 	public void sortStock() {
+		this.books = FileWorker.readBooks();
 		Arrays.sort(this.books, Book.StockComparator);
 		ArrayWorker.showArray(this.books);
 		FileWorker.writeBooks(this.books);

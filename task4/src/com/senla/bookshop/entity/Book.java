@@ -3,7 +3,7 @@ package com.senla.bookshop.entity;
 import java.util.Comparator;
 
 import com.senla.bookshop.api.entities.IBook;
-import com.senla.bookshop.main.Date;
+import com.senla.bookshop.resources.Date;
 
 public class Book extends BaseEntity implements IBook {
 	private String name;
@@ -97,7 +97,7 @@ public class Book extends BaseEntity implements IBook {
 
 	@Override
 	public void addRequest() {
-		this.requests ++;
+		this.requests++;
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class Book extends BaseEntity implements IBook {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		return builder.append(name).append("/").append(author).append(dateSupply.toString()).append("/").append(price)
+		return builder.append(name).append("/").append(author).append("/").append(dateSupply.toString()).append("/").append(price)
 				.append("/").append(dateOld).append("/").append(inStock).append("/").append(requests).append("/")
 				.append(application).toString();
 	}
@@ -146,7 +146,7 @@ public class Book extends BaseEntity implements IBook {
 		} else {
 			this.inStock = false;
 		}
-		requests = Integer.parseInt(book[10]);
+		this.requests = Integer.parseInt(book[10]);
 		if (book[11].equals("true")) {
 			this.application = true;
 		} else {
@@ -190,5 +190,15 @@ public class Book extends BaseEntity implements IBook {
 			return a1 - a2;
 		}
 	};
+
+	@Override
+	public String getDescription() {
+		StringBuilder str = new StringBuilder();
+		str.append("Name: ").append(this.name).append(", Author: ").append(this.author).append(", Date supply: ")
+				.append(this.dateSupply).append(", Price ").append(this.price).append(", is in Stock: ")
+				.append(this.inStock).append(", Requests: ").append(this.requests).append(", Application: ")
+				.append(this.application);
+		return str.toString();
+	}
 
 }

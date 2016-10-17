@@ -1,3 +1,0 @@
-Scarlett/3/Hamlet/William Shakespeare/16/7/2016/250000/War and Peace/Leo Tolstoy/16/7/2016/360000/Madame Bovary/Gustave Flaubert/15/7/2016/100000//710000/15/7/2016/CANCELED
-Matt/2/Anna Karenina/Leo Tolstoy/16/7/2016/300000/Hamlet/William Shakespeare/16/7/2016/250000//550000/16/7/2016/KIT
-Scarlett/3/Anna Karenina/Leo Tolstoy/16/7/2016/300000/War and Peace/Leo Tolstoy/16/7/2016/360000/The Great Gatsby/ F. Scott Fitzgerald/15/7/2016/180000//840000/16/7/2016/KIT
