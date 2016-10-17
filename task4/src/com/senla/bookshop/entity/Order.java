@@ -42,7 +42,8 @@ public class Order extends BaseEntity implements IOrder {
 		this.status = status;
 	}
 
-	public Order(String description) {
+	public Order(String description, FileWorker fileWorker) {
+		this.fileWorker = fileWorker;
 		createEntity(description);
 	}
 
@@ -96,6 +97,7 @@ public class Order extends BaseEntity implements IOrder {
 
 	@Override
 	public void createEntity(String description) {
+		bookManager = new BookManager(fileWorker);
 		String[] stringOrder = description.split(SLASH);
 		int j = 0;
 		this.id = Integer.parseInt(stringOrder[j++]);

@@ -34,15 +34,19 @@ public class Runner {
 	private static Order o5;
 
 	public static void main(String[] args) {
+		for(int i =0; i<3; i++){
+			System.out.println(args[i]);
+		}
 		fileWorker = new FileWorker(args[0], args[1], args[2]);
-		createOrders(fileWorker);
+		buyerManager = new BuyerManager(fileWorker);
+		createOrders();
 		bookManager = new BookManager(fileWorker);
 		workBookManager();
 		orderManager = new OrderManager(new Order[] { o1, o2, o3, o4 }, fileWorker);
 		workWithOrders();
 	}
 
-	private static void createOrders(FileWorker fileWorker) {
+	private static void createOrders() {
 		o1 = new Order(123, buyerManager.getById(111), new Book[] { b2, b3 }, date, EStatusOrder.KIT, fileWorker);
 		o2 = new Order(124, buyerManager.getById(112), new Book[] { b2, b5 }, date3, EStatusOrder.KIT, fileWorker);
 		o3 = new Order(125, buyerManager.getById(113), new Book[] { b4, b5 }, date2, EStatusOrder.DELIVERED,
