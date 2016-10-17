@@ -6,15 +6,15 @@ import com.senla.bookshop.entity.Book;
 public interface IBookManager extends IBaseManager {
 	void showAllBooks();
 
-	Book[] getOldBooks();
+	IBook[] getOldBooks();
 
-	void setOldBooks(Book[] oldBooks);
+	void setOldBooks(IBook[] oldBooks);
 
-	Book[] getStockBooks();
+	IBook[] getStockBooks();
 
 	void setStockBooks(Book[] stockBooks);
 
-	Book[] getApplicationBooks();
+	IBook[] getApplicationBooks();
 
 	void addToStock(IBook book);
 
@@ -24,7 +24,7 @@ public interface IBookManager extends IBaseManager {
 
 	public void sortAlphabet();
 
-	boolean isInStock(Book book);
+	boolean isInStock(IBook book);
 
 	void sortPrice();
 

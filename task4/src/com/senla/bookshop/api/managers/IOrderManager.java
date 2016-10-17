@@ -1,8 +1,10 @@
 package com.senla.bookshop.api.managers;
 
-import com.senla.bookshop.entity.Order;
+import com.senla.bookshop.api.entities.IOrder;
 
 public interface IOrderManager extends IBaseManager {
+	IOrder[] getOrders();
+
 	void showAllOrders();
 
 	Integer getGeneralPrice();
@@ -15,9 +17,9 @@ public interface IOrderManager extends IBaseManager {
 
 	void sortStatus();
 
-	Order getOrderById(Integer id);
+	IOrder getOrderById(Integer id);
 
-	Order[] getDeliveredOrders();
+	IOrder[] getDeliveredOrders();
 
 	void sortDateDelivered();
 

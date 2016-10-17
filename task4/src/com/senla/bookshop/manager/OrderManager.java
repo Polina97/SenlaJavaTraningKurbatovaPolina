@@ -2,6 +2,7 @@ package com.senla.bookshop.manager;
 
 import java.util.Arrays;
 
+import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.api.managers.IOrderManager;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.EStatusOrder;
@@ -10,8 +11,8 @@ import com.senla.bookshop.resources.ArrayWorker;
 import com.senla.bookshop.resources.FileWorker;
 
 public class OrderManager implements IOrderManager {
-	private Order[] orders;
-	private Order[] deliveredOrders;
+	private IOrder[] orders;
+	private IOrder[] deliveredOrders;
 	private Integer generalPrice;
 	private FileWorker fileWorker;
 
@@ -30,7 +31,7 @@ public class OrderManager implements IOrderManager {
 		this.fileWorker.writeOrders(this.orders);
 	}
 
-	public Order[] getOrders() {
+	public IOrder[] getOrders() {
 		return orders;
 	}
 
@@ -41,7 +42,7 @@ public class OrderManager implements IOrderManager {
 	@Override
 	public Integer getGeneralPrice() {
 		int sum = 0;
-		for (Order o : this.orders) {
+		for (IOrder o : this.orders) {
 			sum += o.getPrice();
 		}
 		this.generalPrice = sum;
@@ -99,7 +100,7 @@ public class OrderManager implements IOrderManager {
 	}
 
 	@Override
-	public Order getOrderById(Integer id) {
+	public IOrder getOrderById(Integer id) {
 		for (int i = 0; i < this.orders.length; i++) {
 			if (orders[i].getId() == id) {
 				return orders[i];
@@ -109,8 +110,8 @@ public class OrderManager implements IOrderManager {
 	}
 
 	@Override
-	public Order[] getDeliveredOrders() {
-		for (Order order : this.orders) {
+	public IOrder[] getDeliveredOrders() {
+		for (IOrder order : this.orders) {
 			if (order.getStatus().equals(EStatusOrder.DELIVERED)) {
 				deliveredOrders = ArrayWorker.addOrder(order, this.deliveredOrders);
 
@@ -126,7 +127,7 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void sortDate() {
-		Arrays.sort(this.orders, Order.DateComparator);
+		Arrays.sort((Order[])this.orders, Order.DateComparator);
 		ArrayWorker.showArray(this.orders);
 		this.fileWorker.writeOrders(this.orders);
 
@@ -134,7 +135,7 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void sortPrice() {
-		Arrays.sort(this.orders, Order.PriceComparator);
+		Arrays.sort((Order[])this.orders, Order.PriceComparator);
 		ArrayWorker.showArray(this.orders);
 		this.fileWorker.writeOrders(this.orders);
 
@@ -142,7 +143,7 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void sortStatus() {
-		Arrays.sort(this.orders, Order.StatusComparator);
+		Arrays.sort((Order[])this.orders, Order.StatusComparator);
 		ArrayWorker.showArray(this.orders);
 		this.fileWorker.writeOrders(this.orders);
 
@@ -150,13 +151,13 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void sortDateDelivered() {
-		Arrays.sort(this.deliveredOrders, Order.DateComparator);
+		Arrays.sort((Order[])this.deliveredOrders, Order.DateComparator);
 		ArrayWorker.showArray(this.deliveredOrders);
 	}
 
 	@Override
 	public void sortPriceDelivered() {
-		Arrays.sort(this.deliveredOrders, Order.PriceComparator);
+		Arrays.sort((Order[])this.deliveredOrders, Order.PriceComparator);
 		ArrayWorker.showArray(this.deliveredOrders);
 	}
 
