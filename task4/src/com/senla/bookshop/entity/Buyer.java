@@ -19,7 +19,8 @@ public class Buyer extends BaseEntity implements IBuyer {
 		this.orders = new Order[0];
 	}
 
-	public Buyer(String description) {
+	public Buyer(String description, FileWorker fileWorker) {
+		this.fileWorker = fileWorker;
 		createEntity(description);
 	}
 

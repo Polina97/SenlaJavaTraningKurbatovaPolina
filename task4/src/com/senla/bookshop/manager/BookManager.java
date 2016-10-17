@@ -21,7 +21,7 @@ public class BookManager implements IBookManager {
 	public BookManager(FileWorker fileWorker) {
 		this.fileWorker = fileWorker;
 		this.nowDate = Date.getNowDate();
-		this.books = fileWorker.readBooks();
+		this.books = this.fileWorker.readBooks();
 		this.oldBooks = getOldBooks();
 		this.stockBooks = getStockBooks();
 		this.applicationBooks = getApplicationBooks();

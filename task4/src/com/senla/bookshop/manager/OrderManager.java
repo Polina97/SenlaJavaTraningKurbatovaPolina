@@ -17,7 +17,7 @@ public class OrderManager implements IOrderManager {
 
 	public OrderManager(FileWorker fileWorker) {
 		this.fileWorker = fileWorker;
-		this.orders = this.fileWorker.readOrders();
+		this.orders = fileWorker.readOrders();
 		this.deliveredOrders = getDeliveredOrders();
 	}
 
