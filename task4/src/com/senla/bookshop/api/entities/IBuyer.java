@@ -11,13 +11,13 @@ public interface IBuyer extends IBaseEntity {
 
 	void setName(String name);
 
-	Order[] getOrders();
+	IOrder[] getOrders();
 
-	void setOrders(Order[] orders);
+	void setOrders(IOrder[] orders);
 
-	void addOrder(Order order);
+	void addOrder(IOrder order);
 
-	void deleteOrder(Order order);
+	void deleteOrder(IOrder order);
 
 	void showAllOrders();
 

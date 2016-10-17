@@ -1,16 +1,19 @@
 package com.senla.bookshop.resources;
 
 import com.senla.bookshop.api.entities.IBaseEntity;
+import com.senla.bookshop.api.entities.IBook;
+import com.senla.bookshop.api.entities.IBuyer;
+import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.entity.Book;
 import com.senla.bookshop.entity.Buyer;
 import com.senla.bookshop.entity.Order;
 
 public abstract class ArrayWorker {
 
-	public static Buyer[] addBuyer(Buyer entity, Buyer[] array) {
+	public static IBuyer[] addBuyer(IBuyer entity, IBuyer[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				Buyer[] array2 = new Buyer[array.length + 1];
+				IBuyer[] array2 = new Buyer[array.length + 1];
 				for (int i = 0; i < array.length; i++) {
 					array2[i] = array[i];
 				}
@@ -27,10 +30,10 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
-	public static Order[] addOrder(Order entity, Order[] array) {
+	public static IOrder[] addOrder(IOrder entity, IOrder[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				Order[] array2 = new Order[array.length + 1];
+				IOrder[] array2 = new Order[array.length + 1];
 				for (int i = 0; i < array.length; i++) {
 					array2[i] = array[i];
 				}
@@ -47,10 +50,10 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
-	public static Book[] addBook(Book entity, Book[] array) {
+	public static IBook[] addBook(IBook entity, IBook[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				Book[] array2 = new Book[array.length + 1];
+				IBook[] array2 = new Book[array.length + 1];
 				for (int i = 0; i < array.length; i++) {
 					array2[i] = array[i];
 				}
@@ -67,11 +70,11 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
-	public static Buyer[] deleteBuyer(Buyer entity, Buyer[] array) {
+	public static IBuyer[] deleteBuyer(IBuyer entity, IBuyer[] array) {
 		if (array != null && contains(entity, array)) {
-			Buyer[] array2 = new Buyer[array.length - 1];
+			IBuyer[] array2 = new Buyer[array.length - 1];
 			int i = 0;
-			for (Buyer e : array) {
+			for (IBuyer e : array) {
 				if (!e.equals(entity)) {
 					array2[i++] = e;
 				}
@@ -82,11 +85,11 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
-	public static Book[] deleteBook(Book entity, Book[] array) {
+	public static IBook[] deleteBook(IBook entity, IBook[] array) {
 		if (array != null && contains(entity, array)) {
-			Book[] array2 = new Book[array.length - 1];
+			IBook[] array2 = new Book[array.length - 1];
 			int i = 0;
-			for (Book e : array) {
+			for (IBook e : array) {
 				if (!e.equals(entity)) {
 					array2[i++] = e;
 				}
@@ -97,11 +100,11 @@ public abstract class ArrayWorker {
 		return array;
 	}
 
-	public static Order[] deleteOrder(Order entity, Order[] array) {
+	public static IOrder[] deleteOrder(IOrder entity, IOrder[] array) {
 		if (array != null && contains(entity, array)) {
-			Order[] array2 = new Order[array.length - 1];
+			IOrder[] array2 = new Order[array.length - 1];
 			int i = 0;
-			for (Order e : array) {
+			for (IOrder e : array) {
 				if (!e.equals(entity)) {
 					array2[i++] = e;
 				}

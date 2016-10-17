@@ -1,13 +1,13 @@
 package com.senla.bookshop.api.managers;
 
-import com.senla.bookshop.entity.Buyer;
+import com.senla.bookshop.api.entities.IBuyer;
 
 public interface IBuyerManager extends IBaseManager {
-	Buyer getById(Integer id);
+	IBuyer getById(Integer id);
 
-	Buyer[] getBuyers();
+	IBuyer[] getBuyers();
 
-	void setBuyers(Buyer[] buyers);
+	void setBuyers(IBuyer[] buyers);
 
 	void showAllBuyers();
 }

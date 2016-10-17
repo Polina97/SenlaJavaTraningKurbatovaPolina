@@ -1,6 +1,7 @@
 package com.senla.bookshop.entity;
 
 import com.senla.bookshop.api.entities.IBuyer;
+import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.manager.OrderManager;
 import com.senla.bookshop.resources.ArrayWorker;
 import com.senla.bookshop.resources.FileWorker;
@@ -8,7 +9,7 @@ import com.senla.bookshop.resources.FileWorker;
 public class Buyer extends BaseEntity implements IBuyer {
 	private Integer id;
 	private String name;
-	private Order[] orders;
+	private IOrder[] orders;
 	private OrderManager orderManager;
 	private FileWorker fileWorker;
 
@@ -45,12 +46,12 @@ public class Buyer extends BaseEntity implements IBuyer {
 	}
 
 	@Override
-	public Order[] getOrders() {
+	public IOrder[] getOrders() {
 		return orders;
 	}
 
 	@Override
-	public void setOrders(Order[] orders) {
+	public void setOrders(IOrder[] orders) {
 		this.orders = orders;
 	}
 
@@ -84,12 +85,12 @@ public class Buyer extends BaseEntity implements IBuyer {
 	}
 
 	@Override
-	public void addOrder(Order order) {
+	public void addOrder(IOrder order) {
 		this.orders = ArrayWorker.addOrder(order, this.orders);
 	}
 
 	@Override
-	public void deleteOrder(Order order) {
+	public void deleteOrder(IOrder order) {
 		this.orders = ArrayWorker.deleteOrder(order, this.orders);
 
 	}

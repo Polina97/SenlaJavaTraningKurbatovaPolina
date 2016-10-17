@@ -2,6 +2,7 @@ package com.senla.bookshop.resources;
 
 import com.danco.training.TextFileWorker;
 import com.senla.bookshop.api.entities.IBook;
+import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.entity.Book;
 import com.senla.bookshop.entity.Buyer;
@@ -32,7 +33,7 @@ public class FileWorker {
 		textFileWorker.writeToFile(booksString);
 	}
 
-	public Book[] readBooks() {
+	public IBook[] readBooks() {
 		textFileWorker = new TextFileWorker(PATH_BOOK);
 		booksString = textFileWorker.readFromFile();
 		Book[] books = new Book[booksString.length];
@@ -52,7 +53,7 @@ public class FileWorker {
 		textFileWorker.writeToFile(ordersString);
 	}
 
-	public Order[] readOrders() {
+	public IOrder[] readOrders() {
 		textFileWorker = new TextFileWorker(PATH_ORDER);
 		ordersString = textFileWorker.readFromFile();
 		Order[] orders = new Order[ordersString.length];
@@ -63,7 +64,7 @@ public class FileWorker {
 		return orders;
 	}
 
-	public void writeBuyer(Buyer[] buyers) {
+	public void writeBuyer(IBuyer[] buyers) {
 		textFileWorker = new TextFileWorker(PATH_BUYER);
 		buyersString = new String[buyers.length];
 		for (int i = 0; i < buyers.length; i++) {
@@ -72,10 +73,10 @@ public class FileWorker {
 		textFileWorker.writeToFile(buyersString);
 	}
 
-	public Buyer[] readBuyers() {
+	public IBuyer[] readBuyers() {
 		textFileWorker = new TextFileWorker(PATH_BUYER);
 		buyersString = textFileWorker.readFromFile();
-		Buyer[] buyers = new Buyer[buyersString.length];
+		IBuyer[] buyers = new Buyer[buyersString.length];
 		int i = 0;
 		for (String buyerString : buyersString) {
 			buyers[i++] = new Buyer(buyerString, this);
