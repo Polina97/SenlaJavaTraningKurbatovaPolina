@@ -3,16 +3,18 @@ package com.senla.bookshop.entity;
 import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.manager.OrderManager;
 import com.senla.bookshop.resources.ArrayWorker;
+import com.senla.bookshop.resources.FileWorker;
 
 public class Buyer extends BaseEntity implements IBuyer {
 	private Integer id;
 	private String name;
 	private Order[] orders;
 	private OrderManager orderManager;
+	private FileWorker fileWorker;
 
-
-	public Buyer(Integer id, String name){
+	public Buyer(Integer id, String name, FileWorker fileWorker) {
 		this.id = id;
+		this.fileWorker = fileWorker;
 		this.name = name;
 		this.orders = new Order[0];
 	}
@@ -21,10 +23,7 @@ public class Buyer extends BaseEntity implements IBuyer {
 		createEntity(description);
 	}
 
-	public Buyer(String name, Order[] orders) {
-		this(name);
-		this.orders = orders;
-	}
+
 
 	public Integer getId() {
 		return id;
@@ -61,7 +60,7 @@ public class Buyer extends BaseEntity implements IBuyer {
 		this.id = Integer.parseInt(stringBuyer[j++]);
 		this.name = stringBuyer[j++];
 		this.orders = new Order[Integer.parseInt(stringBuyer[j++])];
-		orderManager = new OrderManager();
+		orderManager = new OrderManager(this.fileWorker);
 		for (int i = 0; i < this.orders.length; i++) {
 			this.orders[i] = orderManager.getOrderById(Integer.parseInt(stringBuyer[j++]));
 		}

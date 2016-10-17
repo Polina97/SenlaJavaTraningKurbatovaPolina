@@ -8,17 +8,19 @@ import com.senla.bookshop.resources.FileWorker;
 
 public class BuyerManager implements IBuyerManager {
 	private Buyer[] buyers;
+	private FileWorker fileWorker;
 
-	public BuyerManager() {
-		this.buyers = FileWorker.readBuyers();
+	public BuyerManager(FileWorker fileWorker) {
+		this.fileWorker = fileWorker;
+		this.buyers = fileWorker.readBuyers();
 	}
 
-	public BuyerManager(Buyer[] buyers) {
-		this();
+	public BuyerManager(Buyer[] buyers, FileWorker fileWorker) {
+		this(fileWorker);
 		for (Buyer buyer : buyers) {
 			this.buyers = ArrayWorker.addBuyer(buyer, this.buyers);
 		}
-		FileWorker.writeBuyer(this.buyers);
+		fileWorker.writeBuyer(this.buyers);
 	}
 
 	@Override
@@ -44,16 +46,17 @@ public class BuyerManager implements IBuyerManager {
 	@Override
 	public void add(BaseEntity entity) {
 		this.buyers = ArrayWorker.addBuyer((Buyer) entity, this.buyers);
-		FileWorker.writeBuyer(this.buyers);
+		fileWorker.writeBuyer(this.buyers);
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
 		this.buyers = ArrayWorker.deleteBuyer((Buyer) entity, this.buyers);
-		FileWorker.writeBuyer(this.buyers);
+		fileWorker.writeBuyer(this.buyers);
 	}
+
 	@Override
-	public void showAllBuyers(){
+	public void showAllBuyers() {
 		ArrayWorker.showArray(this.buyers);
 	}
 

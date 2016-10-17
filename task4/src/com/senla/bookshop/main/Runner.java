@@ -1,20 +1,21 @@
 package com.senla.bookshop.main;
 
 import com.senla.bookshop.entity.Book;
-import com.senla.bookshop.entity.Buyer;
 import com.senla.bookshop.entity.EStatusOrder;
 import com.senla.bookshop.entity.Order;
 import com.senla.bookshop.manager.BookManager;
 import com.senla.bookshop.manager.BuyerManager;
 import com.senla.bookshop.manager.OrderManager;
 import com.senla.bookshop.resources.Date;
+import com.senla.bookshop.resources.FileWorker;
 import com.senla.bookshop.resources.Printer;
 
 public class Runner {
 	private static final String P = "------------------------";
 	private static BookManager bookManager;
 	private static OrderManager orderManager;
-	private static BuyerManager buyerManager = new BuyerManager();
+	private static BuyerManager buyerManager;
+	private static FileWorker fileWorker;
 
 	static Date date = new Date(16, 7, 2016);
 	static Date date2 = new Date(15, 7, 2016);
@@ -26,20 +27,30 @@ public class Runner {
 	private static Book b4 = new Book("The Great Gatsby", " F. Scott Fitzgerald", date2, 180_000);
 	private static Book b5 = new Book("Madame Bovary", "Gustave Flaubert", date3, 300_000);
 	private static Book b6 = new Book("Emma", "Jane Austen", date3, 240_000);
-
-
-	private static Order o1 = new Order(123, buyerManager.getById(111), new Book[] { b2, b3 }, date, EStatusOrder.KIT);
-	private static Order o2 = new Order(124, buyerManager.getById(112), new Book[] { b2, b5 }, date3, EStatusOrder.KIT);
-	private static Order o3 = new Order(125, buyerManager.getById(113), new Book[] { b4, b5 }, date2, EStatusOrder.DELIVERED);
-	private static Order o4 = new Order(126, buyerManager.getById(112), new Book[] { b3, b4, b5 }, date2, EStatusOrder.DELIVERED);
-	private static Order o5 = new Order(127, buyerManager.getById(113), new Book[] { b2, b4, b5 }, date, EStatusOrder.DELIVERED);
+	private static Order o1;
+	private static Order o2;
+	private static Order o3;
+	private static Order o4;
+	private static Order o5;
 
 	public static void main(String[] args) {
-
-		bookManager = new BookManager();
+		fileWorker = new FileWorker(args[0], args[1], args[2]);
+		createOrders(fileWorker);
+		bookManager = new BookManager(fileWorker);
 		workBookManager();
-		orderManager = new OrderManager(new Order[] { o1, o2, o3, o4 });
+		orderManager = new OrderManager(new Order[] { o1, o2, o3, o4 }, fileWorker);
 		workWithOrders();
+	}
+
+	private static void createOrders(FileWorker fileWorker) {
+		o1 = new Order(123, buyerManager.getById(111), new Book[] { b2, b3 }, date, EStatusOrder.KIT, fileWorker);
+		o2 = new Order(124, buyerManager.getById(112), new Book[] { b2, b5 }, date3, EStatusOrder.KIT, fileWorker);
+		o3 = new Order(125, buyerManager.getById(113), new Book[] { b4, b5 }, date2, EStatusOrder.DELIVERED,
+				fileWorker);
+		o4 = new Order(126, buyerManager.getById(112), new Book[] { b3, b4, b5 }, date2, EStatusOrder.DELIVERED,
+				fileWorker);
+		o5 = new Order(127, buyerManager.getById(113), new Book[] { b2, b4, b5 }, date, EStatusOrder.DELIVERED,
+				fileWorker);
 	}
 
 	public static void workBookManager() {
@@ -111,7 +122,5 @@ public class Runner {
 		Printer.print(P);
 		Printer.print("Cancel order 124: ");
 		orderManager.cancelOrder(124);
-		Printer.print("Add new buyer");
-		buyerManager.add(new Buyer(115, "Polina"));
 	}
 }

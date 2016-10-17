@@ -13,19 +13,21 @@ public class OrderManager implements IOrderManager {
 	private Order[] orders;
 	private Order[] deliveredOrders;
 	private Integer generalPrice;
+	private FileWorker fileWorker;
 
-	public OrderManager() {
-		this.orders = FileWorker.readOrders();
+	public OrderManager(FileWorker fileWorker) {
+		this.fileWorker = fileWorker;
+		this.orders = this.fileWorker.readOrders();
 		this.deliveredOrders = getDeliveredOrders();
 	}
 
-	public OrderManager(Order[] orders) {
-		this();
+	public OrderManager(Order[] orders, FileWorker fileWorker) {
+		this(fileWorker);
 		for (Order order : orders) {
 			this.orders = ArrayWorker.addOrder(order, this.orders);
 		}
 		this.deliveredOrders = getDeliveredOrders();
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 	}
 
 	public Order[] getOrders() {
@@ -53,7 +55,7 @@ public class OrderManager implements IOrderManager {
 				orders[i].deliverOrder();
 			}
 		}
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 	}
 
 	public void cancelOrder(Integer id) {
@@ -62,7 +64,7 @@ public class OrderManager implements IOrderManager {
 				orders[i].cancelOrder();
 			}
 		}
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 	}
 
 	@Override
@@ -73,27 +75,27 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void add(BaseEntity entity) {
-		BuyerManager buyerManager = new BuyerManager();
+		BuyerManager buyerManager = new BuyerManager(this.fileWorker);
 		this.orders = ArrayWorker.addOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).addOrder(this.orders[i]);
 		}
 		this.deliveredOrders = getDeliveredOrders();
-		FileWorker.writeBuyer(buyerManager.getBuyers());
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeBuyer(buyerManager.getBuyers());
+		this.fileWorker.writeOrders(this.orders);
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
-		BuyerManager buyerManager = new BuyerManager();
+		BuyerManager buyerManager = new BuyerManager(this.fileWorker);
 		this.orders = ArrayWorker.deleteOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).deleteOrder(this.orders[i]);
 		}
 		this.generalPrice = getGeneralPrice();
 		this.deliveredOrders = getDeliveredOrders();
-		FileWorker.writeBuyer(buyerManager.getBuyers());
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeBuyer(buyerManager.getBuyers());
+		this.fileWorker.writeOrders(this.orders);
 	}
 
 	@Override
@@ -126,7 +128,7 @@ public class OrderManager implements IOrderManager {
 	public void sortDate() {
 		Arrays.sort(this.orders, Order.DateComparator);
 		ArrayWorker.showArray(this.orders);
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 
 	}
 
@@ -134,7 +136,7 @@ public class OrderManager implements IOrderManager {
 	public void sortPrice() {
 		Arrays.sort(this.orders, Order.PriceComparator);
 		ArrayWorker.showArray(this.orders);
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 
 	}
 
@@ -142,7 +144,7 @@ public class OrderManager implements IOrderManager {
 	public void sortStatus() {
 		Arrays.sort(this.orders, Order.StatusComparator);
 		ArrayWorker.showArray(this.orders);
-		FileWorker.writeOrders(this.orders);
+		this.fileWorker.writeOrders(this.orders);
 
 	}
 

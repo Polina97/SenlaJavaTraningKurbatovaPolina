@@ -12,11 +12,18 @@ public class FileWorker {
 	private static String[] booksString;
 	private static String[] ordersString;
 	private static String[] buyersString;
-	private static final String PATH_BOOK = "src/Books.txt";
-	private static final String PATH_ORDER = "src/Orders.txt";
-	private static final String PATH_BUYER = "src/Buyers.txt";
+	private final String PATH_BOOK;
+	private final String PATH_ORDER;
+	private final String PATH_BUYER;
 
-	public static void writeBooks(IBook[] books) {
+	
+	public FileWorker(String pATH_BOOK, String pATH_ORDER, String pATH_BUYER) {
+		PATH_BOOK = pATH_BOOK;
+		PATH_ORDER = pATH_ORDER;
+		PATH_BUYER = pATH_BUYER;
+	}
+
+	public void writeBooks(IBook[] books) {
 		fileWorker = new TextFileWorker(PATH_BOOK);
 		booksString = new String[books.length];
 		for (int i = 0; i < books.length; i++) {
@@ -25,7 +32,7 @@ public class FileWorker {
 		fileWorker.writeToFile(booksString);
 	}
 
-	public static Book[] readBooks() {
+	public Book[] readBooks() {
 		fileWorker = new TextFileWorker(PATH_BOOK);
 		booksString = fileWorker.readFromFile();
 		Book[] books = new Book[booksString.length];
@@ -36,7 +43,7 @@ public class FileWorker {
 		return books;
 	}
 
-	public static void writeOrders(IOrder[] orders) {
+	public void writeOrders(IOrder[] orders) {
 		fileWorker = new TextFileWorker(PATH_ORDER);
 		ordersString = new String[orders.length];
 		for (int i = 0; i < orders.length; i++) {
@@ -45,7 +52,7 @@ public class FileWorker {
 		fileWorker.writeToFile(ordersString);
 	}
 
-	public static Order[] readOrders() {
+	public Order[] readOrders() {
 		fileWorker = new TextFileWorker(PATH_ORDER);
 		ordersString = fileWorker.readFromFile();
 		Order[] orders = new Order[ordersString.length];
@@ -56,7 +63,7 @@ public class FileWorker {
 		return orders;
 	}
 
-	public static void writeBuyer(Buyer[] buyers) {
+	public void writeBuyer(Buyer[] buyers) {
 		fileWorker = new TextFileWorker(PATH_BUYER);
 		buyersString = new String[buyers.length];
 		for (int i = 0; i < buyers.length; i++) {
@@ -65,7 +72,7 @@ public class FileWorker {
 		fileWorker.writeToFile(buyersString);
 	}
 
-	public static Buyer[] readBuyers() {
+	public Buyer[] readBuyers() {
 		fileWorker = new TextFileWorker(PATH_BUYER);
 		buyersString = fileWorker.readFromFile();
 		Buyer[] buyers = new Buyer[buyersString.length];

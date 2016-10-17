@@ -15,11 +15,13 @@ public class Order extends BaseEntity implements IOrder {
 	private Integer price;
 	private Date date;
 	private EStatusOrder status;
-	private BookManager bookManager = new BookManager();
+	private BookManager bookManager;
+	private FileWorker fileWorker;
 
-	public Order(Integer id, IBuyer buyer, IBook[] books, Date date, EStatusOrder status) {
-		super();
+	public Order(Integer id, IBuyer buyer, IBook[] books, Date date, EStatusOrder status, FileWorker fileWorker) {
 		this.id = id;
+		this.fileWorker = fileWorker;
+		bookManager = new BookManager(fileWorker);
 		this.buyer = buyer;
 		this.books = new Book[books.length];
 		for (int i = 0; i < books.length; i++) {
@@ -31,7 +33,7 @@ public class Order extends BaseEntity implements IOrder {
 			}
 			books[i].addRequest();
 		}
-		FileWorker.writeBooks(bookManager.getBooks());
+		fileWorker.writeBooks(bookManager.getBooks());
 		this.price = 0;
 		for (IBook book : this.books) {
 			this.price += book.getPrice();
@@ -97,7 +99,7 @@ public class Order extends BaseEntity implements IOrder {
 		String[] stringOrder = description.split(SLASH);
 		int j = 0;
 		this.id = Integer.parseInt(stringOrder[j++]);
-		this.buyer = new Buyer(Integer.parseInt(stringOrder[j++]), stringOrder[j++]);
+		this.buyer = new Buyer(Integer.parseInt(stringOrder[j++]), stringOrder[j++], this.fileWorker);
 		this.books = new Book[Integer.parseInt(stringOrder[j++])];
 		for (int i = 0; i < this.books.length; i++) {
 			String nameB = stringOrder[j++];
@@ -109,7 +111,7 @@ public class Order extends BaseEntity implements IOrder {
 			books[i] = bookManager.getBook(newBook);
 			books[i].addRequest();
 		}
-		FileWorker.writeBooks(bookManager.getBooks());
+		fileWorker.writeBooks(bookManager.getBooks());
 		this.price = Integer.parseInt(stringOrder[j++]);
 		this.date = new Date(Integer.parseInt(stringOrder[j++]), Integer.parseInt(stringOrder[j++]),
 				Integer.parseInt(stringOrder[j++]));
@@ -140,8 +142,8 @@ public class Order extends BaseEntity implements IOrder {
 		builder.append(this.id).append(SLASH).append(this.buyer.getId()).append(SLASH).append(this.buyer.getName())
 				.append(SLASH).append(this.books.length).append(SLASH);
 		for (IBook book : this.books) {
-			builder.append(book.getName()).append(SLASH).append(book.getAuthor()).append(SLASH).append(book.getDateSupply())
-					.append(SLASH).append(book.getPrice()).append(SLASH);
+			builder.append(book.getName()).append(SLASH).append(book.getAuthor()).append(SLASH)
+					.append(book.getDateSupply()).append(SLASH).append(book.getPrice()).append(SLASH);
 		}
 		return builder.append(this.price).append(SLASH).append(this.date.toString()).append(SLASH)
 				.append(this.status.toString()).toString();
@@ -150,13 +152,13 @@ public class Order extends BaseEntity implements IOrder {
 	@Override
 	public void cancelOrder() {
 		this.status = EStatusOrder.CANCELED;
-		Printer.print("Order "+this.id+" was canceled");
+		Printer.print("Order " + this.id + " was canceled");
 	}
 
 	@Override
 	public void deliverOrder() {
 		this.status = EStatusOrder.DELIVERED;
-		Printer.print("Order "+this.id+" was delivered");
+		Printer.print("Order " + this.id + " was delivered");
 	}
 
 	public static Comparator<Order> DateComparator = new Comparator<Order>() {
