@@ -4,8 +4,9 @@ import java.util.Comparator;
 
 import com.senla.bookshop.api.entities.*;
 import com.senla.bookshop.manager.BookManager;
-import com.senla.bookshop.manager.BuyerManager;
 import com.senla.bookshop.resources.Date;
+import com.senla.bookshop.resources.FileWorker;
+import com.senla.bookshop.resources.Printer;
 
 public class Order extends BaseEntity implements IOrder {
 	private Integer id;
@@ -15,12 +16,11 @@ public class Order extends BaseEntity implements IOrder {
 	private Date date;
 	private EStatusOrder status;
 	private BookManager bookManager = new BookManager();
-	private BuyerManager buyerManager = new BuyerManager();
 
 	public Order(Integer id, IBuyer buyer, IBook[] books, Date date, EStatusOrder status) {
 		super();
-		this.id= id;
-		this.buyer = buyerManager.getById(buyer.getId());
+		this.id = id;
+		this.buyer = buyer;
 		this.books = new Book[books.length];
 		for (int i = 0; i < books.length; i++) {
 			this.books[i] = bookManager.getBook((Book) books[i]);
@@ -31,6 +31,7 @@ public class Order extends BaseEntity implements IOrder {
 			}
 			books[i].addRequest();
 		}
+		FileWorker.writeBooks(bookManager.getBooks());
 		this.price = 0;
 		for (IBook book : this.books) {
 			this.price += book.getPrice();
@@ -43,7 +44,6 @@ public class Order extends BaseEntity implements IOrder {
 		createEntity(description);
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -94,10 +94,10 @@ public class Order extends BaseEntity implements IOrder {
 
 	@Override
 	public void createEntity(String description) {
-		String[] stringOrder = description.split("/");
+		String[] stringOrder = description.split(SLASH);
 		int j = 0;
 		this.id = Integer.parseInt(stringOrder[j++]);
-		this.buyer = buyerManager.getById(Integer.parseInt(stringOrder[j++]));
+		this.buyer = new Buyer(Integer.parseInt(stringOrder[j++]), stringOrder[j++]);
 		this.books = new Book[Integer.parseInt(stringOrder[j++])];
 		for (int i = 0; i < this.books.length; i++) {
 			String nameB = stringOrder[j++];
@@ -109,6 +109,7 @@ public class Order extends BaseEntity implements IOrder {
 			books[i] = bookManager.getBook(newBook);
 			books[i].addRequest();
 		}
+		FileWorker.writeBooks(bookManager.getBooks());
 		this.price = Integer.parseInt(stringOrder[j++]);
 		this.date = new Date(Integer.parseInt(stringOrder[j++]), Integer.parseInt(stringOrder[j++]),
 				Integer.parseInt(stringOrder[j++]));
@@ -130,24 +131,32 @@ public class Order extends BaseEntity implements IOrder {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.id == ((Order)obj).getId();
+		return this.id == ((Order) obj).getId();
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.id).append("/").append(this.buyer.getId()).append("/").append(this.books.length).append("/");
+		builder.append(this.id).append(SLASH).append(this.buyer.getId()).append(SLASH).append(this.buyer.getName())
+				.append(SLASH).append(this.books.length).append(SLASH);
 		for (IBook book : this.books) {
-			builder.append(this.id).append("/").append(book.getName()).append("/").append(book.getAuthor()).append("/").append(book.getDateSupply())
-					.append("/").append(book.getPrice()).append("/");
+			builder.append(book.getName()).append(SLASH).append(book.getAuthor()).append(SLASH).append(book.getDateSupply())
+					.append(SLASH).append(book.getPrice()).append(SLASH);
 		}
-		return builder.append("/").append(this.price).append("/").append(this.date.toString()).append("/")
+		return builder.append(this.price).append(SLASH).append(this.date.toString()).append(SLASH)
 				.append(this.status.toString()).toString();
 	}
 
 	@Override
 	public void cancelOrder() {
 		this.status = EStatusOrder.CANCELED;
+		Printer.print("Order "+this.id+" was canceled");
+	}
+
+	@Override
+	public void deliverOrder() {
+		this.status = EStatusOrder.DELIVERED;
+		Printer.print("Order "+this.id+" was delivered");
 	}
 
 	public static Comparator<Order> DateComparator = new Comparator<Order>() {
@@ -179,8 +188,9 @@ public class Order extends BaseEntity implements IOrder {
 		for (IBook book : this.books) {
 			str.append(book.getName()).append(", ");
 		}
-		str.append(", Price: ").append(this.price).append(", Date: ").append(this.date).append(" Status: ")
+		str.append("Price: ").append(this.price).append(", Date: ").append(this.date).append(" Status: ")
 				.append(this.status);
 		return str.toString();
 	}
+
 }

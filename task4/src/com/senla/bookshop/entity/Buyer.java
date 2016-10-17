@@ -10,9 +10,11 @@ public class Buyer extends BaseEntity implements IBuyer {
 	private Order[] orders;
 	private OrderManager orderManager;
 
+
 	public Buyer(Integer id, String name){
 		this.id = id;
 		this.name = name;
+		this.orders = new Order[0];
 	}
 
 	public Buyer(String description) {
@@ -54,13 +56,14 @@ public class Buyer extends BaseEntity implements IBuyer {
 
 	@Override
 	public void createEntity(String description) {
-		String[] stringBuyer = description.split("/");
+		String[] stringBuyer = description.split(SLASH);
 		int j = 0;
 		this.id = Integer.parseInt(stringBuyer[j++]);
 		this.name = stringBuyer[j++];
 		this.orders = new Order[Integer.parseInt(stringBuyer[j++])];
+		orderManager = new OrderManager();
 		for (int i = 0; i < this.orders.length; i++) {
-			this.orders[j++] = orderManager.getOrderById(Integer.parseInt(stringBuyer[j++]));
+			this.orders[i] = orderManager.getOrderById(Integer.parseInt(stringBuyer[j++]));
 		}
 
 	}
@@ -73,9 +76,9 @@ public class Buyer extends BaseEntity implements IBuyer {
 	@Override
 	public String toString() {
 		StringBuilder stb = new StringBuilder();
-		stb.append(this.id).append("/").append(this.name).append("/").append(this.orders.length).append("/");
+		stb.append(this.id).append(SLASH).append(this.name).append(SLASH).append(this.orders.length).append(SLASH);
 		for (int i = 0; i < this.orders.length; i++) {
-			stb.append(this.orders[i].getId()).append("/");
+			stb.append(this.orders[i].getId()).append(SLASH);
 		}
 		return stb.toString();
 	}

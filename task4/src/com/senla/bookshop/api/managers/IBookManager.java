@@ -32,4 +32,8 @@ public interface IBookManager extends IBaseManager {
 
 	void sortStock();
 
+	void sortDateOld();
+
+	void sortPriceOld();
+
 }

@@ -1,6 +1,7 @@
 package com.senla.bookshop.api.entities;
 
 public interface IBaseEntity {
+	final String SLASH = "/";
 
 	String getType();
 

@@ -6,7 +6,7 @@ import com.senla.bookshop.entity.Buyer;
 import com.senla.bookshop.entity.Order;
 
 public abstract class ArrayWorker {
-	
+
 	public static Buyer[] addBuyer(Buyer entity, Buyer[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
@@ -23,7 +23,7 @@ public abstract class ArrayWorker {
 			array = new Buyer[1];
 			array[0] = entity;
 		}
-		Printer.printAdd(entity);
+		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -43,7 +43,7 @@ public abstract class ArrayWorker {
 			array = new Order[1];
 			array[0] = entity;
 		}
-		Printer.printAdd(entity);
+		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -63,7 +63,7 @@ public abstract class ArrayWorker {
 			array = new Book[1];
 			array[0] = entity;
 		}
-		Printer.printAdd(entity);
+		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -78,7 +78,7 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		Printer.printDelete(entity);
+		//Printer.printDelete(entity);
 		return array;
 	}
 
@@ -93,7 +93,7 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		Printer.printDelete(entity);
+		//Printer.printDelete(entity);
 		return array;
 	}
 
@@ -108,16 +108,18 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		Printer.printDelete(entity);
+		//Printer.printDelete(entity);
 		return array;
 	}
 
 	public static boolean contains(IBaseEntity entity, IBaseEntity[] array) {
 		boolean answer = false;
-		for (IBaseEntity e : array) {
-			if (e.equals(entity)) {
-				answer = true;
-				break;
+		if (array != null) {
+			for (IBaseEntity e : array) {
+				if (e.equals(entity)) {
+					answer = true;
+					break;
+				}
 			}
 		}
 		return answer;

@@ -13,11 +13,9 @@ public class OrderManager implements IOrderManager {
 	private Order[] orders;
 	private Order[] deliveredOrders;
 	private Integer generalPrice;
-	private BuyerManager buyerManager = new BuyerManager();;
 
 	public OrderManager() {
 		this.orders = FileWorker.readOrders();
-		this.generalPrice = getGeneralPrice();
 		this.deliveredOrders = getDeliveredOrders();
 	}
 
@@ -26,7 +24,6 @@ public class OrderManager implements IOrderManager {
 		for (Order order : orders) {
 			this.orders = ArrayWorker.addOrder(order, this.orders);
 		}
-		this.generalPrice = getGeneralPrice();
 		this.deliveredOrders = getDeliveredOrders();
 		FileWorker.writeOrders(this.orders);
 	}
@@ -41,10 +38,31 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public Integer getGeneralPrice() {
+		int sum = 0;
 		for (Order o : this.orders) {
-			this.generalPrice += o.getPrice();
+			sum += o.getPrice();
 		}
+		this.generalPrice = sum;
 		return generalPrice;
+
+	}
+
+	public void deliverOrder(Integer id) {
+		for (int i = 0; i < this.orders.length; i++) {
+			if (orders[i].getId() == id) {
+				orders[i].deliverOrder();
+			}
+		}
+		FileWorker.writeOrders(this.orders);
+	}
+
+	public void cancelOrder(Integer id) {
+		for (int i = 0; i < this.orders.length; i++) {
+			if (orders[i].getId() == id) {
+				orders[i].cancelOrder();
+			}
+		}
+		FileWorker.writeOrders(this.orders);
 	}
 
 	@Override
@@ -55,20 +73,48 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public void add(BaseEntity entity) {
+		BuyerManager buyerManager = new BuyerManager();
 		this.orders = ArrayWorker.addOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).addOrder(this.orders[i]);
 		}
+		this.deliveredOrders = getDeliveredOrders();
+		FileWorker.writeBuyer(buyerManager.getBuyers());
 		FileWorker.writeOrders(this.orders);
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
+		BuyerManager buyerManager = new BuyerManager();
 		this.orders = ArrayWorker.deleteOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).deleteOrder(this.orders[i]);
 		}
+		this.generalPrice = getGeneralPrice();
+		this.deliveredOrders = getDeliveredOrders();
+		FileWorker.writeBuyer(buyerManager.getBuyers());
 		FileWorker.writeOrders(this.orders);
+	}
+
+	@Override
+	public Order getOrderById(Integer id) {
+		for (int i = 0; i < this.orders.length; i++) {
+			if (orders[i].getId() == id) {
+				return orders[i];
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Order[] getDeliveredOrders() {
+		for (Order order : this.orders) {
+			if (order.getStatus().equals(EStatusOrder.DELIVERED)) {
+				deliveredOrders = ArrayWorker.addOrder(order, this.deliveredOrders);
+
+			}
+		}
+		return deliveredOrders;
 	}
 
 	@Override
@@ -101,24 +147,15 @@ public class OrderManager implements IOrderManager {
 	}
 
 	@Override
-	public Order getOrderById(Integer id) {
-		for (int i = 0; i < this.orders.length; i++) {
-			if (orders[i].getId() == id) {
-				return orders[i];
-			}
-		}
-		return null;
+	public void sortDateDelivered() {
+		Arrays.sort(this.deliveredOrders, Order.DateComparator);
+		ArrayWorker.showArray(this.deliveredOrders);
 	}
 
 	@Override
-	public Order[] getDeliveredOrders() {
-		for(Order order: this.orders){
-			if(order.getStatus().equals(EStatusOrder.DELIVERED)){
-				deliveredOrders = ArrayWorker.addOrder(order, this.deliveredOrders);
-						
-			}
-		}
-		return deliveredOrders;
+	public void sortPriceDelivered() {
+		Arrays.sort(this.deliveredOrders, Order.PriceComparator);
+		ArrayWorker.showArray(this.deliveredOrders);
 	}
 
 }

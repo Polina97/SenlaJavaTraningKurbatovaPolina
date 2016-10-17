@@ -1,5 +1,6 @@
-Madame Bovary/Gustave Flaubert/1/9/2015/100000/1/3/2016/false/0/false
-The Great Gatsby/ F. Scott Fitzgerald/15/7/2016/180000/15/1/2017/false/0/false
-Hamlet/William Shakespeare/16/7/2016/250000/16/1/2017/false/0/false
-Anna Karenina/Leo Tolstoy/16/7/2016/300000/16/1/2017/false/0/true
-War and Peace/Leo Tolstoy/16/7/2016/360000/16/1/2017/true/0/false
+Madame Bovary/Gustave Flaubert/1/9/2015/300000/1/3/2016/false/228/true
+The Great Gatsby/ F. Scott Fitzgerald/15/7/2016/180000/15/1/2017/false/163/true
+Hamlet/William Shakespeare/16/7/2016/250000/16/1/2017/false/167/true
+Anna Karenina/Leo Tolstoy/16/7/2016/300000/16/1/2017/false/1/true
+Emma/Jane Austen/1/9/2015/240000/1/3/2016/true/0/false
+War and Peace/Leo Tolstoy/16/7/2016/360000/16/1/2017/true/132/false

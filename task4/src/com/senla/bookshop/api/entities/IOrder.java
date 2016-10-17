@@ -30,4 +30,6 @@ public interface IOrder extends IBaseEntity {
 
 	void cancelOrder();
 
+	void deliverOrder();
+
 }

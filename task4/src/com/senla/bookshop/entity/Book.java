@@ -122,8 +122,8 @@ public class Book extends BaseEntity implements IBook {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		return builder.append(name).append("/").append(author).append("/").append(dateSupply.toString()).append("/").append(price)
-				.append("/").append(dateOld).append("/").append(inStock).append("/").append(requests).append("/")
+		return builder.append(name).append(SLASH).append(author).append(SLASH).append(dateSupply.toString()).append(SLASH).append(price)
+				.append(SLASH).append(dateOld).append(SLASH).append(inStock).append(SLASH).append(requests).append(SLASH)
 				.append(application).toString();
 	}
 
@@ -135,7 +135,7 @@ public class Book extends BaseEntity implements IBook {
 
 	@Override
 	public void createEntity(String description) {
-		String[] book = description.split("/");
+		String[] book = description.split(SLASH);
 		this.name = book[0];
 		this.author = book[1];
 		this.dateSupply = new Date(Integer.parseInt(book[2]), Integer.parseInt(book[3]), Integer.parseInt(book[4]));

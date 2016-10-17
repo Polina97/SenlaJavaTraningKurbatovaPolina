@@ -36,24 +36,41 @@ public class BookManager implements IBookManager {
 		this.applicationBooks = getApplicationBooks();
 		FileWorker.writeBooks(this.books);
 	}
+	
 
-	public Book getBook(Book book){
-		for(int i=0; i< this.books.length; i++){
-			if(books[i].equals(book)){
+	public Book[] getBooks() {
+		return books;
+	}
+
+	public void setBooks(Book[] books) {
+		this.books = books;
+	}
+
+	public Book getBook(Book book) {
+		for (int i = 0; i < this.books.length; i++) {
+			if (books[i].equals(book)) {
 				return books[i];
 			}
-		}return null;
+		}
+		return null;
 	}
+
 	@Override
 	public void add(BaseEntity book) {
 		this.books = ArrayWorker.addBook((Book) book, this.books);
+		this.oldBooks = getOldBooks();
+		this.stockBooks = getStockBooks();
+		this.applicationBooks = getApplicationBooks();
 		FileWorker.writeBooks(this.books);
 
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
-		ArrayWorker.deleteBook((Book) entity, this.books);
+		this.books =ArrayWorker.deleteBook((Book) entity, this.books);
+		this.oldBooks = getOldBooks();
+		this.stockBooks = getStockBooks();
+		this.applicationBooks = getApplicationBooks();
 		FileWorker.writeBooks(this.books);
 
 	}
@@ -105,12 +122,13 @@ public class BookManager implements IBookManager {
 
 	@Override
 	public void addToStock(IBook book) {
-		if (ArrayWorker.contains(book, this.books)) {
-			for (int i = 0; i < books.length; i++) {
-				if (this.books[i].equals(book)) {
-					this.books[i].setInStock(true);
-					this.books[i].setApplication(false);
-				}
+		if (!ArrayWorker.contains(book, this.books)) {
+			this.add((BaseEntity) book);
+		}
+		for (int i = 0; i < books.length; i++) {
+			if (this.books[i].equals(book)) {
+				this.books[i].setInStock(true);
+				this.books[i].setApplication(false);
 			}
 			FileWorker.writeBooks(this.books);
 		}
@@ -119,32 +137,35 @@ public class BookManager implements IBookManager {
 
 	@Override
 	public void deleteFromStock(IBook book) {
-		if (ArrayWorker.contains(book, this.books)) {
-			for (int i = 0; i < books.length; i++) {
+		if (!ArrayWorker.contains(book, this.books)) {
+			this.add((BaseEntity) book);
+		}
+		for (int i = 0; i < books.length; i++) {
 				if (this.books[i].equals(book)) {
 					this.books[i].setInStock(false);
 				}
 			}
-		}
 		FileWorker.writeBooks(this.books);
 	}
 
 	@Override
 	public void submitApplication(Book book) {
-		if (ArrayWorker.contains(book, this.books)) {
-			for (int i = 0; i < books.length; i++) {
-				if (this.books[i].equals(book) && !this.books[i].isInStock()) {
-					this.books[i].setApplication(true);
-				}
+		if (!ArrayWorker.contains(book, this.books)) {
+			this.add((BaseEntity) book);
+		}
+		for (int i = 0; i < books.length; i++) {
+			if (this.books[i].equals(book) && !this.books[i].isInStock()) {
+				this.books[i].setApplication(true);
 			}
 		}
 		FileWorker.writeBooks(this.books);
 	}
 
 	@Override
-	public boolean isInStock(Book book){
-		return ArrayWorker.contains(book, this.getStockBooks());
+	public boolean isInStock(Book book) {
+		return ArrayWorker.contains(book, this.stockBooks);
 	}
+
 	@Override
 	public void sortAlphabet() {
 		Arrays.sort(this.books, Book.AlphabetComparator);
@@ -174,4 +195,15 @@ public class BookManager implements IBookManager {
 		FileWorker.writeBooks(this.books);
 	}
 
+	@Override
+	public void sortDateOld() {
+		Arrays.sort(this.oldBooks, Book.DateComparator);
+		ArrayWorker.showArray(this.oldBooks);
+	}
+
+	@Override
+	public void sortPriceOld() {
+		Arrays.sort(this.oldBooks, Book.PriceComparator);
+		ArrayWorker.showArray(this.oldBooks);
+	}
 }

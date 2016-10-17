@@ -3,6 +3,7 @@ package com.senla.bookshop.api.entities;
 import com.senla.bookshop.resources.Date;
 
 public interface IBook extends IBaseEntity {
+
 	String getName();
 
 	void setName(String name);

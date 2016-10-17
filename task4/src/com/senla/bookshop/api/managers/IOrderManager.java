@@ -18,4 +18,8 @@ public interface IOrderManager extends IBaseManager {
 	Order getOrderById(Integer id);
 
 	Order[] getDeliveredOrders();
+
+	void sortDateDelivered();
+
+	void sortPriceDelivered();
 }
