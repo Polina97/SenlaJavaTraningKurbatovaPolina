@@ -1,7 +1,5 @@
 package com.senla.bookshop.api.entities;
 
-import com.senla.bookshop.entity.Order;
-
 public interface IBuyer extends IBaseEntity {
 	Integer getId();
 

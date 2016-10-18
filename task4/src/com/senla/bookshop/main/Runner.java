@@ -34,9 +34,7 @@ public class Runner {
 	private static Order o5;
 
 	public static void main(String[] args) {
-		for(int i =0; i<3; i++){
-			System.out.println(args[i]);
-		}
+
 		fileWorker = new FileWorker(args[0], args[1], args[2]);
 		buyerManager = new BuyerManager(fileWorker);
 		createOrders();

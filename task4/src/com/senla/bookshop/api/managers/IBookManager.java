@@ -1,39 +1,32 @@
 package com.senla.bookshop.api.managers;
 
 import com.senla.bookshop.api.entities.IBook;
+import com.senla.bookshop.comparators.TypeBookComparator;
 import com.senla.bookshop.entity.Book;
 
 public interface IBookManager extends IBaseManager {
-	void showAllBooks();
+	public void showAllBooks();
 
-	IBook[] getOldBooks();
+	public IBook[] getOldBooks();
 
-	void setOldBooks(IBook[] oldBooks);
+	public void setOldBooks(IBook[] oldBooks);
 
-	IBook[] getStockBooks();
+	public IBook[] getStockBooks();
 
-	void setStockBooks(Book[] stockBooks);
+	public void setStockBooks(Book[] stockBooks);
 
-	IBook[] getApplicationBooks();
+	public IBook[] getApplicationBooks();
 
-	void addToStock(IBook book);
+	public void addToStock(IBook book);
 
-	void deleteFromStock(IBook book);
+	public void deleteFromStock(IBook book);
 
 	public void submitApplication(Book book);
 
 	public void sortAlphabet();
 
-	boolean isInStock(IBook book);
+	public boolean isInStock(IBook book);
 
-	void sortPrice();
-
-	void sortDate();
-
-	void sortStock();
-
-	void sortDateOld();
-
-	void sortPriceOld();
+	public void sortBooks(TypeBookComparator comparator);
 
 }

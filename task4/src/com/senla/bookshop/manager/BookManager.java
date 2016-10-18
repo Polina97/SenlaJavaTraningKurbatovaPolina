@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import com.senla.bookshop.api.entities.IBook;
 import com.senla.bookshop.api.managers.IBookManager;
+import com.senla.bookshop.comparators.BookComparator;
+import com.senla.bookshop.comparators.TypeBookComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Book;
 import com.senla.bookshop.resources.ArrayWorker;
@@ -169,43 +171,10 @@ public class BookManager implements IBookManager {
 	}
 
 	@Override
-	public void sortAlphabet() {
-		Arrays.sort((Book[])this.books, Book.AlphabetComparator);
+	public void sortBooks(TypeBookComparator comparator) {
+		Arrays.sort((Book[])this.books,new BookComparator(comparator) );
 		ArrayWorker.showArray(this.books);
 		fileWorker.writeBooks(this.books);
 	}
 
-	@Override
-	public void sortPrice() {
-		Arrays.sort((Book[])this.books, Book.PriceComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
-	}
-
-	@Override
-	public void sortDate() {
-		Arrays.sort((Book[])this.books, Book.DateComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
-	}
-
-	@Override
-	public void sortStock() {
-		this.books = fileWorker.readBooks();
-		Arrays.sort((Book[])this.books, Book.StockComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
-	}
-
-	@Override
-	public void sortDateOld() {
-		Arrays.sort((Book[])this.oldBooks, Book.DateComparator);
-		ArrayWorker.showArray(this.oldBooks);
-	}
-
-	@Override
-	public void sortPriceOld() {
-		Arrays.sort((Book[])this.oldBooks, Book.PriceComparator);
-		ArrayWorker.showArray(this.oldBooks);
-	}
 }

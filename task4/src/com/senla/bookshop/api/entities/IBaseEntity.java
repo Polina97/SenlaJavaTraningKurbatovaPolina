@@ -8,7 +8,6 @@ public interface IBaseEntity {
 	/**
 	 * This method initializes all fields of the string passed as a parameter
 	 */
-	void createEntity(String description);
 
 	String getDescription();
 

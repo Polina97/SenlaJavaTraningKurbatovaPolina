@@ -1,41 +1,41 @@
 package com.senla.bookshop.api.entities;
 
-import com.senla.bookshop.resources.Date;
+import java.util.GregorianCalendar;
 
 public interface IBook extends IBaseEntity {
 
-	String getName();
+	public String getName();
 
-	void setName(String name);
+	public void setName(String name);
 
-	String getAuthor();
+	public String getAuthor();
 
-	void setAuthor(String author);
+	public void setAuthor(String author);
 
-	Date getDateSupply();
+	public GregorianCalendar getDatePublication();
 
-	void setDateSupply(Date dateSupply);
+	public void setDatePublication(GregorianCalendar datePublication);
 
-	int getPrice();
+	public GregorianCalendar getDateOld();
 
-	void setPrice(int price);
+	public void setDateOld(GregorianCalendar dateOld);
 
-	Date getDateOld();
+	public int getPrice();
 
-	void setDateOld(Date dateOld);
+	public void setPrice(int price);
 
-	boolean isInStock();
+	public Boolean isInStock();
 
-	void setInStock(boolean inStock);
+	public void setInStock(Boolean inStock);
 
-	int getRequests();
+	public int getRequests();
 
-	void addRequest();
+	public void addRequest();
 
-	boolean isApplication();
+	public Boolean isApplication();
 
-	void setApplication(boolean application);
+	public void setApplication(Boolean application);
 
-	boolean isOld(Date today);
+	public Boolean isOld(GregorianCalendar today);
 
 }

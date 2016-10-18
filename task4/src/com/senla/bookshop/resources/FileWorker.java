@@ -9,23 +9,32 @@ import com.senla.bookshop.entity.Buyer;
 import com.senla.bookshop.entity.Order;
 
 public class FileWorker {
+	public final String PATH_BOOK = "src/Books.txt";
+	private final String PATH_ORDER = "src/Orders.txt";
+	private final String PATH_BUYER = "src/Buyers.txt";
 	private static TextFileWorker textFileWorker;
 	private static String[] booksString;
 	private static String[] ordersString;
 	private static String[] buyersString;
-	public final String PATH_BOOK;
-	private final String PATH_ORDER;
-	private final String PATH_BUYER;
+	public String pathBooks;
+	private  String pathOrders;
+	private  String pathBuyers;
 
 	
 	public FileWorker(String pathBooks, String pathOrders, String pathBuyers) {
-		this.PATH_BOOK = "src/Books.txt";
-		this.PATH_ORDER = "src/Orders.txt";
-		this.PATH_BUYER = "src/Buyers.txt";
+		if(pathBooks!= null &&  pathOrders!=null && pathBuyers!=null){
+		this.pathBooks = pathBooks;
+		this.pathOrders = pathOrders;
+		this.pathBuyers = pathBuyers;
+		}else{
+			this.pathBooks = PATH_BOOK;
+			this.pathOrders = PATH_ORDER;
+			this.pathBuyers = PATH_BUYER;
+		}
 	}
 
 	public void writeBooks(IBook[] books) {
-		textFileWorker = new TextFileWorker(this.PATH_BOOK);
+		textFileWorker = new TextFileWorker(this.pathBooks);
 		booksString = new String[books.length];
 		for (int i = 0; i < books.length; i++) {
 			booksString[i] = books[i].toString();
@@ -34,7 +43,7 @@ public class FileWorker {
 	}
 
 	public IBook[] readBooks() {
-		textFileWorker = new TextFileWorker(PATH_BOOK);
+		textFileWorker = new TextFileWorker(this.pathBooks);
 		booksString = textFileWorker.readFromFile();
 		Book[] books = new Book[booksString.length];
 		int i = 0;
@@ -45,7 +54,7 @@ public class FileWorker {
 	}
 
 	public void writeOrders(IOrder[] orders) {
-		textFileWorker = new TextFileWorker(PATH_ORDER);
+		textFileWorker = new TextFileWorker(this.pathOrders);
 		ordersString = new String[orders.length];
 		for (int i = 0; i < orders.length; i++) {
 			ordersString[i] = orders[i].toString();
@@ -54,7 +63,7 @@ public class FileWorker {
 	}
 
 	public IOrder[] readOrders() {
-		textFileWorker = new TextFileWorker(PATH_ORDER);
+		textFileWorker = new TextFileWorker(this.pathOrders);
 		ordersString = textFileWorker.readFromFile();
 		Order[] orders = new Order[ordersString.length];
 		int i = 0;
@@ -65,7 +74,7 @@ public class FileWorker {
 	}
 
 	public void writeBuyer(IBuyer[] buyers) {
-		textFileWorker = new TextFileWorker(PATH_BUYER);
+		textFileWorker = new TextFileWorker(this.pathBuyers);
 		buyersString = new String[buyers.length];
 		for (int i = 0; i < buyers.length; i++) {
 			buyersString[i] = buyers[i].toString();
@@ -74,7 +83,7 @@ public class FileWorker {
 	}
 
 	public IBuyer[] readBuyers() {
-		textFileWorker = new TextFileWorker(PATH_BUYER);
+		textFileWorker = new TextFileWorker(this.pathBuyers);
 		buyersString = textFileWorker.readFromFile();
 		IBuyer[] buyers = new Buyer[buyersString.length];
 		int i = 0;
