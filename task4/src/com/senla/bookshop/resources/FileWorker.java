@@ -12,21 +12,24 @@ public class FileWorker {
 	public final String PATH_BOOK = "src/Books.txt";
 	private final String PATH_ORDER = "src/Orders.txt";
 	private final String PATH_BUYER = "src/Buyers.txt";
-	private static TextFileWorker textFileWorker;
-	private static String[] booksString;
-	private static String[] ordersString;
-	private static String[] buyersString;
-	public String pathBooks;
-	private  String pathOrders;
-	private  String pathBuyers;
-
 	
+	public String pathBooks;
+	private String pathOrders;
+	private String pathBuyers;
+
+	private static TextFileWorker textFileWorker;
+
+	private String[] booksString;
+	private String[] ordersString;
+	private String[] buyersString;
+
+
 	public FileWorker(String pathBooks, String pathOrders, String pathBuyers) {
-		if(pathBooks!= null &&  pathOrders!=null && pathBuyers!=null){
-		this.pathBooks = pathBooks;
-		this.pathOrders = pathOrders;
-		this.pathBuyers = pathBuyers;
-		}else{
+		if (pathBooks != null && pathOrders != null && pathBuyers != null) {
+			this.pathBooks = pathBooks;
+			this.pathOrders = pathOrders;
+			this.pathBuyers = pathBuyers;
+		} else {
 			this.pathBooks = PATH_BOOK;
 			this.pathOrders = PATH_ORDER;
 			this.pathBuyers = PATH_BUYER;
@@ -45,10 +48,10 @@ public class FileWorker {
 	public IBook[] readBooks() {
 		textFileWorker = new TextFileWorker(this.pathBooks);
 		booksString = textFileWorker.readFromFile();
-		Book[] books = new Book[booksString.length];
+		IBook[] books = new Book[booksString.length];
 		int i = 0;
 		for (String bookString : booksString) {
-			books[i++] = new Book(bookString);
+			books[i++] = Parser.bookParser(bookString);
 		}
 		return books;
 	}
@@ -65,10 +68,10 @@ public class FileWorker {
 	public IOrder[] readOrders() {
 		textFileWorker = new TextFileWorker(this.pathOrders);
 		ordersString = textFileWorker.readFromFile();
-		Order[] orders = new Order[ordersString.length];
+		IOrder[] orders = new Order[ordersString.length];
 		int i = 0;
-		for (String buyerString : ordersString) {
-			orders[i++] = new Order(buyerString, this);
+		for (String orderString : ordersString) {
+			orders[i++] = Parser.orderParser(orderString);
 		}
 		return orders;
 	}
@@ -88,7 +91,7 @@ public class FileWorker {
 		IBuyer[] buyers = new Buyer[buyersString.length];
 		int i = 0;
 		for (String buyerString : buyersString) {
-			buyers[i++] = new Buyer(buyerString, this);
+			buyers[i++] = Parser.buyerParser(buyerString);
 		}
 		return buyers;
 	}

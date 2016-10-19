@@ -4,9 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import com.senla.bookshop.api.entities.IBook;
-import com.senla.bookshop.resources.Printer;
 
 public class Book extends BaseEntity implements IBook {
+	private Integer id;
 	private String name;
 	private String author;
 	private GregorianCalendar datePublication;
@@ -16,8 +16,9 @@ public class Book extends BaseEntity implements IBook {
 	private Integer requests;
 	private Boolean application;
 
-	public Book(String name, String author, GregorianCalendar datePublication, GregorianCalendar dateSupply,
+	public Book(Integer id, String name, String author, GregorianCalendar datePublication, GregorianCalendar dateSupply,
 			Integer price) {
+		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.datePublication = datePublication;
@@ -29,8 +30,9 @@ public class Book extends BaseEntity implements IBook {
 		this.application = false;
 	}
 
-	public Book(String name, String author, GregorianCalendar datePublication, GregorianCalendar dateOld, Integer price, Boolean inStock, Integer requests,
-			Boolean application) {
+	public Book(Integer id, String name, String author, GregorianCalendar datePublication, GregorianCalendar dateOld,
+			Integer price, Boolean inStock, Integer requests, Boolean application) {
+		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.datePublication = datePublication;
@@ -39,6 +41,16 @@ public class Book extends BaseEntity implements IBook {
 		this.inStock = inStock;
 		this.requests = requests;
 		this.application = application;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void steId(Integer id) {
+		this.id = id;
 	}
 
 	@Override
@@ -136,19 +148,19 @@ public class Book extends BaseEntity implements IBook {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		str.append("Name: ").append(this.name).append(", Author: ").append(this.author).append(", Price ")
-				.append(this.price).append(", is in Stock: ").append(this.inStock).append(", Requests: ")
-				.append(this.requests).append(", Application: ").append(this.application);
+		str.append("Name: ").append(this.name).append(", Author: ").append(this.author)
+				.append(", Price ").append(this.price).append(", is in Stock: ").append(this.inStock)
+				.append(", Requests: ").append(this.requests).append(", Application: ").append(this.application);
 		return str.toString();
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		return builder.append(this.name).append(SLASH).append(this.author).append(SLASH)
-				.append(Printer.dateToString(this.datePublication)).append(SLASH)
-				.append(Printer.dateToString(this.dateOld)).append(SLASH).append(price).append(SLASH).append(inStock)
-				.append(SLASH).append(requests).append(SLASH).append(application).toString();
+		return builder.append((this.id)).append(SLASH).append(this.name).append(SLASH).append(this.author).append(SLASH)
+				.append(dateToString(this.datePublication)).append(SLASH).append(dateToString(this.dateOld))
+				.append(SLASH).append(price).append(SLASH).append(inStock).append(SLASH).append(requests).append(SLASH)
+				.append(application).toString();
 	}
 
 	@Override

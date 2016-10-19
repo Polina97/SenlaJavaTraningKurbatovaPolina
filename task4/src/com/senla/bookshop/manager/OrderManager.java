@@ -4,31 +4,29 @@ import java.util.Arrays;
 
 import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.api.managers.IOrderManager;
+import com.senla.bookshop.comparators.OrderComparator;
+import com.senla.bookshop.comparators.TypeOrderComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.EStatusOrder;
 import com.senla.bookshop.entity.Order;
+import com.senla.bookshop.main.Runner;
 import com.senla.bookshop.resources.ArrayWorker;
-import com.senla.bookshop.resources.FileWorker;
+import com.senla.bookshop.resources.Printer;
 
 public class OrderManager implements IOrderManager {
 	private IOrder[] orders;
-	private IOrder[] deliveredOrders;
-	private Integer generalPrice;
-	private FileWorker fileWorker;
+	private BuyerManager buyerManager = new BuyerManager();
 
-	public OrderManager(FileWorker fileWorker) {
-		this.fileWorker = fileWorker;
-		this.orders = fileWorker.readOrders();
-		this.deliveredOrders = getDeliveredOrders();
+	public OrderManager() {
+		this.orders = Runner.fileWorker.readOrders();
 	}
 
-	public OrderManager(Order[] orders, FileWorker fileWorker) {
-		this(fileWorker);
+	public OrderManager(Order[] orders) {
+		this();
 		for (Order order : orders) {
-			this.orders = ArrayWorker.addOrder(order, this.orders);
+			add(order);
 		}
-		this.deliveredOrders = getDeliveredOrders();
-		this.fileWorker.writeOrders(this.orders);
+		Runner.fileWorker.writeOrders(this.orders);
 	}
 
 	public IOrder[] getOrders() {
@@ -45,58 +43,49 @@ public class OrderManager implements IOrderManager {
 		for (IOrder o : this.orders) {
 			sum += o.getPrice();
 		}
-		this.generalPrice = sum;
-		return generalPrice;
-
-	}
-
-	public void deliverOrder(Integer id) {
-		for (int i = 0; i < this.orders.length; i++) {
-			if (orders[i].getId() == id) {
-				orders[i].deliverOrder();
-			}
-		}
-		this.fileWorker.writeOrders(this.orders);
-	}
-
-	public void cancelOrder(Integer id) {
-		for (int i = 0; i < this.orders.length; i++) {
-			if (orders[i].getId() == id) {
-				orders[i].cancelOrder();
-			}
-		}
-		this.fileWorker.writeOrders(this.orders);
-	}
-
-	@Override
-
-	public void setGeneralPrice(Integer generalPrice) {
-		this.generalPrice = generalPrice;
+		return sum;
 	}
 
 	@Override
 	public void add(BaseEntity entity) {
-		BuyerManager buyerManager = new BuyerManager(this.fileWorker);
 		this.orders = ArrayWorker.addOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).addOrder(this.orders[i]);
 		}
-		this.deliveredOrders = getDeliveredOrders();
-		this.fileWorker.writeBuyer(buyerManager.getBuyers());
-		this.fileWorker.writeOrders(this.orders);
+		Runner.fileWorker.writeBuyer(buyerManager.getBuyers());
+		Runner.fileWorker.writeOrders(this.orders);
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
-		BuyerManager buyerManager = new BuyerManager(this.fileWorker);
 		this.orders = ArrayWorker.deleteOrder((Order) entity, this.orders);
 		for (int i = 0; i < this.orders.length; i++) {
 			buyerManager.getById(((Order) entity).getBuyer().getId()).deleteOrder(this.orders[i]);
 		}
-		this.generalPrice = getGeneralPrice();
-		this.deliveredOrders = getDeliveredOrders();
-		this.fileWorker.writeBuyer(buyerManager.getBuyers());
-		this.fileWorker.writeOrders(this.orders);
+		Runner.fileWorker.writeBuyer(buyerManager.getBuyers());
+		Runner.fileWorker.writeOrders(this.orders);
+	}
+
+	@Override
+	public void deliverOrder(Integer id) {
+		for (int i = 0; i < this.orders.length; i++) {
+			if (orders[i].getId() == id) {
+				orders[i].setStatus(EStatusOrder.DELIVERED);
+				Printer.print("Order " + orders[i].getId() + " was delivered");
+			}
+		}
+		Runner.fileWorker.writeOrders(this.orders);
+	}
+
+	@Override
+	public void cancelOrder(Integer id) {
+		for (int i = 0; i < this.orders.length; i++) {
+			if (orders[i].getId() == id) {
+				orders[i].setStatus(EStatusOrder.CANCELED);
+				Printer.print("Order " + orders[i].getId() + " was canceled");
+			}
+		}
+		Runner.fileWorker.writeOrders(this.orders);
 	}
 
 	@Override
@@ -111,54 +100,31 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public IOrder[] getDeliveredOrders() {
+		IOrder[] deliveredOrders = null;
 		for (IOrder order : this.orders) {
 			if (order.getStatus().equals(EStatusOrder.DELIVERED)) {
-				deliveredOrders = ArrayWorker.addOrder(order, this.deliveredOrders);
-
+				deliveredOrders = ArrayWorker.addOrder(order, deliveredOrders);
 			}
 		}
 		return deliveredOrders;
 	}
-
 	@Override
-	public void showAllOrders() {
+	public void sortOrders(TypeOrderComparator comparator) {
+		Arrays.sort((Order[])this.orders,new OrderComparator(comparator));
 		ArrayWorker.showArray(this.orders);
+		
+	}
+	@Override
+	public void sortDeliveredOrders(TypeOrderComparator comparator){
+		IOrder[] ordersDelivered = getDeliveredOrders();
+		Arrays.sort((Order[])ordersDelivered,new OrderComparator(comparator));
+		ArrayWorker.showArray(ordersDelivered);
 	}
 
 	@Override
-	public void sortDate() {
-		Arrays.sort((Order[])this.orders, Order.DateComparator);
+	public void showAll() {
 		ArrayWorker.showArray(this.orders);
-		this.fileWorker.writeOrders(this.orders);
-
-	}
-
-	@Override
-	public void sortPrice() {
-		Arrays.sort((Order[])this.orders, Order.PriceComparator);
-		ArrayWorker.showArray(this.orders);
-		this.fileWorker.writeOrders(this.orders);
-
-	}
-
-	@Override
-	public void sortStatus() {
-		Arrays.sort((Order[])this.orders, Order.StatusComparator);
-		ArrayWorker.showArray(this.orders);
-		this.fileWorker.writeOrders(this.orders);
-
-	}
-
-	@Override
-	public void sortDateDelivered() {
-		Arrays.sort((Order[])this.deliveredOrders, Order.DateComparator);
-		ArrayWorker.showArray(this.deliveredOrders);
-	}
-
-	@Override
-	public void sortPriceDelivered() {
-		Arrays.sort((Order[])this.deliveredOrders, Order.PriceComparator);
-		ArrayWorker.showArray(this.deliveredOrders);
+		
 	}
 
 }

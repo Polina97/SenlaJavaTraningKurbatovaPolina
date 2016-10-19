@@ -3,6 +3,9 @@ package com.senla.bookshop.api.entities;
 import java.util.GregorianCalendar;
 
 public interface IBook extends IBaseEntity {
+	public Integer getId();
+
+	public void steId(Integer id);
 
 	public String getName();
 

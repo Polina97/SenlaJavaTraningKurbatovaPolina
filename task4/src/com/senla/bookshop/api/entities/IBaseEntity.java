@@ -1,20 +1,20 @@
 package com.senla.bookshop.api.entities;
 
+import java.util.GregorianCalendar;
+
 public interface IBaseEntity {
 	final String SLASH = "/";
 
-	String getType();
+	public String getType();
 
-	/**
-	 * This method initializes all fields of the string passed as a parameter
-	 */
+	public String dateToString(GregorianCalendar calendar);
 
-	String getDescription();
+	public String getDescription();
 
 	@Override
-	boolean equals(Object obj);
+	public boolean equals(Object obj);
 
 	@Override
-	String toString();
+	public String toString();
 
 }

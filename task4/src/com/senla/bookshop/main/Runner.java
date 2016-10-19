@@ -6,7 +6,6 @@ import com.senla.bookshop.entity.Order;
 import com.senla.bookshop.manager.BookManager;
 import com.senla.bookshop.manager.BuyerManager;
 import com.senla.bookshop.manager.OrderManager;
-import com.senla.bookshop.resources.Date;
 import com.senla.bookshop.resources.FileWorker;
 import com.senla.bookshop.resources.Printer;
 
@@ -15,11 +14,8 @@ public class Runner {
 	private static BookManager bookManager;
 	private static OrderManager orderManager;
 	private static BuyerManager buyerManager;
-	private static FileWorker fileWorker;
+	public static FileWorker fileWorker;
 
-	static Date date = new Date(16, 7, 2016);
-	static Date date2 = new Date(15, 7, 2016);
-	static Date date3 = new Date(1, 9, 2015);
 
 	private static Book b1 = new Book("Anna Karenina", "Leo Tolstoy", date, 300_000);
 	private static Book b2 = new Book("Hamlet", "William Shakespeare", date, 250_000);

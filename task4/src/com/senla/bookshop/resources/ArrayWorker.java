@@ -26,7 +26,6 @@ public abstract class ArrayWorker {
 			array = new Buyer[1];
 			array[0] = entity;
 		}
-		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -46,7 +45,6 @@ public abstract class ArrayWorker {
 			array = new Order[1];
 			array[0] = entity;
 		}
-		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -66,7 +64,6 @@ public abstract class ArrayWorker {
 			array = new Book[1];
 			array[0] = entity;
 		}
-		//Printer.printAdd(entity);
 		return array;
 	}
 
@@ -81,7 +78,6 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		//Printer.printDelete(entity);
 		return array;
 	}
 
@@ -96,7 +92,6 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		//Printer.printDelete(entity);
 		return array;
 	}
 
@@ -111,7 +106,6 @@ public abstract class ArrayWorker {
 			}
 			array = array2;
 		}
-		//Printer.printDelete(entity);
 		return array;
 	}
 
