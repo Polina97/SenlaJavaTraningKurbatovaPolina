@@ -10,20 +10,28 @@ import com.senla.bookshop.entity.Order;
 
 public abstract class ArrayWorker {
 
+	private static final Integer CONSTANT = 5;
+
 	public static IBuyer[] addBuyer(IBuyer entity, IBuyer[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				IBuyer[] array2 = new Buyer[array.length + 1];
-				for (int i = 0; i < array.length; i++) {
-					array2[i] = array[i];
+				if (containsNull(array)) {
+					for (int i = 0; i < array.length; i++) {
+						if (array[i] == null) {
+							array[i] = entity;
+							break;
+						}
+					}
+				} else {
+					IBuyer[] array2 = new Buyer[array.length * 2];
+					System.arraycopy(array, 0, array2, 0, array.length);
+					array2[array.length] = entity;
+					array = array2;
 				}
-				array2[array.length] = entity;
-				array = array2;
-			} else {
 			}
 
 		} else {
-			array = new Buyer[1];
+			array = new Buyer[CONSTANT];
 			array[0] = entity;
 		}
 		return array;
@@ -32,17 +40,23 @@ public abstract class ArrayWorker {
 	public static IOrder[] addOrder(IOrder entity, IOrder[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				IOrder[] array2 = new Order[array.length + 1];
-				for (int i = 0; i < array.length; i++) {
-					array2[i] = array[i];
-				}
-				array2[array.length] = entity;
-				array = array2;
-			} else {
-			}
+				if (containsNull(array)) {
+					for (int i = 0; i < array.length; i++) {
+						if (array[i] == null) {
+							array[i] = entity;
+							break;
+						}
+					}
 
+				} else {
+					IOrder[] array2 = new Order[array.length * 2];
+					System.arraycopy(array, 0, array2, 0, array.length);
+					array2[array.length] = entity;
+					array = array2;
+				}
+			}
 		} else {
-			array = new Order[1];
+			array = new Order[CONSTANT];
 			array[0] = entity;
 		}
 		return array;
@@ -51,69 +65,70 @@ public abstract class ArrayWorker {
 	public static IBook[] addBook(IBook entity, IBook[] array) {
 		if (array != null) {
 			if (!contains(entity, array)) {
-				IBook[] array2 = new Book[array.length + 1];
-				for (int i = 0; i < array.length; i++) {
-					array2[i] = array[i];
-				}
-				array2[array.length] = entity;
-				array = array2;
-			} else {
-			}
+				if (containsNull(array)) {
+					for (int i = 0; i < array.length; i++) {
+						if (array[i] == null) {
+							array[i] = entity;
+							break;
+						}
+					}
 
+				} else {
+					IBook[] array2 = new Book[array.length * 2];
+					System.arraycopy(array, 0, array2, 0, array.length);
+					array2[array.length] = entity;
+					array = array2;
+				}
+			}
 		} else {
-			array = new Book[1];
+			array = new Book[CONSTANT];
 			array[0] = entity;
 		}
 		return array;
+
 	}
 
 	public static IBuyer[] deleteBuyer(IBuyer entity, IBuyer[] array) {
 		if (array != null && contains(entity, array)) {
-			IBuyer[] array2 = new Buyer[array.length - 1];
-			int i = 0;
-			for (IBuyer e : array) {
-				if (!e.equals(entity)) {
-					array2[i++] = e;
+			for (int i = 0; i < array.length; i++) {
+				if (array[i].equals(entity)) {
+					array[i] = null;
+					break;
 				}
 			}
-			array = array2;
 		}
 		return array;
 	}
 
 	public static IBook[] deleteBook(IBook entity, IBook[] array) {
 		if (array != null && contains(entity, array)) {
-			IBook[] array2 = new Book[array.length - 1];
-			int i = 0;
-			for (IBook e : array) {
-				if (!e.equals(entity)) {
-					array2[i++] = e;
+			for (int i = 0; i < array.length; i++) {
+				if (array[i].equals(entity)) {
+					array[i] = null;
+					break;
 				}
 			}
-			array = array2;
 		}
 		return array;
 	}
 
 	public static IOrder[] deleteOrder(IOrder entity, IOrder[] array) {
 		if (array != null && contains(entity, array)) {
-			IOrder[] array2 = new Order[array.length - 1];
-			int i = 0;
-			for (IOrder e : array) {
-				if (!e.equals(entity)) {
-					array2[i++] = e;
+			for (int i = 0; i < array.length; i++) {
+				if (array[i].equals(entity)) {
+					array[i] = null;
+					break;
 				}
 			}
-			array = array2;
 		}
 		return array;
 	}
 
-	public static boolean contains(IBaseEntity entity, IBaseEntity[] array) {
+	public static Boolean contains(IBaseEntity entity, IBaseEntity[] array) {
 		boolean answer = false;
 		if (array != null) {
 			for (IBaseEntity e : array) {
-				if (e.equals(entity)) {
+				if (e != null && e.equals(entity)) {
 					answer = true;
 					break;
 				}
@@ -132,8 +147,21 @@ public abstract class ArrayWorker {
 
 	public static void showArray(IBaseEntity[] array) {
 		for (IBaseEntity baseEntity : array) {
-			Printer.print(baseEntity.getDescription());
+			if (baseEntity != null) {
+				Printer.print(baseEntity.getDescription());
+			}
 		}
+	}
+
+	private static Boolean containsNull(IBaseEntity[] entities) {
+		boolean answer = false;
+		for (IBaseEntity entity : entities) {
+			if (entity == null) {
+				answer = true;
+				break;
+			}
+		}
+		return answer;
 	}
 
 }

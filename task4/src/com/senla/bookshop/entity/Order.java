@@ -11,21 +11,21 @@ public class Order extends BaseEntity implements IOrder {
 	private IBook[] books;
 	private Integer price;
 	private GregorianCalendar date;
-	private EStatusOrder status;
+	private StatusOrder status;
 
-	public Order(Integer id, IBuyer buyer, IBook[] books, GregorianCalendar date, EStatusOrder status) {
+	public Order(Integer id, IBuyer buyer, IBook[] books, GregorianCalendar date, StatusOrder status) {
 		this.id = id;
 		this.buyer = buyer;
 		this.books = books;
 		this.price = 0;
-		for (IBook book: books) {
+		for (IBook book : books) {
 			this.price += book.getPrice();
 		}
 		this.date = date;
 		this.status = status;
 	}
 
-	public Order(Integer id, IBuyer buyer, IBook[] books, Integer price, GregorianCalendar date, EStatusOrder status) {
+	public Order(Integer id, IBuyer buyer, IBook[] books, Integer price, GregorianCalendar date, StatusOrder status) {
 		this.id = id;
 		this.buyer = buyer;
 		this.books = books;
@@ -85,12 +85,12 @@ public class Order extends BaseEntity implements IOrder {
 	}
 
 	@Override
-	public EStatusOrder getStatus() {
+	public StatusOrder getStatus() {
 		return status;
 	}
 
 	@Override
-	public void setStatus(EStatusOrder status) {
+	public void setStatus(StatusOrder status) {
 		this.status = status;
 	}
 
@@ -104,9 +104,11 @@ public class Order extends BaseEntity implements IOrder {
 		StringBuilder str = new StringBuilder();
 		str.append("Name of Buyer: ").append(this.buyer.getName()).append(" Books: ");
 		for (IBook book : this.books) {
-			str.append(book.getName()).append(", ");
+			if (book != null) {
+				str.append(book.getName()).append(", ");
+			}
 		}
-		str.append("Price: ").append(this.price).append(", Date: ").append(this.date).append(" Status: ")
+		str.append("Price: ").append(this.price).append(", Date: ").append(dateToString(this.date)).append(" Status: ")
 				.append(this.status);
 		return str.toString();
 	}
@@ -120,10 +122,12 @@ public class Order extends BaseEntity implements IOrder {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.id).append(SLASH).append(this.buyer.getId()).append(SLASH).append(this.buyer.getName())
-				.append(SLASH).append(this.price).append(SLASH).append(this.date.toString()).append(SLASH)
-				.append(this.status.toString()).append(this.books.length).append(SLASH);
+				.append(SLASH).append(this.price).append(SLASH).append(dateToString(this.date)).append(SLASH)
+				.append(this.status.toString()).append(SLASH).append(this.books.length).append(SLASH);
 		for (IBook book : this.books) {
-			builder.append(book.getId()).append(SLASH);
+			if (book != null) {
+				builder.append(book.getId()).append(SLASH);
+			}
 		}
 		return builder.toString();
 	}

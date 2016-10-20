@@ -2,7 +2,7 @@ package com.senla.bookshop.api.entities;
 
 import java.util.GregorianCalendar;
 
-import com.senla.bookshop.entity.EStatusOrder;
+import com.senla.bookshop.entity.StatusOrder;
 
 public interface IOrder extends IBaseEntity {
 	public IBuyer getBuyer();
@@ -25,9 +25,9 @@ public interface IOrder extends IBaseEntity {
 
 	public void setDate(GregorianCalendar date);
 
-	public EStatusOrder getStatus();
+	public StatusOrder getStatus();
 
-	public void setStatus(EStatusOrder status);
+	public void setStatus(StatusOrder status);
 
 	public void addBook(IBook book);
 

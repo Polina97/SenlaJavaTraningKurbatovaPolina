@@ -11,6 +11,7 @@ import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Book;
 import com.senla.bookshop.main.Runner;
 import com.senla.bookshop.resources.ArrayWorker;
+import com.senla.bookshop.resources.Printer;
 
 public class BookManager implements IBookManager {
 	private IBook[] books;
@@ -98,26 +99,28 @@ public class BookManager implements IBookManager {
 	}
 
 	@Override
-	public void addToStock(IBook book) {
-		if (!ArrayWorker.contains(book, this.books)) {
-			this.add((BaseEntity) book);
-		}
-		for (int i = 0; i < this.books.length; i++) {
-			if (this.books[i].equals(book)) {
-				this.books[i].setInStock(true);
-				this.books[i].setApplication(false);
+	public void addToStock(Integer id) {
+		if (ArrayWorker.contains(getById(id), this.books)) {
+			for (int i = 0; i < this.books.length; i++) {
+				if (this.books[i] != null && this.books[i].equals(getById(id))) {
+					this.books[i].setInStock(true);
+					this.books[i].setApplication(false);
+					Printer.print("Book " + books[i].getName() + " was added to stock!");
+				}
 			}
+
+			Runner.fileWorker.writeBooks(this.books);
 		}
-		Runner.fileWorker.writeBooks(this.books);
 
 	}
 
 	@Override
-	public void deleteFromStock(IBook book) {
-		if (ArrayWorker.contains(book, this.books)) {
+	public void deleteFromStock(Integer id) {
+		if (ArrayWorker.contains(getById(id), this.books)) {
 			for (int i = 0; i < this.books.length; i++) {
-				if (this.books[i].equals(book)) {
+				if (this.books[i] != null && this.books[i].equals(getById(id))) {
 					this.books[i].setInStock(false);
+					Printer.print("Book " + books[i].getName() + " was deleted from stock!");
 				}
 			}
 			Runner.fileWorker.writeBooks(this.books);
@@ -125,18 +128,16 @@ public class BookManager implements IBookManager {
 	}
 
 	@Override
-	public boolean isInStock(IBook book) {
+	public Boolean isInStock(IBook book) {
 		return ArrayWorker.contains(book, getStockBooks());
 	}
 
 	@Override
-	public void submitApplication(Book book) {
-		if (!ArrayWorker.contains(book, this.books)) {
-			this.add((BaseEntity) book);
-		}
-		for (int i = 0; i < books.length; i++) {
-			if (this.books[i].equals(book) && !this.books[i].isInStock()) {
+	public void submitApplication(Integer id) {
+		for (int i = 0; i < this.books.length; i++) {
+			if (this.books[i] != null && this.books[i].getId().equals(id)) {
 				this.books[i].setApplication(true);
+				Printer.print("You left the book " + id + " application.");
 			}
 		}
 		Runner.fileWorker.writeBooks(this.books);
@@ -146,6 +147,12 @@ public class BookManager implements IBookManager {
 	public void sortBooks(TypeBookComparator comparator) {
 		Arrays.sort((Book[]) this.books, new BookComparator(comparator));
 		ArrayWorker.showArray(this.books);
+	}
+
+	public void sortOldBooks(TypeBookComparator comparator) {
+		IBook[] oldBooks = getOldBooks();
+		Arrays.sort((Book[]) oldBooks, new BookComparator(comparator));
+		ArrayWorker.showArray(oldBooks);
 	}
 
 }

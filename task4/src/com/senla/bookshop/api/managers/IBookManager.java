@@ -17,14 +17,15 @@ public interface IBookManager extends IBaseManager {
 
 	public IBook[] getApplicationBooks();
 
-	public boolean isInStock(IBook book);
+	public Boolean isInStock(IBook book);
 
-	public void addToStock(IBook book);
-
-	public void deleteFromStock(IBook book);
-
-	public void submitApplication(Book book);
 
 	public void sortBooks(TypeBookComparator comparator);
+
+	void addToStock(Integer id);
+
+	void deleteFromStock(Integer id);
+
+	void submitApplication(Integer id);
 
 }

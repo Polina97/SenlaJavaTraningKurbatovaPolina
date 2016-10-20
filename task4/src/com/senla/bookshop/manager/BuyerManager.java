@@ -1,6 +1,8 @@
 package com.senla.bookshop.manager;
 
+
 import com.senla.bookshop.api.entities.IBuyer;
+import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.api.managers.IBuyerManager;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Buyer;
@@ -40,11 +42,21 @@ public class BuyerManager implements IBuyerManager {
 		}
 		return null;
 	}
+	public void addOrderBuyer(IOrder order){
+		getById(order.getBuyer().getId()).addOrder(order);
+		Runner.fileWorker.writeBuyer(this.buyers);
+	}
+	public void deleteOrderBuyer(IOrder order){
+		order.getBuyer().deleteOrder(order);
+		Runner.fileWorker.writeBuyer(this.buyers);
+	}
 
 	@Override
 	public void add(BaseEntity entity) {
-		this.buyers = ArrayWorker.addBuyer((Buyer) entity, this.buyers);
-		Runner.fileWorker.writeBuyer(this.buyers);
+		if (!ArrayWorker.contains(entity, this.buyers)) {
+			this.buyers = ArrayWorker.addBuyer((Buyer) entity, this.buyers);
+			Runner.fileWorker.writeBuyer(this.buyers);
+		}
 	}
 
 	@Override

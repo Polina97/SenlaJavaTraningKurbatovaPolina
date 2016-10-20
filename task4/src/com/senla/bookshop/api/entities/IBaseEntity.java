@@ -3,7 +3,7 @@ package com.senla.bookshop.api.entities;
 import java.util.GregorianCalendar;
 
 public interface IBaseEntity {
-	final String SLASH = "/";
+	public final String SLASH = "/";
 
 	public String getType();
 

@@ -97,7 +97,7 @@ public class Book extends BaseEntity implements IBook {
 	}
 
 	@Override
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
@@ -119,7 +119,7 @@ public class Book extends BaseEntity implements IBook {
 	}
 
 	@Override
-	public int getRequests() {
+	public Integer getRequests() {
 		return requests;
 	}
 
@@ -149,7 +149,7 @@ public class Book extends BaseEntity implements IBook {
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: ").append(this.name).append(", Author: ").append(this.author)
-				.append(", Price ").append(this.price).append(", is in Stock: ").append(this.inStock)
+				.append(", Price ").append(this.price).append(", is in Stock: ").append(this.inStock).append(", Date: ").append(dateToString(datePublication))
 				.append(", Requests: ").append(this.requests).append(", Application: ").append(this.application);
 		return str.toString();
 	}

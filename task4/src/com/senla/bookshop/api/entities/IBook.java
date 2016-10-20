@@ -23,7 +23,7 @@ public interface IBook extends IBaseEntity {
 
 	public void setDateOld(GregorianCalendar dateOld);
 
-	public int getPrice();
+	public Integer getPrice();
 
 	public void setPrice(int price);
 
@@ -31,7 +31,7 @@ public interface IBook extends IBaseEntity {
 
 	public void setInStock(Boolean inStock);
 
-	public int getRequests();
+	public Integer getRequests();
 
 	public void addRequest();
 

@@ -12,7 +12,6 @@ public class Buyer extends BaseEntity implements IBuyer {
 	public Buyer(Integer id, String name) {
 		this.id = id;
 		this.name = name;
-		this.orders = new Order[0];
 	}
 
 	public Buyer(Integer id, String name, IOrder[] orders) {
@@ -65,6 +64,15 @@ public class Buyer extends BaseEntity implements IBuyer {
 		ArrayWorker.showArray(this.orders);
 
 	}
+	private Integer getCountOrders(){
+		int counter =0;
+		for(IOrder o: this.orders ){
+			if(o!=null){
+				counter++;
+			}
+		}
+		return counter;
+	}
 
 	@Override
 	public String getDescription() {
@@ -81,9 +89,16 @@ public class Buyer extends BaseEntity implements IBuyer {
 	@Override
 	public String toString() {
 		StringBuilder stb = new StringBuilder();
-		stb.append(this.id).append(SLASH).append(this.name).append(SLASH).append(this.orders.length).append(SLASH);
-		for (int i = 0; i < this.orders.length; i++) {
-			stb.append(this.orders[i].getId()).append(SLASH);
+		stb.append(this.id).append(SLASH).append(this.name).append(SLASH);
+		if (this.orders != null) {
+			stb.append(getCountOrders()).append(SLASH);
+			for (int i = 0; i < this.orders.length; i++) {
+				if (this.orders[i] != null) {
+					stb.append(this.orders[i].getId()).append(SLASH);
+				}
+			}
+		} else {
+			stb.append(0).append(SLASH);
 		}
 		return stb.toString();
 	}
