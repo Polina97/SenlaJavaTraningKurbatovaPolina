@@ -1,0 +1,46 @@
+package com.senla.bookshop.comparators;
+
+import java.util.Comparator;
+
+import com.senla.bookshop.entity.Book;
+
+public class BookComparator implements Comparator<Book> {
+	private TypeBookComparator type;
+
+	public BookComparator(TypeBookComparator type) {
+		this.type = type;
+	}
+
+	@Override
+	public int compare(Book o1, Book o2) {
+		if (o1 != null && o2 != null) {
+			switch (this.type) {
+			case ALPHABET:
+				return o1.getName().compareTo(o2.getName());
+			case PRICE:
+				return o1.getPrice() - o2.getPrice();
+			case DATE:
+				return o1.getDatePublication().compareTo(o2.getDatePublication());
+			case STOCK: {
+				int a1 = 0, a2 = 0;
+				if (o1.isInStock() == true) {
+					a1 = 1;
+				}
+				if (o2.isInStock() == true) {
+					a2 = 1;
+				}
+				return a1 - a2;
+			}
+			default:
+				return 0;
+			}
+		}else if(o1!= null){
+			return -1;
+		}else if(o2!= null){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
+}

@@ -1,27 +1,26 @@
 package com.senla.bookshop.manager;
 
+
 import com.senla.bookshop.api.entities.IBuyer;
+import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.api.managers.IBuyerManager;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Buyer;
+import com.senla.bookshop.main.Runner;
 import com.senla.bookshop.resources.ArrayWorker;
-import com.senla.bookshop.resources.FileWorker;
 
 public class BuyerManager implements IBuyerManager {
 	private IBuyer[] buyers;
-	private FileWorker fileWorker;
 
-	public BuyerManager(FileWorker fileWorker) {
-		this.fileWorker = fileWorker;
-		this.buyers = fileWorker.readBuyers();
+	public BuyerManager() {
+		this.buyers = Runner.fileWorker.readBuyers();
 	}
 
-	public BuyerManager(Buyer[] buyers, FileWorker fileWorker) {
-		this(fileWorker);
+	public BuyerManager(Buyer[] buyers) {
+		this();
 		for (Buyer buyer : buyers) {
-			this.buyers = ArrayWorker.addBuyer(buyer, this.buyers);
+			add(buyer);
 		}
-		fileWorker.writeBuyer(this.buyers);
 	}
 
 	@Override
@@ -43,22 +42,33 @@ public class BuyerManager implements IBuyerManager {
 		}
 		return null;
 	}
+	public void addOrderBuyer(IOrder order){
+		getById(order.getBuyer().getId()).addOrder(order);
+		Runner.fileWorker.writeBuyer(this.buyers);
+	}
+	public void deleteOrderBuyer(IOrder order){
+		order.getBuyer().deleteOrder(order);
+		Runner.fileWorker.writeBuyer(this.buyers);
+	}
 
 	@Override
 	public void add(BaseEntity entity) {
-		this.buyers = ArrayWorker.addBuyer((Buyer) entity, this.buyers);
-		fileWorker.writeBuyer( this.buyers);
+		if (!ArrayWorker.contains(entity, this.buyers)) {
+			this.buyers = ArrayWorker.addBuyer((Buyer) entity, this.buyers);
+			Runner.fileWorker.writeBuyer(this.buyers);
+		}
 	}
 
 	@Override
 	public void delete(BaseEntity entity) {
 		this.buyers = ArrayWorker.deleteBuyer((Buyer) entity, this.buyers);
-		fileWorker.writeBuyer(this.buyers);
+		Runner.fileWorker.writeBuyer(this.buyers);
 	}
 
 	@Override
-	public void showAllBuyers() {
+	public void showAll() {
 		ArrayWorker.showArray(this.buyers);
+
 	}
 
 }

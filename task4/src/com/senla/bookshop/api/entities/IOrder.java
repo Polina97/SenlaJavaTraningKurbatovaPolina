@@ -1,35 +1,34 @@
 package com.senla.bookshop.api.entities;
 
-import com.senla.bookshop.entity.EStatusOrder;
-import com.senla.bookshop.resources.Date;
+import java.util.GregorianCalendar;
+
+import com.senla.bookshop.entity.StatusOrder;
 
 public interface IOrder extends IBaseEntity {
-	IBuyer getBuyer();
+	public IBuyer getBuyer();
 
-	Integer getId();
+	public Integer getId();
 
-	void setId(Integer id);
+	public void setId(Integer id);
 
-	void setBuyer(IBuyer buyer);
+	public void setBuyer(IBuyer buyer);
 
-	IBook[] getBooks();
+	public IBook[] getBooks();
 
-	void setBooks(IBook[] books);
+	public void setBooks(IBook[] books);
 
-	Integer getPrice();
+	public Integer getPrice();
 
-	void setPrice(Integer price);
+	public void setPrice(Integer price);
 
-	Date getDate();
+	public GregorianCalendar getDate();
 
-	void setDate(Date date);
+	public void setDate(GregorianCalendar date);
 
-	EStatusOrder getStatus();
+	public StatusOrder getStatus();
 
-	void setStatus(EStatusOrder status);
+	public void setStatus(StatusOrder status);
 
-	void cancelOrder();
-
-	void deliverOrder();
+	public void addBook(IBook book);
 
 }

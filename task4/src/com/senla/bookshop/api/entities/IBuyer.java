@@ -1,24 +1,22 @@
 package com.senla.bookshop.api.entities;
 
-import com.senla.bookshop.entity.Order;
-
 public interface IBuyer extends IBaseEntity {
-	Integer getId();
+	public Integer getId();
 
-	void setId(Integer id);
+	public void setId(Integer id);
 
-	String getName();
+	public String getName();
 
-	void setName(String name);
+	public void setName(String name);
 
-	IOrder[] getOrders();
+	public IOrder[] getOrders();
 
-	void setOrders(IOrder[] orders);
+	public void setOrders(IOrder[] orders);
 
-	void addOrder(IOrder order);
+	public void addOrder(IOrder order);
 
-	void deleteOrder(IOrder order);
+	public void deleteOrder(IOrder order);
 
-	void showAllOrders();
+	public void showAllOrders();
 
 }

@@ -1,27 +1,22 @@
 package com.senla.bookshop.api.managers;
 
 import com.senla.bookshop.api.entities.IOrder;
+import com.senla.bookshop.comparators.TypeOrderComparator;
 
 public interface IOrderManager extends IBaseManager {
-	IOrder[] getOrders();
+	public IOrder[] getOrders();
 
-	void showAllOrders();
+	public Integer getGeneralPrice();
 
-	Integer getGeneralPrice();
+	public IOrder getOrderById(Integer id);
 
-	void setGeneralPrice(Integer generalPrice);
+	public IOrder[] getDeliveredOrders();
 
-	void sortDate();
+	public void deliverOrder(Integer id);
 
-	void sortPrice();
+	public void cancelOrder(Integer id);
 
-	void sortStatus();
+	public void sortOrders(TypeOrderComparator comparator);
 
-	IOrder getOrderById(Integer id);
-
-	IOrder[] getDeliveredOrders();
-
-	void sortDateDelivered();
-
-	void sortPriceDelivered();
+	public void sortDeliveredOrders(TypeOrderComparator comparator);
 }

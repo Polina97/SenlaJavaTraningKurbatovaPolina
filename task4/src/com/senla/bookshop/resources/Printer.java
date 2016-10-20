@@ -1,6 +1,7 @@
 package com.senla.bookshop.resources;
 
 
+
 import com.senla.bookshop.api.entities.IBaseEntity;
 
 public class Printer {

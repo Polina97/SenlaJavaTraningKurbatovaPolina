@@ -1,6 +1,6 @@
 package com.senla.bookshop.entity;
 
-public enum EStatusOrder  {
+public enum StatusOrder  {
 	CANCELED, KIT, DELIVERED
 
 }

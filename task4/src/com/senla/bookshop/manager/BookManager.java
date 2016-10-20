@@ -1,43 +1,31 @@
 package com.senla.bookshop.manager;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 import com.senla.bookshop.api.entities.IBook;
 import com.senla.bookshop.api.managers.IBookManager;
+import com.senla.bookshop.comparators.BookComparator;
+import com.senla.bookshop.comparators.TypeBookComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Book;
+import com.senla.bookshop.main.Runner;
 import com.senla.bookshop.resources.ArrayWorker;
-import com.senla.bookshop.resources.Date;
-import com.senla.bookshop.resources.FileWorker;
+import com.senla.bookshop.resources.Printer;
 
 public class BookManager implements IBookManager {
 	private IBook[] books;
-	private IBook[] oldBooks;
-	private IBook[] stockBooks;
-	private IBook[] applicationBooks;
-	private Date nowDate;
-	private FileWorker fileWorker;
+	private final GregorianCalendar TODAY = new GregorianCalendar();
 
-	public BookManager(FileWorker fileWorker) {
-		this.fileWorker = fileWorker;
-		this.nowDate = Date.getNowDate();
-		this.books = this.fileWorker.readBooks();
-		this.oldBooks = getOldBooks();
-		this.stockBooks = getStockBooks();
-		this.applicationBooks = getApplicationBooks();
+	public BookManager() {
+		this.books = Runner.fileWorker.readBooks();
 	}
 
-	public BookManager(Book[] books, FileWorker fileWorker) {
-		this.fileWorker = fileWorker;
-		nowDate = Date.getNowDate();
-		this.books = fileWorker.readBooks();
+	public BookManager(Book[] books) {
+		this();
 		for (Book book : books) {
-			this.books = ArrayWorker.addBook(book, (Book[]) this.books);
+			add(book);
 		}
-		this.oldBooks = getOldBooks();
-		this.stockBooks = getStockBooks();
-		this.applicationBooks = getApplicationBooks();
-		fileWorker.writeBooks(this.books);
 	}
 
 	public IBook[] getBooks() {
@@ -48,9 +36,29 @@ public class BookManager implements IBookManager {
 		this.books = books;
 	}
 
-	public IBook getBook(Book book) {
+	@Override
+	public void add(BaseEntity book) {
+		this.books = ArrayWorker.addBook((Book) book, this.books);
+		Runner.fileWorker.writeBooks(this.books);
+
+	}
+
+	@Override
+	public void delete(BaseEntity entity) {
+		this.books = ArrayWorker.deleteBook((Book) entity, this.books);
+		Runner.fileWorker.writeBooks(this.books);
+	}
+
+	@Override
+	public void showAll() {
+		ArrayWorker.showArray(this.books);
+
+	}
+
+	@Override
+	public IBook getById(Integer id) {
 		for (int i = 0; i < this.books.length; i++) {
-			if (books[i].equals(book)) {
+			if (books[i].getId().equals(id)) {
 				return books[i];
 			}
 		}
@@ -58,154 +66,93 @@ public class BookManager implements IBookManager {
 	}
 
 	@Override
-	public void add(BaseEntity book) {
-		this.books = ArrayWorker.addBook((Book) book,this.books);
-		this.oldBooks = getOldBooks();
-		this.stockBooks = getStockBooks();
-		this.applicationBooks = getApplicationBooks();
-		fileWorker.writeBooks(this.books);
-
-	}
-
-	@Override
-	public void delete(BaseEntity entity) {
-		this.books = ArrayWorker.deleteBook((Book) entity, this.books);
-		this.oldBooks = getOldBooks();
-		this.stockBooks = getStockBooks();
-		this.applicationBooks = getApplicationBooks();
-		fileWorker.writeBooks(this.books);
-
-	}
-
-	@Override
-	public void showAllBooks() {
-		ArrayWorker.showArray(this.books);
-	}
-
-	@Override
 	public IBook[] getOldBooks() {
+		IBook[] oldBooks = null;
 		for (IBook b : this.books) {
-			if (b.isOld(nowDate)) {
-				this.oldBooks = ArrayWorker.addBook(b, this.oldBooks);
+			if (b.isOld(TODAY)) {
+				oldBooks = ArrayWorker.addBook(b, oldBooks);
 			}
 		}
 		return oldBooks;
 	}
 
 	@Override
-	public void setOldBooks(IBook[] oldBooks) {
-		this.oldBooks = oldBooks;
-	}
-
-	@Override
 	public IBook[] getStockBooks() {
+		IBook[] stockBooks = null;
 		for (IBook b : this.books) {
 			if (b.isInStock()) {
-				this.stockBooks = ArrayWorker.addBook(b, this.stockBooks);
+				stockBooks = ArrayWorker.addBook(b, stockBooks);
 			}
 		}
-		return this.stockBooks;
-	}
-
-	@Override
-	public void setStockBooks(Book[] stockBooks) {
-		this.stockBooks = stockBooks;
+		return stockBooks;
 	}
 
 	@Override
 	public IBook[] getApplicationBooks() {
+		IBook[] applicationBooks = null;
 		for (IBook book : this.books) {
 			if (book.isApplication()) {
-				this.applicationBooks = ArrayWorker.addBook(book, this.applicationBooks);
+				applicationBooks = ArrayWorker.addBook(book, applicationBooks);
 			}
 		}
-		return this.applicationBooks;
+		return applicationBooks;
 	}
 
 	@Override
-	public void addToStock(IBook book) {
-		if (!ArrayWorker.contains(book, this.books)) {
-			this.add((BaseEntity) book);
-		}
-		for (int i = 0; i < books.length; i++) {
-			if (this.books[i].equals(book)) {
-				this.books[i].setInStock(true);
-				this.books[i].setApplication(false);
+	public void addToStock(Integer id) {
+		if (ArrayWorker.contains(getById(id), this.books)) {
+			for (int i = 0; i < this.books.length; i++) {
+				if (this.books[i] != null && this.books[i].equals(getById(id))) {
+					this.books[i].setInStock(true);
+					this.books[i].setApplication(false);
+					Printer.print("Book " + books[i].getName() + " was added to stock!");
+				}
 			}
-			fileWorker.writeBooks(this.books);
+
+			Runner.fileWorker.writeBooks(this.books);
 		}
 
 	}
 
 	@Override
-	public void deleteFromStock(IBook book) {
-		if (!ArrayWorker.contains(book, this.books)) {
-			this.add((BaseEntity) book);
-		}
-		for (int i = 0; i < books.length; i++) {
-			if (this.books[i].equals(book)) {
-				this.books[i].setInStock(false);
+	public void deleteFromStock(Integer id) {
+		if (ArrayWorker.contains(getById(id), this.books)) {
+			for (int i = 0; i < this.books.length; i++) {
+				if (this.books[i] != null && this.books[i].equals(getById(id))) {
+					this.books[i].setInStock(false);
+					Printer.print("Book " + books[i].getName() + " was deleted from stock!");
+				}
 			}
+			Runner.fileWorker.writeBooks(this.books);
 		}
-		fileWorker.writeBooks(this.books);
 	}
 
 	@Override
-	public void submitApplication(Book book) {
-		if (!ArrayWorker.contains(book, this.books)) {
-			this.add((BaseEntity) book);
-		}
-		for (int i = 0; i < books.length; i++) {
-			if (this.books[i].equals(book) && !this.books[i].isInStock()) {
+	public Boolean isInStock(IBook book) {
+		return ArrayWorker.contains(book, getStockBooks());
+	}
+
+	@Override
+	public void submitApplication(Integer id) {
+		for (int i = 0; i < this.books.length; i++) {
+			if (this.books[i] != null && this.books[i].getId().equals(id)) {
 				this.books[i].setApplication(true);
+				Printer.print("You left the book " + id + " application.");
 			}
 		}
-		fileWorker.writeBooks(this.books);
+		Runner.fileWorker.writeBooks(this.books);
 	}
 
 	@Override
-	public boolean isInStock(IBook book) {
-		return ArrayWorker.contains(book, this.stockBooks);
-	}
-
-	@Override
-	public void sortAlphabet() {
-		Arrays.sort((Book[])this.books, Book.AlphabetComparator);
+	public void sortBooks(TypeBookComparator comparator) {
+		Arrays.sort((Book[]) this.books, new BookComparator(comparator));
 		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
 	}
 
-	@Override
-	public void sortPrice() {
-		Arrays.sort((Book[])this.books, Book.PriceComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
+	public void sortOldBooks(TypeBookComparator comparator) {
+		IBook[] oldBooks = getOldBooks();
+		Arrays.sort((Book[]) oldBooks, new BookComparator(comparator));
+		ArrayWorker.showArray(oldBooks);
 	}
 
-	@Override
-	public void sortDate() {
-		Arrays.sort((Book[])this.books, Book.DateComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
-	}
-
-	@Override
-	public void sortStock() {
-		this.books = fileWorker.readBooks();
-		Arrays.sort((Book[])this.books, Book.StockComparator);
-		ArrayWorker.showArray(this.books);
-		fileWorker.writeBooks(this.books);
-	}
-
-	@Override
-	public void sortDateOld() {
-		Arrays.sort((Book[])this.oldBooks, Book.DateComparator);
-		ArrayWorker.showArray(this.oldBooks);
-	}
-
-	@Override
-	public void sortPriceOld() {
-		Arrays.sort((Book[])this.oldBooks, Book.PriceComparator);
-		ArrayWorker.showArray(this.oldBooks);
-	}
 }
