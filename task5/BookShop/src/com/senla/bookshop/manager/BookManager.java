@@ -63,12 +63,7 @@ public class BookManager implements IBookManager {
 
 	@Override
 	public IBook getById(Integer id) {
-		for (IBook book : this.books) {
-			if (book.getId().equals(id)) {
-				return book;
-			}
-		}
-		return null;
+		return this.books.get(id);
 	}
 
 	@Override
@@ -136,10 +131,6 @@ public class BookManager implements IBookManager {
 
 	}
 
-	@Override
-	public Boolean isInStock(IBook book) {
-		return this.books.contains(book);
-	}
 
 	@Override
 	public void submitApplication(Integer id) throws Exception {
@@ -154,24 +145,35 @@ public class BookManager implements IBookManager {
 
 	@Override
 	public List<IBook> sortBooks(TypeBookComparator comparator) throws Exception {
-		try{
-		this.books.sort(new BookComparator(comparator));
-		return this.books;
-		}catch(NullPointerException e){
+		try {
+			this.books.sort(new BookComparator(comparator));
+			return this.books;
+		} catch (NullPointerException e) {
 			log.error(e);
 			throw new Exception(e);
 		}
 	}
 
+	@Override
 	public List<IBook> sortOldBooks(TypeBookComparator comparator) throws Exception {
-		try{
-		List<IBook> oldBooks = getOldBooks();
-		oldBooks.sort(new BookComparator(comparator));
-		return oldBooks;
-		}catch(NullPointerException e){
+		try {
+			List<IBook> oldBooks = getOldBooks();
+			oldBooks.sort(new BookComparator(comparator));
+			return oldBooks;
+		} catch (NullPointerException e) {
 			log.error(e);
 			throw new Exception(e);
 		}
+	}
+	@Override
+	public Integer getOldId(){
+		int id = 0;
+		for(IBook book: this.books){
+			if(id<book.getId()){
+				id= book.getId();
+			}
+		}
+		return id;
 	}
 
 }

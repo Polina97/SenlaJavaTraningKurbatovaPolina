@@ -20,4 +20,5 @@ public interface IOrderManager extends IBaseManager {
 	public List<IOrder> sortOrders(TypeOrderComparator comparator);
 
 	public List<IOrder> sortDeliveredOrders(TypeOrderComparator comparator);
+
 }

@@ -17,9 +17,6 @@ public interface IBookManager extends IBaseManager {
 	public List<IBook> getStockBooks();
 
 	public List<IBook> getApplicationBooks();
-
-	public Boolean isInStock(IBook book);
-
 	void addToStock(Integer id) throws Exception;
 
 	void deleteFromStock(Integer id) throws Exception;

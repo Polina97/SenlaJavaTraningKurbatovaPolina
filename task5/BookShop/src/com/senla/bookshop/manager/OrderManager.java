@@ -17,11 +17,11 @@ public class OrderManager implements IOrderManager {
 	private static Logger log = Logger.getLogger(OrderManager.class.getName());
 	private List<IOrder> orders;
 
-	public OrderManager(){
+	public OrderManager() {
 		this.orders = Shop.fileWorker.readOrders();
 	}
 
-	public OrderManager(List<IOrder> orders)  {
+	public OrderManager(List<IOrder> orders) {
 		this();
 		this.orders.addAll(orders);
 		Shop.fileWorker.writeOrders(this.orders);
@@ -71,12 +71,7 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public IOrder getOrderById(Integer id) {
-		for (IOrder order : this.orders) {
-			if (order.getId().equals(id)) {
-				return order;
-			}
-		}
-		return null;
+		return this.orders.get(id);
 	}
 
 	@Override
@@ -107,6 +102,17 @@ public class OrderManager implements IOrderManager {
 			log.error(e);
 			return null;
 		}
+	}
+
+	@Override
+	public Integer getOldId() {
+		int id = 0;
+		for (IOrder order : this.orders) {
+			if (id < order.getId()) {
+				id = order.getId();
+			}
+		}
+		return id;
 	}
 
 }

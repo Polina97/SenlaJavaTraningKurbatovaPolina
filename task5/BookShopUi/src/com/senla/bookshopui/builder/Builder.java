@@ -30,6 +30,8 @@ public class Builder implements IBaseBuilder {
 		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.OLD_BOOKS_SORTER)),"Sort old books."));
 		this.rootMenu.addItem(new Item(new GeneralPrice(), "General price."));
 		this.rootMenu.addItem(new Item(new CountDelOrders(), "Number of delivered orders."));
+		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.BOOK)),"Work with books."));
+		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.ORDER)),"Work with orders."));
 		this.rootMenu.addItem(this.exit);
 	}
 
@@ -62,6 +64,20 @@ public class Builder implements IBaseBuilder {
 		case DELIBERED_ORDERS_SORTER:
 			subMenu.addItem(new Item(new DateDelOrdersSorter(), "Sort delivered orders by date."));
 			subMenu.addItem(new Item(new PriceDelOrdersSorter(), "Sort delivered orders by price."));
+			subMenu.addItem(back);
+			break;
+		case BOOK:
+			subMenu.addItem(new Item(new BookDescription(), "Get book description."));
+			subMenu.addItem(new Item(new AddToStock(), "Add book to stock."));
+			subMenu.addItem(new Item(new DeleteFromStock(), "Delete book from stock."));
+			subMenu.addItem(new Item(new SubmitApplication(), "Submit application."));
+			subMenu.addItem(back);
+			break;
+		case ORDER:
+			subMenu.addItem(new Item(new OrderDescription(), "Get order description."));
+			subMenu.addItem(new Item(new AddOrder(), "Add order."));
+			subMenu.addItem(new Item(new CancelOrder(), "Cancel order."));
+			subMenu.addItem(new Item(new DeliverOrder(), "Deliver order."));
 			subMenu.addItem(back);
 			break;
 		default:

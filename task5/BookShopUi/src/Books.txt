@@ -4,3 +4,4 @@
 103/War and Peace/Leo Tolstoy/2015/11/13/2016/10/20/360000/true/0/false
 102/Hamlet/William Shakespeare/2016/1/16/2016/7/12/250000/true/3/false
 105/Madame Bovary/Gustave Flaubert/2016/1/16/2016/10/20/300000/true/1/false
+107/Grammar/Golicin/1998/0/12/2017/3/27/120000/true/0/false

@@ -16,3 +16,8 @@
 2016-10-25 01:33:23,377 [main] ERROR (Navigator.java:35) - java.lang.NullPointerException
 2016-10-26 20:00:57,882 [main] ERROR (Navigator.java:30) - java.lang.NullPointerException
 2016-10-26 21:49:02,102 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 4, Size: 4
+2016-10-27 19:32:04,891 [main] ERROR (BookManager.java:133) - java.lang.NullPointerException
+2016-10-27 19:37:43,571 [main] ERROR (BookManager.java:133) - java.lang.NullPointerException
+2016-10-27 20:02:02,317 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 6, Size: 5
+2016-10-27 20:04:15,334 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 13, Size: 13
+2016-10-27 20:04:51,591 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 13, Size: 13

@@ -12,7 +12,7 @@ import com.senla.bookshop.main.Shop;
 public class BuyerManager implements IBuyerManager {
 	private List<IBuyer> buyers;
 
-	public BuyerManager()  {
+	public BuyerManager() {
 		this.buyers = Shop.fileWorker.readBuyers();
 	}
 
@@ -35,14 +35,8 @@ public class BuyerManager implements IBuyerManager {
 
 	@Override
 	public IBuyer getById(Integer id) {
-		for (IBuyer buyer : this.buyers) {
-			if (buyer.getId().equals(id)) {
-				return buyer;
-			}
-		}
-		return null;
+		return this.buyers.get(id);
 	}
-
 
 	@Override
 	public Boolean add(BaseEntity entity) {
@@ -66,5 +60,16 @@ public class BuyerManager implements IBuyerManager {
 	public void deleteOrderBuyer(IOrder order) {
 		order.getBuyer().deleteOrder(order);
 		Shop.fileWorker.writeBuyer(this.buyers);
+	}
+
+	@Override
+	public Integer getOldId() {
+		int id = 0;
+		for (IBuyer buyer : this.buyers) {
+			if (id < buyer.getId()) {
+				id = buyer.getId();
+			}
+		}
+		return id;
 	}
 }
