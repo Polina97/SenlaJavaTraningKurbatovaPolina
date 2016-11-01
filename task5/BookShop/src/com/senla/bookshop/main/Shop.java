@@ -28,6 +28,7 @@ import com.senla.bookshop.manager.OrderManager;
 import com.senla.bookshop.resources.FileWorker;
 
 public class Shop implements IShop {
+	private static Shop shop;
 	private static String LOG_PROPERTIES = "src/log4j.properties";
 	private static Logger log = Logger.getLogger(Shop.class.getName());
 	private static final String[] ERROR_ARRAY = new String[] { Messages.NOT_FOUND };
@@ -37,11 +38,19 @@ public class Shop implements IShop {
 	private static IOrderManager orderManager;
 	public static FileWorker fileWorker;
 	static {
+		shop = new Shop();
 		Config conf = new Config(LOG_PROPERTIES);
 		conf.init();
 		fileWorker = new FileWorker(null, null, null);
 		bookManager = new BookManager();
 		orderManager = new OrderManager();
+	}
+
+	private Shop() {
+	}
+
+	public static Shop getShop() {
+		return shop;
 	}
 
 	public static void main(String[] args) {
@@ -228,18 +237,18 @@ public class Shop implements IShop {
 
 	@Override
 	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status) {
-		try{
-		IOrder order;
-		IBuyerManager buyerManager = new BuyerManager();
-		IBuyer buyer = new Buyer(buyerManager.getOldId()+1, nameBuyer);
-		List<IBook> books = new ArrayList<>();
-		for(Integer id: ids){
-			books.add(bookManager.getById(id));
-		}
-		order= new Order(orderManager.getOldId()+1, buyer, books, TODAY, status);
-		orderManager.add((BaseEntity) order);
-		return Messages.ORDER_ADD;
-		}catch(Exception e){
+		try {
+			IOrder order;
+			IBuyerManager buyerManager = new BuyerManager();
+			IBuyer buyer = new Buyer(buyerManager.getOldId() + 1, nameBuyer);
+			List<IBook> books = new ArrayList<>();
+			for (Integer id : ids) {
+				books.add(bookManager.getById(id));
+			}
+			order = new Order(orderManager.getOldId() + 1, buyer, books, TODAY, status);
+			orderManager.add((BaseEntity) order);
+			return Messages.ORDER_ADD;
+		} catch (Exception e) {
 			return Messages.ORDER_NOT_ADD;
 		}
 	}
@@ -252,7 +261,7 @@ public class Shop implements IShop {
 		} catch (Exception e) {
 			return Messages.ORDER_NOT_DELIVERED;
 		}
-		
+
 	}
 
 	@Override
@@ -264,6 +273,5 @@ public class Shop implements IShop {
 			return Messages.ORDER_NOT_CANCELED;
 		}
 	}
-	
 
 }

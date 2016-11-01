@@ -16,6 +16,7 @@ public class MyScanner {
 			int a = scn.nextInt();
 			return a;
 		} else {
+			scn = new Scanner(System.in);
 			Printer.print(MESSAGE);
 			return scanInt();
 		}
@@ -36,6 +37,7 @@ public class MyScanner {
 			String a = scn.next();
 			return a;
 		} else {
+			scn = new Scanner(System.in);
 			Printer.print(MESSAGE);
 			return scanString();
 		}
@@ -47,6 +49,7 @@ public class MyScanner {
 			return new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
 					Integer.parseInt(date[0]));
 		} catch (Exception e) {
+			scn = new Scanner(System.in);
 			Printer.print(MESSAGE);
 			return scanDate();
 		}
