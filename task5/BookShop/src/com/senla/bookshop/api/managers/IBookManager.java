@@ -8,8 +8,6 @@ import com.senla.bookshop.comparators.TypeBookComparator;
 public interface IBookManager extends IBaseManager {
 	public List<IBook> getBooks();
 
-	public void setBooks(List<IBook> books);
-
 	public IBook getById(Integer id);
 
 	public List<IBook> getOldBooks();
@@ -17,6 +15,7 @@ public interface IBookManager extends IBaseManager {
 	public List<IBook> getStockBooks();
 
 	public List<IBook> getApplicationBooks();
+
 	void addToStock(Integer id) throws Exception;
 
 	void deleteFromStock(Integer id) throws Exception;

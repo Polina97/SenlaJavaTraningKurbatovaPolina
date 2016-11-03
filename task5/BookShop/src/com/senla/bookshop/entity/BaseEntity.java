@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import com.senla.bookshop.api.entities.IBaseEntity;
 
 public abstract class BaseEntity implements IBaseEntity {
+	public final String SPACE = " ";
 	private final String BOOK = "Book";
 	private final String ORDER = "Order";
 	private final String BUYER = "Buyer";
@@ -13,8 +14,12 @@ public abstract class BaseEntity implements IBaseEntity {
 	@Override
 	public String dateToString(GregorianCalendar calendar) {
 		StringBuilder builder = new StringBuilder();
+		if(calendar != null){
 		return builder.append(calendar.get(Calendar.YEAR)).append(BaseEntity.SLASH).append(calendar.get(Calendar.MONTH))
 				.append(BaseEntity.SLASH).append(calendar.get(Calendar.DAY_OF_MONTH)).toString();
+		}else{
+			return SPACE;
+		}
 	}
 	
 

@@ -3,7 +3,6 @@ package com.senla.bookshop.api.entities;
 import java.util.List;
 
 public interface IBuyer extends IBaseEntity {
-	public Integer getId();
 
 	public void setId(Integer id);
 

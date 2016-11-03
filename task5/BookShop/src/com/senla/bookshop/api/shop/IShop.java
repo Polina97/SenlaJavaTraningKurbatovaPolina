@@ -9,21 +9,21 @@ import com.senla.bookshop.entity.StatusOrder;
 
 public interface IShop {
 
-	public String[] getBooks();
+	public List<String> getBooks();
 
-	public String[] sortBooks(TypeBookComparator comparator);
+	public List<String> sortBooks(TypeBookComparator comparator);
 
-	public String[] getOldBooks();
+	public List<String> getOldBooks();
 
-	public String[] sortOldBooks(TypeBookComparator comparator);
+	public List<String> sortOldBooks(TypeBookComparator comparator);
 
-	public String[] getOrders();
+	public List<String> getOrders();
 
-	public String[] sortOrders(TypeOrderComparator comparator);
+	public List<String> sortOrders(TypeOrderComparator comparator);
 
-	public String[] getDeliveredOrders();
+	public List<String> getDeliveredOrders();
 
-	public String[] sortDeliveredOrders(TypeOrderComparator comparator);
+	public List<String> sortDeliveredOrders(TypeOrderComparator comparator);
 
 	public Integer getPrice();
 

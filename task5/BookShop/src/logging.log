@@ -1,1 +1,6 @@
 2016-10-24 13:04:16,698 [main] ERROR (Shop.java:26) - java.lang.ArrayIndexOutOfBoundsException: 0
+2016-11-02 18:41:14 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found
+2016-11-02 18:42:21 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found
+2016-11-02 18:43:09 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found
+2016-11-03 16:22:00 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found
+2016-11-03 16:26:32 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found

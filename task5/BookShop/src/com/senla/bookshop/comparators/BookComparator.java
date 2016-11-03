@@ -14,7 +14,6 @@ public class BookComparator implements Comparator<IBook> {
 
 	@Override
 	public int compare(IBook o1, IBook o2) {
-		if (o1 != null && o2 != null) {
 			switch (this.type) {
 			case ALPHABET:
 				return o1.getName().compareTo(o2.getName());
@@ -35,13 +34,7 @@ public class BookComparator implements Comparator<IBook> {
 			default:
 				return 0;
 			}
-		}else if(o1!= null){
-			return -1;
-		}else if(o2!= null){
-			return 1;
-		}else{
-			return 0;
 		}
-	}
+	
 
 }

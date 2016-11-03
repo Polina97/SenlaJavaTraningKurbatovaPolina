@@ -27,12 +27,8 @@ public class Order extends BaseEntity implements IOrder {
 
 	public Order(Integer id, IBuyer buyer, List<IBook> books, Integer price, GregorianCalendar date,
 			StatusOrder status) {
-		this.id = id;
-		this.buyer = buyer;
-		this.books = books;
+		this(id, buyer, books, date, status);
 		this.price = price;
-		this.date = date;
-		this.status = status;
 	}
 
 	@Override
@@ -120,10 +116,10 @@ public class Order extends BaseEntity implements IOrder {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.id).append(SLASH).append(this.buyer.getId()).append(SLASH).append(this.buyer.getName())
-				.append(SLASH).append(this.price).append(SLASH).append(dateToString(this.date)).append(SLASH)
-				.append(this.status.toString()).append(SLASH).append(this.books.size()).append(SLASH);
-		for (IBook book : this.books) {
+		builder.append(id).append(SLASH).append(buyer.getId()).append(SLASH).append(buyer.getName())
+				.append(SLASH).append(price).append(SLASH).append(dateToString(date)).append(SLASH)
+				.append(status.toString()).append(SLASH).append(books.size()).append(SLASH);
+		for (IBook book : books) {
 			builder.append(book.getId()).append(SLASH);
 		}
 		return builder.toString();

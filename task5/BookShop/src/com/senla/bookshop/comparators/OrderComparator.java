@@ -13,22 +13,14 @@ public class OrderComparator implements Comparator<IOrder> {
 
 	@Override
 	public int compare(IOrder o1, IOrder o2) {
-		if (o1 != null && o2 != null) {
-			switch (this.type) {
-			case DATE:
-				return o1.getDate().compareTo(o2.getDate());
-			case PRICE:
-				return o1.getPrice() - o2.getPrice();
-			case STATUS:
-				return o1.getStatus().compareTo(o2.getStatus());
-			default:
-				return 0;
-			}
-		} else if (o1 != null) {
-			return -1;
-		} else if (o2 != null) {
-			return 1;
-		} else {
+		switch (this.type) {
+		case DATE:
+			return o1.getDate().compareTo(o2.getDate());
+		case PRICE:
+			return o1.getPrice() - o2.getPrice();
+		case STATUS:
+			return o1.getStatus().compareTo(o2.getStatus());
+		default:
 			return 0;
 		}
 	}

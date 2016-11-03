@@ -6,32 +6,19 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.senla.bookshop.api.entities.IBaseEntity;
-import com.senla.bookshop.api.entities.IBook;
-import com.senla.bookshop.api.entities.IBuyer;
-import com.senla.bookshop.api.entities.IOrder;
-import com.senla.bookshop.api.managers.IBookManager;
-import com.senla.bookshop.api.managers.IBuyerManager;
-import com.senla.bookshop.api.managers.IOrderManager;
+import com.senla.bookshop.api.entities.*;
+import com.senla.bookshop.api.managers.*;
 import com.senla.bookshop.api.shop.IShop;
 import com.senla.bookshop.comparators.TypeBookComparator;
 import com.senla.bookshop.comparators.TypeOrderComparator;
-import com.senla.bookshop.config.Config;
-import com.senla.bookshop.entity.BaseEntity;
-import com.senla.bookshop.entity.Book;
-import com.senla.bookshop.entity.Buyer;
-import com.senla.bookshop.entity.Order;
-import com.senla.bookshop.entity.StatusOrder;
-import com.senla.bookshop.manager.BookManager;
-import com.senla.bookshop.manager.BuyerManager;
-import com.senla.bookshop.manager.OrderManager;
-import com.senla.bookshop.resources.FileWorker;
+import com.senla.bookshop.entity.*;
+import com.senla.bookshop.manager.*;
+import com.senla.bookshop.resources.*;
 
 public class Shop implements IShop {
 	private static Shop shop;
-	private static String LOG_PROPERTIES = "src/log4j.properties";
 	private static Logger log = Logger.getLogger(Shop.class.getName());
-	private static final String[] ERROR_ARRAY = new String[] { Messages.NOT_FOUND };
+	private static List<String> ERROR_LIST = new ArrayList<String>();
 	private static final GregorianCalendar TODAY = new GregorianCalendar();
 	private static final String SPACE = " ";
 	private static IBookManager bookManager;
@@ -39,8 +26,7 @@ public class Shop implements IShop {
 	public static FileWorker fileWorker;
 	static {
 		shop = new Shop();
-		Config conf = new Config(LOG_PROPERTIES);
-		conf.init();
+		ERROR_LIST.add(Messages.ERROR);
 		fileWorker = new FileWorker(null, null, null);
 		bookManager = new BookManager();
 		orderManager = new OrderManager();
@@ -54,10 +40,8 @@ public class Shop implements IShop {
 	}
 
 	public static void main(String[] args) {
-		Config conf = new Config(LOG_PROPERTIES);
-		conf.init();
 		try {
-			fileWorker = new FileWorker(args[0], args[1], args[2]);
+			fileWorker = new FileWorker("v", args[1], args[2]);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			log.error(Messages.NO_PARAMETERS + e);
 			fileWorker = new FileWorker(null, null, null);
@@ -66,90 +50,88 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String[] getBooks() {
+	public List<String> getBooks() {
 		try {
-			String[] books = new String[bookManager.getBooks().size()];
-			int i = 0;
+			List<String> books = new ArrayList<String>();
 			for (IBook book : bookManager.getBooks()) {
-				books[i++] = book.getName() + SPACE + book.getAuthor();
+				books.add(book.getName() + SPACE + book.getAuthor());
 			}
 			return books;
 		} catch (Exception e) {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] sortBooks(TypeBookComparator comparator) {
+	public List<String> sortBooks(TypeBookComparator comparator) {
 		try {
 			return listToString(bookManager.sortBooks(comparator));
 		} catch (Exception e) {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] getOldBooks() {
-		String[] oldBooks = listToString(bookManager.getOldBooks());
+	public List<String> getOldBooks() {
+		List<String> oldBooks = listToString(bookManager.getOldBooks());
 		if (oldBooks != null) {
 			return listToString(bookManager.getOldBooks());
 		} else {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] sortOldBooks(TypeBookComparator comparator) {
-
+	public List<String> sortOldBooks(TypeBookComparator comparator) {
 		try {
-			String[] oldBooks = listToString(bookManager.sortOldBooks(comparator));
+			List<String> oldBooks = listToString(bookManager.sortOldBooks(comparator));
 			if (oldBooks != null)
 				return oldBooks;
 			else {
-				return new String[] { Messages.NOT_FOUND };
+				return ERROR_LIST;
 			}
 		} catch (Exception e) {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] getOrders() {
-		String[] orders = listToString(orderManager.getOrders());
+	public List<String> getOrders() {
+		List<String> orders = listToString(orderManager.getOrders());
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] sortOrders(TypeOrderComparator comparator) {
-		String[] orders = listToString(orderManager.sortOrders(comparator));
+	public List<String> sortOrders(TypeOrderComparator comparator) {
+		List<String> orders = listToString(orderManager.sortOrders(comparator));
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] getDeliveredOrders() {
-		String[] orders = listToString(orderManager.getDeliveredOrders());
+	public List<String> getDeliveredOrders() {
+		List<String> orders = listToString(orderManager.getDeliveredOrders());
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String[] sortDeliveredOrders(TypeOrderComparator comparator) {
-		String[] orders = listToString(orderManager.sortDeliveredOrders(comparator));
+	public List<String> sortDeliveredOrders(TypeOrderComparator comparator) {
+		List<String> orders = listToString(orderManager.sortDeliveredOrders(comparator));
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_ARRAY;
+			return ERROR_LIST;
 		}
 	}
 
@@ -192,7 +174,8 @@ public class Shop implements IShop {
 	@Override
 	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price) {
 		try {
-			IBook book = new Book(bookManager.getOldId() + 1, name, author, datePublication, TODAY, price);
+			IBook book = new Book(IdGenerator.getId(bookManager.getBooks()) + 1, name, author, datePublication, TODAY,
+					price);
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
@@ -202,17 +185,16 @@ public class Shop implements IShop {
 		}
 	}
 
-	private static String[] listToString(List<?> entities) {
+	private static List<String> listToString(List<?> entities) {
 		if (entities != null) {
-			String[] array = new String[entities.size()];
-			for (int i = 0; i < entities.size(); i++) {
-				array[i] = ((IBaseEntity) entities.get(i)).getDescription();
+			List<String> array = new ArrayList<String>();
+			for (Object entity : entities) {
+				array.add(((IBaseEntity) entity).getDescription());
 			}
 			return array;
 		} else {
 			return null;
 		}
-
 	}
 
 	@Override
@@ -240,12 +222,12 @@ public class Shop implements IShop {
 		try {
 			IOrder order;
 			IBuyerManager buyerManager = new BuyerManager();
-			IBuyer buyer = new Buyer(buyerManager.getOldId() + 1, nameBuyer);
-			List<IBook> books = new ArrayList<>();
+			IBuyer buyer = new Buyer(IdGenerator.getId(buyerManager.getBuyers()) + 1, nameBuyer);
+			List<IBook> books = new ArrayList<IBook>();
 			for (Integer id : ids) {
 				books.add(bookManager.getById(id));
 			}
-			order = new Order(orderManager.getOldId() + 1, buyer, books, TODAY, status);
+			order = new Order(IdGenerator.getId(orderManager.getOrders()) + 1, buyer, books, TODAY, status);
 			orderManager.add((BaseEntity) order);
 			return Messages.ORDER_ADD;
 		} catch (Exception e) {

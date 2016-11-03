@@ -18,21 +18,18 @@ public class OrderManager implements IOrderManager {
 	private List<IOrder> orders;
 
 	public OrderManager() {
-		this.orders = Shop.fileWorker.readOrders();
+		orders = Shop.fileWorker.readOrders();
 	}
 
 	public OrderManager(List<IOrder> orders) {
 		this();
 		this.orders.addAll(orders);
-		Shop.fileWorker.writeOrders(this.orders);
+		Shop.fileWorker.writeOrders(orders);
 	}
 
+	@Override
 	public List<IOrder> getOrders() {
 		return orders;
-	}
-
-	public void setOrders(List<IOrder> orders) {
-		this.orders = orders;
 	}
 
 	@Override
@@ -46,14 +43,14 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public Boolean add(BaseEntity entity) {
-		Boolean answ = this.orders.add((IOrder) entity);
+		Boolean answ = orders.add((IOrder) entity);
 		Shop.fileWorker.writeOrders(this.orders);
 		return answ;
 	}
 
 	@Override
 	public Boolean delete(BaseEntity entity) {
-		Boolean answ = this.orders.add((IOrder) entity);
+		Boolean answ = orders.add((IOrder) entity);
 		Shop.fileWorker.writeOrders(this.orders);
 		return answ;
 	}
@@ -62,7 +59,7 @@ public class OrderManager implements IOrderManager {
 	public void changeStatus(Integer id, StatusOrder statusOrder) throws Exception {
 		try {
 			getOrderById(id).setStatus(statusOrder);
-			Shop.fileWorker.writeOrders(this.orders);
+			Shop.fileWorker.writeOrders(orders);
 		} catch (Exception e) {
 			log.error(e);
 			throw new Exception(e);
@@ -71,13 +68,13 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public IOrder getOrderById(Integer id) {
-		return this.orders.get(id);
+		return orders.get(id);
 	}
 
 	@Override
 	public List<IOrder> getDeliveredOrders() {
 		List<IOrder> deliveredOrders = new ArrayList<IOrder>();
-		for (IOrder order : this.orders) {
+		for (IOrder order : orders) {
 			if (order.getStatus().equals(StatusOrder.DELIVERED)) {
 				deliveredOrders.add(order);
 			}
@@ -87,7 +84,7 @@ public class OrderManager implements IOrderManager {
 
 	@Override
 	public List<IOrder> sortOrders(TypeOrderComparator comparator) {
-		this.orders.sort(new OrderComparator(comparator));
+		orders.sort(new OrderComparator(comparator));
 		return orders;
 
 	}
@@ -102,17 +99,6 @@ public class OrderManager implements IOrderManager {
 			log.error(e);
 			return null;
 		}
-	}
-
-	@Override
-	public Integer getOldId() {
-		int id = 0;
-		for (IOrder order : this.orders) {
-			if (id < order.getId()) {
-				id = order.getId();
-			}
-		}
-		return id;
 	}
 
 }
