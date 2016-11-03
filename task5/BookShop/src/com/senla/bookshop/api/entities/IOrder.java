@@ -7,9 +7,6 @@ import com.senla.bookshop.entity.StatusOrder;
 
 public interface IOrder extends IBaseEntity {
 	public IBuyer getBuyer();
-
-	public Integer getId();
-
 	public void setId(Integer id);
 
 	public void setBuyer(IBuyer buyer);

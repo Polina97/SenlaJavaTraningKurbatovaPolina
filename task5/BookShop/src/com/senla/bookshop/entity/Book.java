@@ -32,12 +32,8 @@ public class Book extends BaseEntity implements IBook {
 
 	public Book(Integer id, String name, String author, GregorianCalendar datePublication, GregorianCalendar dateOld,
 			Integer price, Boolean inStock, Integer requests, Boolean application) {
-		this.id = id;
-		this.name = name;
-		this.author = author;
-		this.datePublication = datePublication;
+		this(id, name, author, datePublication, dateOld, price);
 		this.dateOld = dateOld;
-		this.price = price;
 		this.inStock = inStock;
 		this.requests = requests;
 		this.application = application;
@@ -49,7 +45,7 @@ public class Book extends BaseEntity implements IBook {
 	}
 
 	@Override
-	public void steId(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -148,25 +144,26 @@ public class Book extends BaseEntity implements IBook {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		str.append("Name: ").append(this.name).append(", Author: ").append(this.author)
-				.append(", Price ").append(this.price).append(", is in Stock: ").append(this.inStock).append(", Date: ").append(dateToString(datePublication))
-				.append(", Requests: ").append(this.requests).append(", Application: ").append(this.application);
+		str.append("Name: ").append(name).append(", Author: ").append(author).append(", Price ")
+				.append(this.price).append(", is in Stock: ").append(inStock).append(", Date: ")
+				.append(dateToString(datePublication)).append(", Requests: ").append(requests)
+				.append(", Application: ").append(application);
 		return str.toString();
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		return builder.append((this.id)).append(SLASH).append(this.name).append(SLASH).append(this.author).append(SLASH)
-				.append(dateToString(this.datePublication)).append(SLASH).append(dateToString(this.dateOld))
+		return builder.append((id)).append(SLASH).append(name).append(SLASH).append(author).append(SLASH)
+				.append(dateToString(datePublication)).append(SLASH).append(dateToString(dateOld))
 				.append(SLASH).append(price).append(SLASH).append(inStock).append(SLASH).append(requests).append(SLASH)
 				.append(application).toString();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((Book) obj).getName().equals(this.name) && ((Book) obj).getAuthor().equals(this.author)
-				&& ((Book) obj).getPrice() == this.price;
+		return ((Book) obj).getName().equals(name) && ((Book) obj).getAuthor().equals(author)
+				&& ((Book) obj).getPrice() == price;
 	}
 
 }

@@ -13,9 +13,9 @@ public class Printer {
 		System.out.println(obj);
 	}
 
-	public static void printArray(Object[] objects) {
+	public static void printArray(List<String> books) {
 		int i = 1;
-		for (Object object : objects) {
+		for (Object object : books) {
 			System.out.println((i++) + " " + object);
 		}
 	}

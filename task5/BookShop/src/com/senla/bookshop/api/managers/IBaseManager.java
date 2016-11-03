@@ -9,6 +9,4 @@ public interface IBaseManager {
 	public Boolean add(BaseEntity entity) throws Exception;
 
 	public Boolean delete(BaseEntity entity) throws Exception;
-
-	public Integer getOldId();
 }

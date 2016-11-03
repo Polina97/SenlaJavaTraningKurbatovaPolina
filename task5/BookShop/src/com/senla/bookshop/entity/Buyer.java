@@ -16,8 +16,7 @@ public class Buyer extends BaseEntity implements IBuyer {
 	}
 
 	public Buyer(Integer id, String name, List<IOrder> orders) {
-		this.id = id;
-		this.name = name;
+		this(id, name);
 		this.orders = orders;
 	}
 
@@ -62,7 +61,7 @@ public class Buyer extends BaseEntity implements IBuyer {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		return str.append(" Name: ").append(this.name).append(" Number of orders: ").append(this.orders.size())
+		return str.append(" Name: ").append(name).append(" Number of orders: ").append(orders.size())
 				.toString();
 	}
 
@@ -74,10 +73,10 @@ public class Buyer extends BaseEntity implements IBuyer {
 	@Override
 	public String toString() {
 		StringBuilder stb = new StringBuilder();
-		stb.append(this.id).append(SLASH).append(this.name).append(SLASH);
-		if (this.orders != null) {
-			stb.append(this.orders.size()).append(SLASH);
-			for (IOrder order : this.orders) {
+		stb.append(id).append(SLASH).append(name).append(SLASH);
+		if (orders != null) {
+			stb.append(orders.size()).append(SLASH);
+			for (IOrder order : orders) {
 				stb.append(order.getId()).append(SLASH);
 			}
 		} else {
