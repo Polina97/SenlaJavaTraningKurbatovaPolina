@@ -32,6 +32,7 @@ public class Builder implements IBaseBuilder {
 		this.rootMenu.addItem(new Item(new CountDelOrders(), "Number of delivered orders."));
 		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.BOOK)),"Work with books."));
 		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.ORDER)),"Work with orders."));
+		this.rootMenu.addItem(new Item(new CopyOrder(), "Copy order."));
 		this.rootMenu.addItem(this.exit);
 	}
 
