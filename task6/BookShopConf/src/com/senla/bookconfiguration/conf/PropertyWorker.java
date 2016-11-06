@@ -5,14 +5,14 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 public class PropertyWorker {
-	private final static String propertyFile = "src/configuration.properties";
+	private final static String PROPERTY_FILE = "src/configuration.properties";
+	private final static String DEFAULT_STRING = "";
+	private final static Integer DEFAULT_NUMBER = 0;
 	private static Loader loader;
 	private static Logger log = Logger.getLogger(PropertyWorker.class.getName());
-	private static Integer monthOld;
-	private static Boolean isApplication;
 	private static List<String> properties;
 	static {
-		loader = new Loader(propertyFile);
+		loader = new Loader(PROPERTY_FILE);
 		properties = loader.load();
 	}
 
@@ -24,15 +24,14 @@ public class PropertyWorker {
 	public static Integer getMonthOld() {
 		try {
 			if (properties != null) {
-				monthOld = Integer.parseInt(properties.get(0));
-				return monthOld;
+				return Integer.parseInt(properties.get(0));
 			} else {
-				return 0;
+				return DEFAULT_NUMBER;
 			}
 
-		} catch (NumberFormatException | NullPointerException e) {
+		} catch (NumberFormatException | NullPointerException  e) {
 			log.error(e);
-			return 0;
+			return DEFAULT_NUMBER;
 		}
 
 	}
@@ -40,8 +39,7 @@ public class PropertyWorker {
 	public static Boolean getIsApplication() {
 		try {
 			if (properties != null) {
-				isApplication = Boolean.parseBoolean(properties.get(1));
-				return isApplication;
+				return Boolean.parseBoolean(properties.get(1));
 			} else {
 				return false;
 			}
@@ -49,7 +47,45 @@ public class PropertyWorker {
 			log.error(e);
 			return false;
 		}
+	}
 
+	public static String getBookPath() {
+		try {
+			if (properties != null) {
+				return properties.get(2);
+			} else {
+				return DEFAULT_STRING;
+			}
+		} catch (IndexOutOfBoundsException| NumberFormatException| NullPointerException e) {
+			log.error(e);
+			return DEFAULT_STRING;
+		}
+	}
+
+	public static String getOrderPath() {
+		try {
+			if (properties != null) {
+				return properties.get(3);
+			} else {
+				return DEFAULT_STRING;
+			}
+		} catch (NumberFormatException|IndexOutOfBoundsException | NullPointerException e) {
+			log.error(e);
+			return DEFAULT_STRING;
+		}
+	}
+
+	public static String getBuyerPath() {
+		try {
+			if (properties != null) {
+				return properties.get(4);
+			} else {
+				return DEFAULT_STRING;
+			}
+		} catch (NumberFormatException|IndexOutOfBoundsException | NullPointerException e) {
+			log.error(e);
+			return DEFAULT_STRING;
+		}
 	}
 
 }
