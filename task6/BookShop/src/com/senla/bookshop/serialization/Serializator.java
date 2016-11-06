@@ -1,16 +1,21 @@
 package com.senla.bookshop.serialization;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import com.senla.bookshop.api.manager.IBaseManager;
 
 public class Serializator {
 	private final static String FILE_NOT_FOUND_ERROR = "File not found";
 	private final static String DEFAULT_STRING = "";
+	private final static Integer COUNT_OBJECTS = 3;
 	private final Logger log = Logger.getLogger(Serializator.class.getName());
 	private final String FILE_PATH;
 	private final File file;
-	private Object object;
+	private List<Object> objects;
 
 	public Serializator(final String filePath) throws IllegalArgumentException {
 		if (filePath == null || filePath.isEmpty() || filePath.equals(DEFAULT_STRING)) {
@@ -20,20 +25,24 @@ public class Serializator {
 		file = new File(FILE_PATH);
 	}
 
-	public Object readFromFile() {
+	public List<Object> readFromFile() {
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-			object = ois.readObject();
-			return object;
-		} catch (IOException |ClassNotFoundException e) {
-			e.printStackTrace();
+			objects = new ArrayList<Object>();
+			for (int i = 0; i < COUNT_OBJECTS; i++) {
+				objects.add(ois.readObject());
+			}
+			return objects;
+		} catch (IOException | ClassNotFoundException e) {
 			log.error(e);
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void writeToFile(Object object) {
+	public void writeToFile(List<IBaseManager> managers) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-			oos.writeObject(object);
+			for (int i = 0; i < managers.size(); i++) {
+				oos.writeObject(managers.get(i));
+			}
 		} catch (IOException | SecurityException | NullPointerException e) {
 			log.error(e);
 			throw new RuntimeException(e);

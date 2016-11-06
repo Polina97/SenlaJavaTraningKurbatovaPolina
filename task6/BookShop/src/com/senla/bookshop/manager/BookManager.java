@@ -13,7 +13,6 @@ import com.senla.bookshop.api.manager.IBookManager;
 import com.senla.bookshop.comparators.BookComparator;
 import com.senla.bookshop.comparators.TypeBookComparator;
 import com.senla.bookshop.entity.BaseEntity;
-import com.senla.bookshop.main.Shop;
 
 public class BookManager implements IBookManager, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +37,6 @@ public class BookManager implements IBookManager, Serializable {
 	public Boolean add(BaseEntity book) throws Exception {
 		try {
 			Boolean answ = books.add((IBook) book);
-			Shop.serialWorker.writeBookManager(this);
 			return answ;
 		} catch (ClassCastException | NullPointerException | IllegalArgumentException e) {
 			log.error(e);
@@ -50,7 +48,6 @@ public class BookManager implements IBookManager, Serializable {
 	public Boolean delete(BaseEntity entity) throws Exception {
 		try {
 			Boolean answ = books.remove(entity);
-			Shop.serialWorker.writeBookManager(this);
 			return answ;
 		} catch (ClassCastException | NullPointerException e) {
 			log.error(e);
@@ -124,7 +121,6 @@ public class BookManager implements IBookManager, Serializable {
 			if (PropertyWorker.getIsApplication()) {
 				getById(id).setApplication(false);
 			}
-			Shop.serialWorker.writeBookManager(this);
 		} catch (NullPointerException e) {
 			log.error(e);
 			throw new Exception(e);
@@ -135,7 +131,6 @@ public class BookManager implements IBookManager, Serializable {
 	public void deleteFromStock(Integer id) throws Exception {
 		try {
 			getById(id).setInStock(false);
-			Shop.serialWorker.writeBookManager(this);
 		} catch (NullPointerException e) {
 			log.error(e);
 			throw new Exception(e);
@@ -147,7 +142,6 @@ public class BookManager implements IBookManager, Serializable {
 	public void submitApplication(Integer id) throws Exception {
 		try {
 			getById(id).setApplication(true);
-			Shop.serialWorker.writeBookManager(this);
 		} catch (NullPointerException e) {
 			log.error(e);
 			throw new Exception(e);

@@ -12,7 +12,6 @@ import com.senla.bookshop.comparators.OrderComparator;
 import com.senla.bookshop.comparators.TypeOrderComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.StatusOrder;
-import com.senla.bookshop.main.Shop;
 
 public class OrderManager implements IOrderManager, Serializable {
 
@@ -46,7 +45,6 @@ public class OrderManager implements IOrderManager, Serializable {
 	public Boolean add(BaseEntity entity) throws Exception {
 		try {
 			Boolean answ = orders.add((IOrder) entity);
-			Shop.serialWorker.writeOrderManager(this);
 			return answ;
 		} catch (ClassCastException | NullPointerException | IllegalArgumentException e) {
 			log.error(e);
@@ -57,7 +55,6 @@ public class OrderManager implements IOrderManager, Serializable {
 	@Override
 	public Boolean delete(BaseEntity entity) {
 		Boolean answ = orders.add((IOrder) entity);
-		Shop.serialWorker.writeOrderManager(this);
 		return answ;
 	}
 
@@ -65,7 +62,6 @@ public class OrderManager implements IOrderManager, Serializable {
 	public void changeStatus(Integer id, StatusOrder statusOrder) throws Exception {
 		try {
 			getOrderById(id).setStatus(statusOrder);
-			Shop.serialWorker.writeOrderManager(this);
 		} catch (Exception e) {
 			log.error(e);
 			throw new Exception(e);

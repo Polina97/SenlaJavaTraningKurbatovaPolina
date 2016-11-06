@@ -1,6 +1,11 @@
-106/Emma/Jane Austen/2015/11/13/2016/4/20/240000/false/1/true
-101/Anna Karenina/Leo Tolstoy/2015/11/13/2016/1/12/300000/false/2/true
-104/The Great Gatsby/F.Scott Fitzgerald/2016/1/16/2016/1/12/180000/false/2/true
-103/War and Peace/Leo Tolstoy/2015/11/13/2016/4/20/360000/true/0/false
-102/Hamlet/William Shakespeare/2016/1/16/2016/1/12/250000/true/3/false
-105/Madame Bovary/Gustave Flaubert/2016/1/16/2016/4/20/300000/true/1/false
+106/Emma/Jane Austen/2015/11/13/2017/10/20/240000/false/1/true
+101/Anna Karenina/Leo Tolstoy/2015/11/13/2017/7/12/300000/false/2/true
+104/The Great Gatsby/F.Scott Fitzgerald/2016/1/16/2017/7/12/180000/false/2/true
+103/War and Peace/Leo Tolstoy/2015/11/13/2017/10/20/360000/true/0/false
+102/Hamlet/William Shakespeare/2016/1/16/2017/7/12/250000/true/3/false
+105/Madame Bovary/Gustave Flaubert/2016/1/16/2017/10/20/300000/true/1/false
+107/Grammar/Golicin/1998/0/12/2018/3/27/120000/true/0/false
+108/Sherlock/Arthur Conan Doyle/2015/10/12/2016/10/5/120000/true/0/false
+109/Sherlock2/Guy/2015/1/12/2016/4/5/2300000/true/0/false
+110/The Crazy for You Stories/Jenny Crusie/2014/2/13/2016/10/5/280000/true/0/false
+111/The Call of the Wild /Jack London /1999/1/13/2016/4/5/300000/true/0/false

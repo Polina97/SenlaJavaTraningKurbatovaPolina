@@ -27,9 +27,7 @@ public class Loader {
 				property.load(new FileInputStream(pf));
 				properties.add(property.getProperty(PropertyName.MONTH_OLD.toString()));
 				properties.add(property.getProperty(PropertyName.SWITCH_OFF_APPLICATION.toString()));
-				properties.add(property.getProperty(PropertyName.BOOK_PATH.toString()));
-				properties.add(property.getProperty(PropertyName.ORDER_PATH.toString()));
-				properties.add(property.getProperty(PropertyName.BUYER_PATH.toString()));
+				properties.add(property.getProperty(PropertyName.FILE_PATH.toString()));
 				
 				return properties;
 			} else {

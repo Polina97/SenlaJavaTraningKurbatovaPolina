@@ -32,3 +32,7 @@
 2016-11-06 13:07:29,692 [main] ERROR (Shop.java:181) - java.lang.Exception: Object was not added.
 2016-11-06 13:41:26,716 [main] ERROR (IdGenerator.java:21) - java.lang.NullPointerException
 2016-11-06 13:48:02,735 [main] ERROR (IdGenerator.java:21) - java.lang.NullPointerException
+2016-11-06 15:12:35,879 [main] ERROR (Serializator.java:37) - java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:12:35,883 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:15:17,772 [main] ERROR (Serializator.java:36) - java.io.StreamCorruptedException: invalid stream header: ACED2005
+2016-11-06 15:15:17,777 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.StreamCorruptedException: invalid stream header: ACED2005

@@ -17,3 +17,30 @@
 2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
 2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
 2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 14:41:1528 ERROR SerialWorker:28 - java.lang.IllegalArgumentException: File not found
+2016-11-06 14:41:1557 ERROR Shop:57 - Parameters not found!java.lang.RuntimeException: File not found
+2016-11-06 14:42:2033 ERROR Serializator:33 - java.io.EOFException
+2016-11-06 14:42:2028 ERROR SerialWorker:28 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:45:1328 ERROR SerialWorker:28 - java.lang.NullPointerException
+2016-11-06 14:46:3328 ERROR SerialWorker:28 - java.lang.NullPointerException
+2016-11-06 14:46:5329 ERROR SerialWorker:29 - java.lang.NullPointerException
+2016-11-06 14:47:3335 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:47:3329 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:48:3635 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:48:3629 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:58:5635 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:58:5629 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:59:3035 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:59:3029 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:59:5535 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:59:5529 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:04:5037 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:04:5030 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:04:5537 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:04:5530 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:05:5537 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:05:5530 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:07:3637 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:07:3630 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:14:5936 ERROR Serializator:36 - java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:14:5930 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)

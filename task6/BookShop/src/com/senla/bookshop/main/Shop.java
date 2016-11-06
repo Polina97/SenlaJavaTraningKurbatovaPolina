@@ -21,6 +21,7 @@ public class Shop implements IShop {
 	private static List<String> ERROR_LIST = new ArrayList<String>();
 	private static final GregorianCalendar TODAY = new GregorianCalendar();
 	private static final String SPACE = " ";
+	private static List<IBaseManager> managers = new ArrayList<IBaseManager>();
 	private static IBookManager bookManager;
 	private static IOrderManager orderManager;
 	private static IBuyerManager buyerManager;
@@ -32,6 +33,11 @@ public class Shop implements IShop {
 		bookManager = serialWorker.getBookManager();
 		orderManager = serialWorker.getOrderManager();
 		buyerManager = serialWorker.getBuyerManager();
+		
+		managers.add(bookManager);
+		managers.add(orderManager);
+		managers.add(buyerManager);
+		
 	}
 
 	private Shop() {
@@ -43,11 +49,17 @@ public class Shop implements IShop {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			IBuyer buyer = new Buyer(1002,"Matt");
+			IBook book = new Book(101, "Anna Karenina", "Leo Tolstoy", new GregorianCalendar(2015, 11, 13), TODAY, 300000);
+			bookManager.add((BaseEntity) book);
+			IBuyer buyer = new Buyer(10,"Matt");
+			List<IBook> books = new ArrayList<IBook>();
+			books.add(book);
+			IOrder order = new Order(1001, buyer, books, TODAY, StatusOrder.KIT);
+			orderManager.add((BaseEntity) order);
 			buyerManager.add((BaseEntity) buyer);
-			serialWorker.writeBuyerManager(buyerManager);
+			serialWorker.writeManagers(managers);
+			System.out.println(shop.getBooks());
 		} catch ( Exception e) {
-			e.printStackTrace();
 			log.error(Messages.NO_PARAMETERS + e);
 		}
 	}
@@ -55,6 +67,7 @@ public class Shop implements IShop {
 	@Override
 	public List<String> getBooks() {
 		try {
+			
 			List<String> books = new ArrayList<String>();
 			for (IBook book : bookManager.getBooks()) {
 				books.add(book.getName() + SPACE + book.getAuthor());
@@ -62,6 +75,8 @@ public class Shop implements IShop {
 			return books;
 		} catch (Exception e) {
 			return ERROR_LIST;
+		}finally{
+			serialWorker.writeManagers(managers);
 		}
 	}
 
@@ -185,6 +200,8 @@ public class Shop implements IShop {
 		} catch (Exception e) {
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
+		}finally{
+			serialWorker.writeManagers(managers);
 		}
 	}
 
@@ -204,6 +221,7 @@ public class Shop implements IShop {
 	public String deleteFromStock(Integer index) {
 		try {
 			bookManager.deleteFromStock(index);
+			serialWorker.writeManagers(managers);
 			return Messages.BOOK_DELETED;
 		} catch (Exception e) {
 			return Messages.BOOK_NOT_DELETED;
@@ -214,6 +232,7 @@ public class Shop implements IShop {
 	public String submitApp(Integer index) {
 		try {
 			bookManager.submitApplication(index);
+			serialWorker.writeManagers(managers);
 			return Messages.APP_ADD;
 		} catch (Exception e) {
 			return Messages.APP_NOT_ADD;
@@ -233,6 +252,7 @@ public class Shop implements IShop {
 			}
 			order = new Order(IdGenerator.getId(orderManager.getOrders()) + 1, buyer, books, TODAY, status);
 			orderManager.add((BaseEntity) order);
+			serialWorker.writeManagers(managers);
 			return Messages.ORDER_ADD;
 		} catch (Exception e) {
 			return Messages.ORDER_NOT_ADD;
@@ -243,6 +263,7 @@ public class Shop implements IShop {
 	public String deliverOrder(Integer index) {
 		try {
 			orderManager.changeStatus(index, StatusOrder.DELIVERED);
+			serialWorker.writeManagers(managers);
 			return Messages.ORDER_DELIVERED;
 		} catch (Exception e) {
 			return Messages.ORDER_NOT_DELIVERED;
@@ -254,6 +275,7 @@ public class Shop implements IShop {
 	public String cancelOrder(Integer index) {
 		try {
 			orderManager.changeStatus(index, StatusOrder.CANCELED);
+			serialWorker.writeManagers(managers);
 			return Messages.ORDER_CANCELED;
 		} catch (Exception e) {
 			return Messages.ORDER_NOT_CANCELED;
@@ -262,8 +284,7 @@ public class Shop implements IShop {
 
 	@Override
 	public void exit() {
-		serialWorker.writeBookManager(bookManager);
-		serialWorker.writeOrderManager(orderManager);
+		serialWorker.writeManagers(managers);
 		
 	}
 

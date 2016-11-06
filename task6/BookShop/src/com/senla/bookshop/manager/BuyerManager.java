@@ -8,7 +8,6 @@ import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.api.manager.IBuyerManager;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.Buyer;
-import com.senla.bookshop.main.Shop;
 
 public class BuyerManager implements IBuyerManager, Serializable {
 
@@ -38,14 +37,12 @@ public class BuyerManager implements IBuyerManager, Serializable {
 	@Override
 	public Boolean add(BaseEntity entity) {
 		Boolean answ = buyers.add((IBuyer) entity);
-		Shop.serialWorker.writeBuyerManager(this);
 		return answ;
 	}
 
 	@Override
 	public Boolean delete(BaseEntity entity) {
 		Boolean answ = buyers.remove(entity);
-		Shop.serialWorker.writeBuyerManager(this);
 		return answ;
 	}
 

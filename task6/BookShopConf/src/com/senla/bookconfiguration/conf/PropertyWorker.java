@@ -49,7 +49,7 @@ public class PropertyWorker {
 		}
 	}
 
-	public static String getBookPath() {
+	public static String getFilePath() {
 		try {
 			if (properties != null) {
 				return properties.get(2);
@@ -62,30 +62,6 @@ public class PropertyWorker {
 		}
 	}
 
-	public static String getOrderPath() {
-		try {
-			if (properties != null) {
-				return properties.get(3);
-			} else {
-				return DEFAULT_STRING;
-			}
-		} catch (NumberFormatException|IndexOutOfBoundsException | NullPointerException e) {
-			log.error(e);
-			return DEFAULT_STRING;
-		}
-	}
-
-	public static String getBuyerPath() {
-		try {
-			if (properties != null) {
-				return properties.get(4);
-			} else {
-				return DEFAULT_STRING;
-			}
-		} catch (NumberFormatException|IndexOutOfBoundsException | NullPointerException e) {
-			log.error(e);
-			return DEFAULT_STRING;
-		}
-	}
+	
 
 }
