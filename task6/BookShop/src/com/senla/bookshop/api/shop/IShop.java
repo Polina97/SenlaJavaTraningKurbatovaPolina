@@ -45,6 +45,20 @@ public interface IShop {
 
 	public String cancelOrder(Integer index);
 
+	public String copyOrder(Integer id);
+
+	public String exportOrder(Integer id);
+
+	public String exportBook(Integer id);
+
+	public String exportBuyer(Integer id);
+
+	public String importOrder(Integer id);
+
+	public String importBook(Integer id);
+
+	public String importBuyer(Integer id);
+
 	public void exit();
 
 }

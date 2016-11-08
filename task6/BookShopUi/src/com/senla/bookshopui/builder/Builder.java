@@ -2,6 +2,12 @@ package com.senla.bookshopui.builder;
 
 
 import com.senla.bookshopui.action.*;
+import com.senla.bookshopui.action.scv.ExsportBook;
+import com.senla.bookshopui.action.scv.ExsportBuyer;
+import com.senla.bookshopui.action.scv.ExsportOrder;
+import com.senla.bookshopui.action.scv.ImportBook;
+import com.senla.bookshopui.action.scv.ImportBuyer;
+import com.senla.bookshopui.action.scv.ImportOrder;
 import com.senla.bookshopui.action.sorter.*;
 import com.senla.bookshopui.api.*;
 import com.senla.bookshopui.item.Item;
@@ -32,6 +38,8 @@ public class Builder implements IBaseBuilder {
 		this.rootMenu.addItem(new Item(new CountDelOrders(), "Number of delivered orders."));
 		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.BOOK)),"Work with books."));
 		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.ORDER)),"Work with orders."));
+		this.rootMenu.addItem(new Item(new CopyOrder(), "Copy order."));
+		this.rootMenu.addItem(new Item(new SubmenuCreater(getSubMenu(TypeMenu.CSV)),"Export/Import CSV."));
 		this.rootMenu.addItem(this.exit);
 	}
 
@@ -78,6 +86,15 @@ public class Builder implements IBaseBuilder {
 			subMenu.addItem(new Item(new AddOrder(), "Add order."));
 			subMenu.addItem(new Item(new CancelOrder(), "Cancel order."));
 			subMenu.addItem(new Item(new DeliverOrder(), "Deliver order."));
+			subMenu.addItem(back);
+			break;
+		case CSV:
+			subMenu.addItem(new Item(new ExsportBook(), "Export book."));
+			subMenu.addItem(new Item(new ExsportOrder(), "Export order."));
+			subMenu.addItem(new Item(new ExsportBuyer(), "Export buyer."));
+			subMenu.addItem(new Item(new ImportBook(), "Import book."));
+			subMenu.addItem(new Item(new ImportOrder(), "Import order."));
+			subMenu.addItem(new Item(new ImportBuyer(), "Import buyer."));
 			subMenu.addItem(back);
 			break;
 		default:

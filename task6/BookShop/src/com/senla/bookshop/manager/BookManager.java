@@ -171,4 +171,44 @@ public class BookManager implements IBookManager, Serializable {
 		}
 	}
 
+	public IBook exportBook(Integer id) {
+		try {
+			List<IBook> csvBooks = csvWorker.readBooks();
+			for (IBook book : csvBooks) {
+				if (book.getId().equals(id)) {
+				csvBooks.remove(book);
+				csvWorker.writeBooks(csvBooks);
+				return book;
+				}
+			}
+
+		} catch (NullPointerException | ClassCastException e) {
+			log.error(e);
+		}
+		return null;
+	}
+
+	public void importBook(Integer id) throws Exception {
+		try {
+			List<IBook> csvBooks = csvWorker.readBooks();
+			if (csvBooks != null) {
+				for (IBook book : csvBooks) {
+					if (book.getId().equals(id)) {
+						csvBooks.remove(book);
+						break;
+					}
+				}
+			} else {
+				csvBooks = new ArrayList<IBook>();
+			}
+			csvBooks.add(getById(id));
+			csvWorker.writeBooks(csvBooks);
+		} catch (NullPointerException e) {
+			log.error(e);
+			e.printStackTrace();
+			throw new Exception(e);
+
+		}
+	}
+
 }

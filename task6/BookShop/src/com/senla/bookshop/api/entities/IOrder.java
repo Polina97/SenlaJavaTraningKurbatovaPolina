@@ -7,6 +7,7 @@ import com.senla.bookshop.entity.StatusOrder;
 
 public interface IOrder extends IBaseEntity {
 	public IBuyer getBuyer();
+
 	public void setId(Integer id);
 
 	public void setBuyer(IBuyer buyer);
@@ -28,5 +29,7 @@ public interface IOrder extends IBaseEntity {
 	public void setStatus(StatusOrder status);
 
 	public void addBook(IBook book);
+
+	public IOrder clone(Integer id) throws CloneNotSupportedException;
 
 }
