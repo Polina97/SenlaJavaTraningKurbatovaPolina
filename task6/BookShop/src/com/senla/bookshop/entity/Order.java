@@ -1,5 +1,6 @@
 package com.senla.bookshop.entity;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -118,13 +119,25 @@ public class Order extends BaseEntity implements IOrder {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(id).append(SLASH).append(buyer.getId()).append(SLASH).append(buyer.getName())
-				.append(SLASH).append(price).append(SLASH).append(dateToString(date)).append(SLASH)
-				.append(status.toString()).append(SLASH).append(books.size()).append(SLASH);
+		builder.append(id).append(SPLITTER).append(buyer.getId()).append(SPLITTER)
+				.append(price).append(SPLITTER).append(dateToString(date)).append(SPLITTER).append(status.toString())
+				.append(SPLITTER).append(books.size()).append(SPLITTER);
 		for (IBook book : books) {
-			builder.append(book.getId()).append(SLASH);
+			builder.append(book.getId()).append(SECOND_SPLITTER);
 		}
 		return builder.toString();
+	}
+
+	@Override
+	public IOrder clone(Integer id) throws CloneNotSupportedException {
+		List<IBook> books = new ArrayList<IBook>();
+		for (IBook book : getBooks()) {
+			books.add(book.clone());
+		}
+		IOrder order = new Order(id, buyer.clone(), books, price, (GregorianCalendar) date.clone(),
+				StatusOrder.valueOf(status.toString()));
+		order.getBuyer().setOrder(order);
+		return order;
 	}
 
 }

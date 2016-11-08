@@ -25,4 +25,8 @@ public interface IBookManager extends IBaseManager {
 	public List<IBook> sortBooks(TypeBookComparator comparator) throws Exception;
 
 	public List<IBook> sortOldBooks(TypeBookComparator comparator) throws Exception;
+
+	public IBook exportBook(Integer id);
+
+	public void importBook(Integer id) throws Exception;
 }

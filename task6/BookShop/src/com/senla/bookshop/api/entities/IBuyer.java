@@ -1,7 +1,5 @@
 package com.senla.bookshop.api.entities;
 
-import java.util.List;
-
 public interface IBuyer extends IBaseEntity {
 
 	public void setId(Integer id);
@@ -10,12 +8,10 @@ public interface IBuyer extends IBaseEntity {
 
 	public void setName(String name);
 
-	public List<IOrder> getOrders();
+	public IOrder getOrder();
 
-	public void setOrders(List<IOrder> orders);
+	public void setOrder(IOrder order);
 
-	public void addOrder(IOrder order);
-
-	public void deleteOrder(IOrder order);
+	public IBuyer clone() throws CloneNotSupportedException;
 
 }

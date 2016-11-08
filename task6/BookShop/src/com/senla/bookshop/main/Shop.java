@@ -22,22 +22,22 @@ public class Shop implements IShop {
 	private static final GregorianCalendar TODAY = new GregorianCalendar();
 	private static final String SPACE = " ";
 	private static List<IBaseManager> managers = new ArrayList<IBaseManager>();
-	private static IBookManager bookManager;
-	private static IOrderManager orderManager;
-	private static IBuyerManager buyerManager;
+	public static IBookManager bookManager;
+	public static IOrderManager orderManager;
+	public static IBuyerManager buyerManager;
 	public static SerialWorker serialWorker;
 	static {
 		shop = new Shop();
 		ERROR_LIST.add(Messages.ERROR);
-		serialWorker  =new SerialWorker();
+		serialWorker = new SerialWorker();
 		bookManager = serialWorker.getBookManager();
 		orderManager = serialWorker.getOrderManager();
 		buyerManager = serialWorker.getBuyerManager();
-		
+
 		managers.add(bookManager);
 		managers.add(orderManager);
 		managers.add(buyerManager);
-		
+
 	}
 
 	private Shop() {
@@ -49,17 +49,22 @@ public class Shop implements IShop {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			IBook book = new Book(101, "Anna Karenina", "Leo Tolstoy", new GregorianCalendar(2015, 11, 13), TODAY, 300000);
-			bookManager.add((BaseEntity) book);
-			IBuyer buyer = new Buyer(10,"Matt");
-			List<IBook> books = new ArrayList<IBook>();
-			books.add(book);
-			IOrder order = new Order(1001, buyer, books, TODAY, StatusOrder.KIT);
-			orderManager.add((BaseEntity) order);
-			buyerManager.add((BaseEntity) buyer);
-			serialWorker.writeManagers(managers);
-			System.out.println(shop.getBooks());
-		} catch ( Exception e) {
+			// IBook book = new Book(101, "Anna Karenina", "Leo Tolstoy", new
+			// GregorianCalendar(2015, 11, 13), TODAY,
+			// 300000);
+			// bookManager.add((BaseEntity) book);
+			// IBuyer buyer = new Buyer(10, "Matt");
+			// List<IBook> books = new ArrayList<IBook>();
+			// books.add(book);
+			// IOrder order = new Order(1001, buyer, books, TODAY,
+			// StatusOrder.KIT);
+			// orderManager.add((BaseEntity) order);
+			// buyerManager.add((BaseEntity) buyer);
+			// serialWorker.writeManagers(managers);
+			// System.out.println(shop.getBooks());
+			System.out.println(shop.importOrder(0));
+			
+		} catch (Exception e) {
 			log.error(Messages.NO_PARAMETERS + e);
 		}
 	}
@@ -67,7 +72,7 @@ public class Shop implements IShop {
 	@Override
 	public List<String> getBooks() {
 		try {
-			
+
 			List<String> books = new ArrayList<String>();
 			for (IBook book : bookManager.getBooks()) {
 				books.add(book.getName() + SPACE + book.getAuthor());
@@ -75,7 +80,7 @@ public class Shop implements IShop {
 			return books;
 		} catch (Exception e) {
 			return ERROR_LIST;
-		}finally{
+		} finally {
 			serialWorker.writeManagers(managers);
 		}
 	}
@@ -200,7 +205,7 @@ public class Shop implements IShop {
 		} catch (Exception e) {
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
-		}finally{
+		} finally {
 			serialWorker.writeManagers(managers);
 		}
 	}
@@ -247,14 +252,16 @@ public class Shop implements IShop {
 			buyerManager.add((BaseEntity) buyer);
 			List<IBook> books = new ArrayList<IBook>();
 			List<IBook> listBooks = bookManager.getBooks();
-			for(int i=0; i<ids.size();i++){
-				books.add(listBooks.get(ids.get(i)-1));
+			for (int i = 0; i < ids.size(); i++) {
+				books.add(listBooks.get(ids.get(i) - 1));
 			}
 			order = new Order(IdGenerator.getId(orderManager.getOrders()) + 1, buyer, books, TODAY, status);
 			orderManager.add((BaseEntity) order);
+			buyerManager.getById(buyer.getId()).setOrder(order);
 			serialWorker.writeManagers(managers);
 			return Messages.ORDER_ADD;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Messages.ORDER_NOT_ADD;
 		}
 	}
@@ -285,7 +292,100 @@ public class Shop implements IShop {
 	@Override
 	public void exit() {
 		serialWorker.writeManagers(managers);
-		
+
+	}
+
+	@Override
+	public String copyOrder(Integer id) {
+		try {
+			int orderId = orderManager.getOrders().get(id).getId();
+			orderManager.cloneOrder(orderId);
+			return Messages.ORDER_COPIED;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.ORDER_NOT_COPIED;
+		}
+	}
+
+	@Override
+	public String exportOrder(Integer id) {
+		try {
+			int orderId = orderManager.getOrders().get(id).getId();
+			if (orderManager.exportOrder(orderId) != null) {
+				return Messages.ORDER_EXPORTED;
+			} else {
+				return Messages.ORDER_NOT_EXPORTED;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.ORDER_NOT_EXPORTED;
+		}
+	}
+
+	@Override
+	public String exportBook(Integer id) {
+		try {
+			int bookId = bookManager.getBooks().get(id).getId();
+			if (bookManager.exportBook(bookId) != null) {
+				return Messages.BOOK_EXPORTED;
+			} else {
+				return Messages.BOOK_NOT_EXPORTED;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.BOOK_NOT_EXPORTED;
+		}
+	}
+
+	@Override
+	public String exportBuyer(Integer id) {
+		try {
+			int buyerId = buyerManager.getBuyers().get(id).getId();
+			if (buyerManager.exportBuyer(buyerId) != null) {
+				return Messages.BUYER_EXPORTED;
+			} else {
+				return Messages.BUYER_NOT_EXPORTED;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.BUYER_NOT_EXPORTED;
+		}
+	}
+
+	@Override
+	public String importOrder(Integer id) {
+		try {
+			int orderId = orderManager.getOrders().get(id).getId();
+			orderManager.importOrder(orderId);
+			return Messages.ORDER_IMPORTED;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.ORDER_NOT_IMPORTED;
+		}
+	}
+
+	@Override
+	public String importBook(Integer id) {
+		try {
+			int bookId = bookManager.getBooks().get(id).getId();
+			bookManager.importBook(bookId);
+			return Messages.BOOK_IMPORTED;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.BOOK_NOT_IMPORTED;
+		}
+	}
+
+	@Override
+	public String importBuyer(Integer id) {
+		try {
+			int buyerId = buyerManager.getBuyers().get(id).getId();
+			buyerManager.importBuyer(buyerId);
+			return Messages.BUYER_IMPORTED;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Messages.BUYER_NOT_IMPORTED;
+		}
 	}
 
 }

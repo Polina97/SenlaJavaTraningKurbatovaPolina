@@ -44,3 +44,9 @@
 2016-11-06 15:07:3630 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
 2016-11-06 15:14:5936 ERROR Serializator:36 - java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
 2016-11-06 15:14:5930 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-08 23:51:26201 ERROR BookManager:201 - java.lang.NullPointerException
+2016-11-08 23:51:59201 ERROR BookManager:201 - java.lang.NullPointerException
+2016-11-09 00:09:5642 ERROR Parser:42 - java.lang.ArrayIndexOutOfBoundsException: 9
+2016-11-09 00:09:56205 ERROR BookManager:205 - java.lang.NullPointerException
+2016-11-09 00:10:2942 ERROR Parser:42 - java.lang.ArrayIndexOutOfBoundsException: 9
+2016-11-09 00:10:29205 ERROR BookManager:205 - java.lang.NullPointerException

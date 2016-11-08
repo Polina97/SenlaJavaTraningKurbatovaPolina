@@ -39,4 +39,6 @@ public interface IBook extends IBaseEntity {
 
 	public Boolean isOld(GregorianCalendar today);
 
+	public IBook clone() throws CloneNotSupportedException;
+
 }

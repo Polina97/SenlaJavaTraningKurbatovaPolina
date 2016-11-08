@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import com.senla.bookconfiguration.conf.PropertyWorker;
 import com.senla.bookshop.api.entities.IBook;
 
-public class Book extends BaseEntity implements IBook {
+public class Book extends BaseEntity implements IBook, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -158,9 +158,9 @@ public class Book extends BaseEntity implements IBook {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		return builder.append((id)).append(SLASH).append(name).append(SLASH).append(author).append(SLASH)
-				.append(dateToString(datePublication)).append(SLASH).append(dateToString(dateOld)).append(SLASH)
-				.append(price).append(SLASH).append(inStock).append(SLASH).append(requests).append(SLASH)
+		return builder.append((id)).append(SPLITTER).append(name).append(SPLITTER).append(author).append(SPLITTER)
+				.append(dateToString(datePublication)).append(SPLITTER).append(dateToString(dateOld)).append(SPLITTER)
+				.append(price).append(SPLITTER).append(inStock).append(SPLITTER).append(requests).append(SPLITTER)
 				.append(application).toString();
 	}
 
@@ -169,5 +169,12 @@ public class Book extends BaseEntity implements IBook {
 		return ((Book) obj).getName().equals(name) && ((Book) obj).getAuthor().equals(author)
 				&& ((Book) obj).getPrice() == price;
 	}
+
+	@Override
+	public IBook clone() throws CloneNotSupportedException {
+		IBook book = new Book(id, name, author,(GregorianCalendar)getDatePublication().clone(), (GregorianCalendar)getDateOld().clone(), price);
+		return book;
+	}
+	
 
 }

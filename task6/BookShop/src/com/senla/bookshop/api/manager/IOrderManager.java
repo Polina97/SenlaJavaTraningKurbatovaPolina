@@ -21,4 +21,10 @@ public interface IOrderManager extends IBaseManager {
 
 	public List<IOrder> sortDeliveredOrders(TypeOrderComparator comparator);
 
+	public void cloneOrder(Integer id) throws Exception;
+
+	public IOrder exportOrder(Integer id);
+
+	public void importOrder(Integer id) throws Exception;
+
 }

@@ -12,6 +12,7 @@ import com.senla.bookshop.comparators.OrderComparator;
 import com.senla.bookshop.comparators.TypeOrderComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.StatusOrder;
+import com.senla.bookshop.resources.IdGenerator;
 
 public class OrderManager implements IOrderManager, Serializable {
 
@@ -70,7 +71,16 @@ public class OrderManager implements IOrderManager, Serializable {
 
 	@Override
 	public IOrder getOrderById(Integer id) {
-		return orders.get(id);
+		try {
+			for (IOrder order : orders) {
+				if (order.getId().equals(id)) {
+					return order;
+				}
+			}
+		} catch (NullPointerException e) {
+			log.error(e);
+		}
+		return null;
 	}
 
 	@Override
@@ -105,6 +115,60 @@ public class OrderManager implements IOrderManager, Serializable {
 			log.error(e);
 			return null;
 		}
+	}
+
+	@Override
+	public void cloneOrder(Integer id) throws Exception {
+		IOrder order;
+		try {
+			order = getOrderById(id).clone(IdGenerator.getId(orders) + 1);
+			orders.add(order);
+		} catch (CloneNotSupportedException | NullPointerException e) {
+			log.error(e);
+			throw new Exception(e);
+		}
+
+	}
+
+	@Override
+	public IOrder exportOrder(Integer id) {
+		try {
+			List<IOrder> csvOrders = csvWorker.readOrders();
+			for (IOrder order : csvOrders) {
+				if (order.getId().equals(id)) {
+					csvOrders.remove(order);
+					csvWorker.writeOrders(csvOrders);
+					return order;
+				}
+			}
+
+		} catch (NullPointerException | ClassCastException e) {
+			log.error(e);
+		}
+		return null;
+	}
+
+	@Override
+	public void importOrder(Integer id) throws Exception {
+		try {
+			List<IOrder> csvOrders = csvWorker.readOrders();
+			if (csvOrders != null) {
+				for (IOrder order : csvOrders) {
+					if (order.getId().equals(id)) {
+						csvOrders.remove(order);
+						break;
+					}
+				}
+			} else {
+				csvOrders = new ArrayList<IOrder>();
+			}
+			csvOrders.add(getOrderById(id));
+			csvWorker.writeOrders(csvOrders);
+		} catch (NullPointerException e) {
+			log.error(e);
+			throw new Exception(e);
+		}
+
 	}
 
 }

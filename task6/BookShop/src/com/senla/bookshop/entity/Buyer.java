@@ -1,25 +1,23 @@
 package com.senla.bookshop.entity;
 
-import java.util.List;
-
 import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.api.entities.IOrder;
 
-public class Buyer extends BaseEntity implements IBuyer {
+public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
-	private List<IOrder> orders;
+	private IOrder order;
 
 	public Buyer(Integer id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public Buyer(Integer id, String name, List<IOrder> orders) {
+	public Buyer(Integer id, String name, IOrder orders) {
 		this(id, name);
-		this.orders = orders;
+		this.order = orders;
 	}
 
 	public Integer getId() {
@@ -41,30 +39,19 @@ public class Buyer extends BaseEntity implements IBuyer {
 	}
 
 	@Override
-	public List<IOrder> getOrders() {
-		return orders;
+	public IOrder getOrder() {
+		return order;
 	}
 
 	@Override
-	public void setOrders(List<IOrder> orders) {
-		this.orders = orders;
-	}
-
-	@Override
-	public void addOrder(IOrder order) {
-		orders.add(order);
-	}
-
-	@Override
-	public void deleteOrder(IOrder order) {
-		orders.remove(order);
+	public void setOrder(IOrder order) {
+		this.order = order;
 	}
 
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		return str.append(" Name: ").append(name).append(" Number of orders: ").append(orders.size())
-				.toString();
+		return str.append(" Name: ").append(name).append(" Number of orders: ").append(order.getId()).toString();
 	}
 
 	@Override
@@ -75,16 +62,19 @@ public class Buyer extends BaseEntity implements IBuyer {
 	@Override
 	public String toString() {
 		StringBuilder stb = new StringBuilder();
-		stb.append(id).append(SLASH).append(name).append(SLASH);
-		if (orders != null) {
-			stb.append(orders.size()).append(SLASH);
-			for (IOrder order : orders) {
-				stb.append(order.getId()).append(SLASH);
-			}
-		} else {
-			stb.append(0).append(SLASH);
+		stb.append(id).append(SPLITTER).append(name).append(SPLITTER);
+		if (order != null) {
+			stb.append(order.getId());
+		}else{
+			stb.append(0);
 		}
 		return stb.toString();
+	}
+
+	@Override
+	public IBuyer clone() throws CloneNotSupportedException {
+		IBuyer buyer = new Buyer(id, name);
+		return buyer;
 	}
 
 }
