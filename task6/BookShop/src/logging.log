@@ -50,3 +50,5 @@
 2016-11-09 00:09:56205 ERROR BookManager:205 - java.lang.NullPointerException
 2016-11-09 00:10:2942 ERROR Parser:42 - java.lang.ArrayIndexOutOfBoundsException: 9
 2016-11-09 00:10:29205 ERROR BookManager:205 - java.lang.NullPointerException
+2016-11-09 00:44:4882 ERROR Parser:82 - java.lang.NullPointerException
+2016-11-09 00:44:48168 ERROR OrderManager:168 - java.lang.NullPointerException

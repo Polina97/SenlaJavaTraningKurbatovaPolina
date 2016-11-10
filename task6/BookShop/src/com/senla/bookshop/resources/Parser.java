@@ -11,14 +11,13 @@ import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.api.entities.IOrder;
 import com.senla.bookshop.entity.*;
 import com.senla.bookshop.main.Shop;
-import com.senla.bookshop.manager.BookManager;
 
 public class Parser {
 
 	private static final String SPLITTER = ",";
 	private static Logger log = Logger.getLogger(Parser.class.getName());
 
-	public static Book bookParser(String description) {
+	public static IBook bookParser(String description) {
 		try {
 			String[] bookString = description.split(SPLITTER);
 			Integer id = Integer.parseInt(bookString[0]);
@@ -64,21 +63,21 @@ public class Parser {
 		try {
 			String[] stringOrder = description.split(SPLITTER);
 			Integer id = Integer.parseInt(stringOrder[0]);
-			Buyer buyer = (Buyer) Shop.buyerManager.getById(Integer.parseInt(stringOrder[1]));
+			IBuyer buyer = (Buyer) Shop.buyerManager.getById(Integer.parseInt(stringOrder[1]));
 			Integer price = Integer.parseInt(stringOrder[2]);
 			GregorianCalendar date = BaseEntity.stringToDate(stringOrder[3]);
 			StatusOrder status = StatusOrder.valueOf(stringOrder[4]);
 			List<IBook> books = null;
 			if (stringOrder[5] != "0") {
 				books = new ArrayList<IBook>();
-				BookManager bookManager = new BookManager();
 				String[] stringBooks = stringOrder[6].split(BaseEntity.SECOND_SPLITTER);
 				for (int i = 0; i < stringBooks.length; i++) {
-					books.add((Book) bookManager.getById(Integer.parseInt(stringBooks[i])));
+					books.add((Book) Shop.bookManager.getById(Integer.parseInt(stringBooks[i])));
 				}
 			}
 			return new Order(id, buyer, books, price, date, status);
 		} catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+			e.printStackTrace();
 			log.error(e);
 			return null;
 		}

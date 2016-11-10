@@ -23,8 +23,8 @@ public interface IOrderManager extends IBaseManager {
 
 	public void cloneOrder(Integer id) throws Exception;
 
-	public IOrder exportOrder(Integer id);
+	public List<IOrder> exportOrders();
 
-	public void importOrder(Integer id) throws Exception;
+	public IOrder importOrder(Integer id) throws Exception;
 
 }

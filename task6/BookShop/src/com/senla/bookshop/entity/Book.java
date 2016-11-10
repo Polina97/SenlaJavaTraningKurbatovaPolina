@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 
 import com.senla.bookconfiguration.conf.PropertyWorker;
 import com.senla.bookshop.api.entities.IBook;
+import com.senla.bookshop.resources.IdGenerator;
+import com.senla.bookshop.resources.TypeId;
 
 public class Book extends BaseEntity implements IBook, Cloneable {
 
@@ -142,11 +144,6 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	}
 
 	@Override
-	public Boolean isOld(GregorianCalendar today) {
-		return this.dateOld.before(today);
-	}
-
-	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: ").append(name).append(", Author: ").append(author).append(", Price ").append(this.price)
@@ -172,9 +169,10 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 
 	@Override
 	public IBook clone() throws CloneNotSupportedException {
-		IBook book = new Book(id, name, author,(GregorianCalendar)getDatePublication().clone(), (GregorianCalendar)getDateOld().clone(), price);
+		IBook book = (IBook) super.clone();
+		book.setId(IdGenerator.getId(TypeId.BOOK) + 1);
+		book.setDateOld((GregorianCalendar) dateOld.clone());
 		return book;
 	}
-	
 
 }

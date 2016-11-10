@@ -9,7 +9,7 @@ public interface IBuyerManager extends IBaseManager {
 
 	public IBuyer getById(Integer id);
 
-	public IBuyer exportBuyer(Integer id);
+	public List<IBuyer> exportBuyers();
 
-	public void importBuyer(Integer id) throws Exception;
+	public IBuyer importBuyer(Integer id) throws Exception;
 }

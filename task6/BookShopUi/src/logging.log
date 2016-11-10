@@ -36,3 +36,18 @@
 2016-11-06 15:12:35,883 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
 2016-11-06 15:15:17,772 [main] ERROR (Serializator.java:36) - java.io.StreamCorruptedException: invalid stream header: ACED2005
 2016-11-06 15:15:17,777 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.StreamCorruptedException: invalid stream header: ACED2005
+2016-11-10 23:36:56,791 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:37:46,623 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:37:46,624 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:39:26,849 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:39:26,852 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:41:02,532 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:41:02,534 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:44:13,763 [main] ERROR (Parser.java:83) - java.lang.NullPointerException
+2016-11-10 23:44:13,764 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:50:20,292 [main] ERROR (Order.java:35) - java.lang.NullPointerException
+2016-11-10 23:50:20,294 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-11 00:03:17,876 [main] ERROR (Order.java:35) - java.lang.NullPointerException
+2016-11-11 00:03:17,880 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-11 00:04:20,050 [main] ERROR (Shop.java:338) - java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.senla.bookshop.api.entities.IOrder
+2016-11-11 00:05:01,883 [main] ERROR (Shop.java:339) - java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.senla.bookshop.api.entities.IOrder

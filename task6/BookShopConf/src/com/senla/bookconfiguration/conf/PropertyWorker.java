@@ -16,11 +16,6 @@ public class PropertyWorker {
 		properties = loader.load();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getMonthOld());
-		System.out.println(getIsApplication());
-	}
-
 	public static Integer getMonthOld() {
 		try {
 			if (properties != null) {

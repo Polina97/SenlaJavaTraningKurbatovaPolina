@@ -35,7 +35,7 @@ public class CSVWorker {
 				.append("order");
 	}
 
-	public void writeBooks(List<IBook> entities) {
+	public List<IBook> writeBooks(List<IBook> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BOOK);
 			list = new ArrayList<String>();
@@ -43,12 +43,14 @@ public class CSVWorker {
 				list.add(book.toString());
 			}
 			fileWorker.writeToCSV(list, HEAD_BOOK.toString());
-		} catch (NullPointerException e) {
+			return entities;
+		} catch (Exception e) {
 			log.error(e);
+			return null;
 		}
 	}
 
-	public void writeOrders(List<IOrder> entities) {
+	public List<IOrder> writeOrders(List<IOrder> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_ORDER);
 			list = new ArrayList<String>();
@@ -56,12 +58,14 @@ public class CSVWorker {
 				list.add(order.toString());
 			}
 			fileWorker.writeToCSV(list, HEAD_ORDER.toString());
-		} catch (NullPointerException e) {
+			return entities;
+		} catch (Exception e) {
 			log.error(e);
+			return null;
 		}
 	}
 
-	public void writeBuyers(List<IBuyer> entities) {
+	public  List<IBuyer> writeBuyers(List<IBuyer> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BUYER);
 			list = new ArrayList<String>();
@@ -69,8 +73,10 @@ public class CSVWorker {
 				list.add(buyer.toString());
 			}
 			fileWorker.writeToCSV(list, HEAD_BUYER.toString());
-		} catch (NullPointerException e) {
+			return entities;
+		} catch (Exception e) {
 			log.error(e);
+			return null;
 		}
 	}
 

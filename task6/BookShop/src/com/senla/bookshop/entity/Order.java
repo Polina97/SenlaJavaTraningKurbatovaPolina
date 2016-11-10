@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.senla.bookshop.api.entities.*;
 
 public class Order extends BaseEntity implements IOrder {
+	private Logger log = Logger.getLogger(Order.class.toString());
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -21,8 +24,12 @@ public class Order extends BaseEntity implements IOrder {
 		this.buyer = buyer;
 		this.books = books;
 		this.price = 0;
-		for (IBook book : books) {
-			this.price += book.getPrice();
+		try {
+			for (IBook book : books) {
+				this.price += book.getPrice();
+			}
+		} catch (NullPointerException e) {
+			log.error(e);
 		}
 		this.date = date;
 		this.status = status;
@@ -119,9 +126,9 @@ public class Order extends BaseEntity implements IOrder {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(id).append(SPLITTER).append(buyer.getId()).append(SPLITTER)
-				.append(price).append(SPLITTER).append(dateToString(date)).append(SPLITTER).append(status.toString())
-				.append(SPLITTER).append(books.size()).append(SPLITTER);
+		builder.append(id).append(SPLITTER).append(buyer.getId()).append(SPLITTER).append(price).append(SPLITTER)
+				.append(dateToString(date)).append(SPLITTER).append(status.toString()).append(SPLITTER)
+				.append(books.size()).append(SPLITTER);
 		for (IBook book : books) {
 			builder.append(book.getId()).append(SECOND_SPLITTER);
 		}
@@ -129,13 +136,16 @@ public class Order extends BaseEntity implements IOrder {
 	}
 
 	@Override
-	public IOrder clone(Integer id) throws CloneNotSupportedException {
+	public IOrder clone() throws CloneNotSupportedException {
 		List<IBook> books = new ArrayList<IBook>();
 		for (IBook book : getBooks()) {
 			books.add(book.clone());
 		}
-		IOrder order = new Order(id, buyer.clone(), books, price, (GregorianCalendar) date.clone(),
-				StatusOrder.valueOf(status.toString()));
+		IOrder order = (IOrder) super.clone();
+		order.setBuyer(buyer.clone());
+		order.setBooks(books);
+		order.setDate((GregorianCalendar) date.clone());
+		order.setStatus(StatusOrder.valueOf(status.toString()));
 		order.getBuyer().setOrder(order);
 		return order;
 	}
