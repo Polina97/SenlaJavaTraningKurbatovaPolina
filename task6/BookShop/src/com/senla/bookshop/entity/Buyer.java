@@ -2,6 +2,8 @@ package com.senla.bookshop.entity;
 
 import com.senla.bookshop.api.entities.IBuyer;
 import com.senla.bookshop.api.entities.IOrder;
+import com.senla.bookshop.resources.IdGenerator;
+import com.senla.bookshop.resources.TypeId;
 
 public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 
@@ -65,7 +67,7 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 		stb.append(id).append(SPLITTER).append(name).append(SPLITTER);
 		if (order != null) {
 			stb.append(order.getId());
-		}else{
+		} else {
 			stb.append(0);
 		}
 		return stb.toString();
@@ -73,7 +75,9 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 
 	@Override
 	public IBuyer clone() throws CloneNotSupportedException {
-		IBuyer buyer = new Buyer(id, name);
+		IBuyer buyer = (IBuyer) super.clone();
+		buyer.setId(IdGenerator.getId(TypeId.BUYER) + 1);
+		buyer.setOrder(null);
 		return buyer;
 	}
 

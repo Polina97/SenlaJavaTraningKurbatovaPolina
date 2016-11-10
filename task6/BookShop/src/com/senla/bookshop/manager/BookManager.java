@@ -39,8 +39,7 @@ public class BookManager implements IBookManager, Serializable {
 			Boolean answ = books.add((IBook) book);
 			return answ;
 		} catch (ClassCastException | NullPointerException | IllegalArgumentException e) {
-			log.error(e);
-			throw new Exception(ADD_EXCEPTION);
+			throw new Exception(e);
 		}
 	}
 
@@ -50,8 +49,7 @@ public class BookManager implements IBookManager, Serializable {
 			Boolean answ = books.remove(entity);
 			return answ;
 		} catch (ClassCastException | NullPointerException e) {
-			log.error(e);
-			throw new Exception(DELETE_EXCEPTION);
+			throw new Exception(e);
 		}
 	}
 
@@ -74,7 +72,7 @@ public class BookManager implements IBookManager, Serializable {
 		try {
 			List<IBook> oldBooks = new ArrayList<IBook>();
 			for (IBook b : books) {
-				if (b.isOld(TODAY)) {
+				if (b.getDateOld().before(TODAY)) {
 					oldBooks.add(b);
 				}
 			}
@@ -122,7 +120,6 @@ public class BookManager implements IBookManager, Serializable {
 				getById(id).setApplication(false);
 			}
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}
@@ -132,7 +129,6 @@ public class BookManager implements IBookManager, Serializable {
 		try {
 			getById(id).setInStock(false);
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 
@@ -143,7 +139,6 @@ public class BookManager implements IBookManager, Serializable {
 		try {
 			getById(id).setApplication(true);
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}
@@ -154,7 +149,6 @@ public class BookManager implements IBookManager, Serializable {
 			books.sort(new BookComparator(comparator));
 			return books;
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}
@@ -166,21 +160,14 @@ public class BookManager implements IBookManager, Serializable {
 			oldBooks.sort(new BookComparator(comparator));
 			return oldBooks;
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}
 
-	public IBook exportBook(Integer id) {
+	public List<IBook> exportBooks() {
 		try {
 			List<IBook> csvBooks = csvWorker.readBooks();
-			for (IBook book : csvBooks) {
-				if (book.getId().equals(id)) {
-				csvBooks.remove(book);
-				csvWorker.writeBooks(csvBooks);
-				return book;
-				}
-			}
+			return csvBooks;
 
 		} catch (NullPointerException | ClassCastException e) {
 			log.error(e);
@@ -188,7 +175,7 @@ public class BookManager implements IBookManager, Serializable {
 		return null;
 	}
 
-	public void importBook(Integer id) throws Exception {
+	public IBook importBook(Integer id) throws Exception {
 		try {
 			List<IBook> csvBooks = csvWorker.readBooks();
 			if (csvBooks != null) {
@@ -202,10 +189,12 @@ public class BookManager implements IBookManager, Serializable {
 				csvBooks = new ArrayList<IBook>();
 			}
 			csvBooks.add(getById(id));
-			csvWorker.writeBooks(csvBooks);
+			if (csvWorker.writeBooks(csvBooks) != null) {
+				return getById(id);
+			} else {
+				return null;
+			}
 		} catch (NullPointerException e) {
-			log.error(e);
-			e.printStackTrace();
 			throw new Exception(e);
 
 		}

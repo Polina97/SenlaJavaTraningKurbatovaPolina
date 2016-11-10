@@ -18,18 +18,12 @@ public abstract class Messages {
 	public static String ORDER_NOT_CANCELED = "Order was not canceled.";
 	public static String ORDER_COPIED = "Order was copied.";
 	public static String ORDER_NOT_COPIED = "Order was not copied.";
-	public static String ORDER_EXPORTED = "Order was exported.";
-	public static String ORDER_NOT_EXPORTED = "Order was not exported.";
 	public static String ORDER_IMPORTED = "Order was imported.";
 	public static String ORDER_NOT_IMPORTED = "Order was not imported.";
 	
-	public static String BOOK_EXPORTED = "Book was exported.";
-	public static String BOOK_NOT_EXPORTED = "Book was not exported.";
 	public static String BOOK_IMPORTED = "Book was imported.";
 	public static String BOOK_NOT_IMPORTED = "Book was not imported.";
 	
-	public static String BUYER_EXPORTED = "Buyer was exported.";
-	public static String BUYER_NOT_EXPORTED = "Buyer was not exported.";
 	public static String BUYER_IMPORTED = "Buyer was imported.";
 	public static String BUYER_NOT_IMPORTED = "Buyer was not imported.";
 	

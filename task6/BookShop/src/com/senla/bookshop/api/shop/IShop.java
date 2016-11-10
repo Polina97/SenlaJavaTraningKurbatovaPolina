@@ -11,6 +11,8 @@ public interface IShop {
 
 	public List<String> getBooks();
 
+	public List<String> getBuyers();
+
 	public List<String> sortBooks(TypeBookComparator comparator);
 
 	public List<String> getOldBooks();
@@ -47,11 +49,11 @@ public interface IShop {
 
 	public String copyOrder(Integer id);
 
-	public String exportOrder(Integer id);
+	public List<String> exportOrders();
 
-	public String exportBook(Integer id);
+	public List<String> exportBooks();
 
-	public String exportBuyer(Integer id);
+	public List<String> exportBuyers();
 
 	public String importOrder(Integer id);
 

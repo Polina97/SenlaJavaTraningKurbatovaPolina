@@ -60,16 +60,10 @@ public class BuyerManager implements IBuyerManager, Serializable {
 	}
 
 	@Override
-	public IBuyer exportBuyer(Integer id) {
+	public List<IBuyer> exportBuyers() {
 		try {
 			List<IBuyer> csvBuyers = csvWorker.readBuyers();
-			for (IBuyer order : csvBuyers) {
-				if (order.getId().equals(id)) {
-					csvBuyers.remove(order);
-					csvWorker.writeBuyers(csvBuyers);
-					return order;
-				}
-			}
+			return csvBuyers;
 
 		} catch (NullPointerException | ClassCastException e) {
 			log.error(e);
@@ -78,7 +72,7 @@ public class BuyerManager implements IBuyerManager, Serializable {
 	}
 
 	@Override
-	public void importBuyer(Integer id) throws Exception {
+	public IBuyer importBuyer(Integer id) throws Exception {
 		try {
 			List<IBuyer> csvBuyers = csvWorker.readBuyers();
 			if (csvBuyers != null) {
@@ -92,9 +86,13 @@ public class BuyerManager implements IBuyerManager, Serializable {
 				csvBuyers = new ArrayList<IBuyer>();
 			}
 			csvBuyers.add(getById(id));
-			csvWorker.writeBuyers(csvBuyers);
+			
+			if( csvWorker.writeBuyers(csvBuyers)!=null){
+				return getById(id);
+			}else{
+				return null;
+			}
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}

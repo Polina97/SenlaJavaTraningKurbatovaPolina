@@ -12,7 +12,6 @@ import com.senla.bookshop.comparators.OrderComparator;
 import com.senla.bookshop.comparators.TypeOrderComparator;
 import com.senla.bookshop.entity.BaseEntity;
 import com.senla.bookshop.entity.StatusOrder;
-import com.senla.bookshop.resources.IdGenerator;
 
 public class OrderManager implements IOrderManager, Serializable {
 
@@ -48,8 +47,7 @@ public class OrderManager implements IOrderManager, Serializable {
 			Boolean answ = orders.add((IOrder) entity);
 			return answ;
 		} catch (ClassCastException | NullPointerException | IllegalArgumentException e) {
-			log.error(e);
-			throw new Exception(ADD_EXCEPTION);
+			throw new Exception(e);
 		}
 	}
 
@@ -64,7 +62,6 @@ public class OrderManager implements IOrderManager, Serializable {
 		try {
 			getOrderById(id).setStatus(statusOrder);
 		} catch (Exception e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 	}
@@ -121,26 +118,19 @@ public class OrderManager implements IOrderManager, Serializable {
 	public void cloneOrder(Integer id) throws Exception {
 		IOrder order;
 		try {
-			order = getOrderById(id).clone(IdGenerator.getId(orders) + 1);
+			order = getOrderById(id).clone();
 			orders.add(order);
 		} catch (CloneNotSupportedException | NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 
 	}
 
 	@Override
-	public IOrder exportOrder(Integer id) {
+	public List<IOrder> exportOrders() {
 		try {
 			List<IOrder> csvOrders = csvWorker.readOrders();
-			for (IOrder order : csvOrders) {
-				if (order.getId().equals(id)) {
-					csvOrders.remove(order);
-					csvWorker.writeOrders(csvOrders);
-					return order;
-				}
-			}
+			return csvOrders;
 
 		} catch (NullPointerException | ClassCastException e) {
 			log.error(e);
@@ -149,7 +139,7 @@ public class OrderManager implements IOrderManager, Serializable {
 	}
 
 	@Override
-	public void importOrder(Integer id) throws Exception {
+	public IOrder importOrder(Integer id) throws Exception {
 		try {
 			List<IOrder> csvOrders = csvWorker.readOrders();
 			if (csvOrders != null) {
@@ -163,9 +153,13 @@ public class OrderManager implements IOrderManager, Serializable {
 				csvOrders = new ArrayList<IOrder>();
 			}
 			csvOrders.add(getOrderById(id));
-			csvWorker.writeOrders(csvOrders);
+			if(csvWorker.writeOrders(csvOrders)!= null){
+				return getOrderById(id);
+			}else{
+				return null;
+			}
+
 		} catch (NullPointerException e) {
-			log.error(e);
 			throw new Exception(e);
 		}
 

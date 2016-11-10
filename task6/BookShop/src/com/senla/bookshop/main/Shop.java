@@ -30,6 +30,7 @@ public class Shop implements IShop {
 		shop = new Shop();
 		ERROR_LIST.add(Messages.ERROR);
 		serialWorker = new SerialWorker();
+
 		bookManager = serialWorker.getBookManager();
 		orderManager = serialWorker.getOrderManager();
 		buyerManager = serialWorker.getBuyerManager();
@@ -46,29 +47,6 @@ public class Shop implements IShop {
 	public static Shop getShop() {
 		return shop;
 	}
-
-	public static void main(String[] args) throws Exception {
-		try {
-			// IBook book = new Book(101, "Anna Karenina", "Leo Tolstoy", new
-			// GregorianCalendar(2015, 11, 13), TODAY,
-			// 300000);
-			// bookManager.add((BaseEntity) book);
-			// IBuyer buyer = new Buyer(10, "Matt");
-			// List<IBook> books = new ArrayList<IBook>();
-			// books.add(book);
-			// IOrder order = new Order(1001, buyer, books, TODAY,
-			// StatusOrder.KIT);
-			// orderManager.add((BaseEntity) order);
-			// buyerManager.add((BaseEntity) buyer);
-			// serialWorker.writeManagers(managers);
-			// System.out.println(shop.getBooks());
-			System.out.println(shop.importOrder(0));
-			
-		} catch (Exception e) {
-			log.error(Messages.NO_PARAMETERS + e);
-		}
-	}
-
 	@Override
 	public List<String> getBooks() {
 		try {
@@ -80,9 +58,21 @@ public class Shop implements IShop {
 			return books;
 		} catch (Exception e) {
 			return ERROR_LIST;
-		} finally {
-			serialWorker.writeManagers(managers);
 		}
+	}
+
+	@Override
+	public List<String> getBuyers() {
+		try {
+			List<String> buyers = new ArrayList<String>();
+			for (IBuyer buyer : buyerManager.getBuyers()) {
+				buyers.add(buyer.getName());
+			}
+			return buyers;
+		} catch (Exception e) {
+			return ERROR_LIST;
+		}
+
 	}
 
 	@Override
@@ -90,6 +80,7 @@ public class Shop implements IShop {
 		try {
 			return listToString(bookManager.sortBooks(comparator));
 		} catch (Exception e) {
+			log.error(e);
 			return ERROR_LIST;
 		}
 	}
@@ -114,6 +105,7 @@ public class Shop implements IShop {
 				return ERROR_LIST;
 			}
 		} catch (Exception e) {
+			log.error(e);
 			return ERROR_LIST;
 		}
 	}
@@ -197,28 +189,13 @@ public class Shop implements IShop {
 	@Override
 	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price) {
 		try {
-			IBook book = new Book(IdGenerator.getId(bookManager.getBooks()) + 1, name, author, datePublication, TODAY,
-					price);
+			IBook book = new Book(IdGenerator.getId(TypeId.BOOK) + 1, name, author, datePublication, TODAY, price);
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
 		} catch (Exception e) {
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
-		} finally {
-			serialWorker.writeManagers(managers);
-		}
-	}
-
-	private static List<String> listToString(List<?> entities) {
-		if (entities != null) {
-			List<String> array = new ArrayList<String>();
-			for (Object entity : entities) {
-				array.add(((IBaseEntity) entity).getDescription());
-			}
-			return array;
-		} else {
-			return null;
 		}
 	}
 
@@ -226,9 +203,9 @@ public class Shop implements IShop {
 	public String deleteFromStock(Integer index) {
 		try {
 			bookManager.deleteFromStock(index);
-			serialWorker.writeManagers(managers);
 			return Messages.BOOK_DELETED;
 		} catch (Exception e) {
+			log.error(e);
 			return Messages.BOOK_NOT_DELETED;
 		}
 	}
@@ -237,9 +214,9 @@ public class Shop implements IShop {
 	public String submitApp(Integer index) {
 		try {
 			bookManager.submitApplication(index);
-			serialWorker.writeManagers(managers);
 			return Messages.APP_ADD;
 		} catch (Exception e) {
+			log.error(e);
 			return Messages.APP_NOT_ADD;
 		}
 	}
@@ -248,20 +225,19 @@ public class Shop implements IShop {
 	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status) {
 		try {
 			IOrder order;
-			IBuyer buyer = new Buyer(IdGenerator.getId(buyerManager.getBuyers()) + 1, nameBuyer);
+			IBuyer buyer = new Buyer(IdGenerator.getId(TypeId.BUYER) + 1, nameBuyer);
 			buyerManager.add((BaseEntity) buyer);
 			List<IBook> books = new ArrayList<IBook>();
 			List<IBook> listBooks = bookManager.getBooks();
 			for (int i = 0; i < ids.size(); i++) {
 				books.add(listBooks.get(ids.get(i) - 1));
 			}
-			order = new Order(IdGenerator.getId(orderManager.getOrders()) + 1, buyer, books, TODAY, status);
+			order = new Order(IdGenerator.getId(TypeId.ORDER) + 1, buyer, books, TODAY, status);
 			orderManager.add((BaseEntity) order);
 			buyerManager.getById(buyer.getId()).setOrder(order);
-			serialWorker.writeManagers(managers);
 			return Messages.ORDER_ADD;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return Messages.ORDER_NOT_ADD;
 		}
 	}
@@ -270,9 +246,9 @@ public class Shop implements IShop {
 	public String deliverOrder(Integer index) {
 		try {
 			orderManager.changeStatus(index, StatusOrder.DELIVERED);
-			serialWorker.writeManagers(managers);
 			return Messages.ORDER_DELIVERED;
 		} catch (Exception e) {
+			log.error(e);
 			return Messages.ORDER_NOT_DELIVERED;
 		}
 
@@ -282,9 +258,9 @@ public class Shop implements IShop {
 	public String cancelOrder(Integer index) {
 		try {
 			orderManager.changeStatus(index, StatusOrder.CANCELED);
-			serialWorker.writeManagers(managers);
 			return Messages.ORDER_CANCELED;
 		} catch (Exception e) {
+			log.error(e);
 			return Messages.ORDER_NOT_CANCELED;
 		}
 	}
@@ -302,53 +278,50 @@ public class Shop implements IShop {
 			orderManager.cloneOrder(orderId);
 			return Messages.ORDER_COPIED;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return Messages.ORDER_NOT_COPIED;
 		}
 	}
 
 	@Override
-	public String exportOrder(Integer id) {
+	public List<String> exportOrders() {
 		try {
-			int orderId = orderManager.getOrders().get(id).getId();
-			if (orderManager.exportOrder(orderId) != null) {
-				return Messages.ORDER_EXPORTED;
+			List<IOrder> list = orderManager.exportOrders();
+			if (list != null) {
+				return listToString(list);
 			} else {
-				return Messages.ORDER_NOT_EXPORTED;
+				return ERROR_LIST;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Messages.ORDER_NOT_EXPORTED;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String exportBook(Integer id) {
+	public List<String> exportBooks() {
 		try {
-			int bookId = bookManager.getBooks().get(id).getId();
-			if (bookManager.exportBook(bookId) != null) {
-				return Messages.BOOK_EXPORTED;
+			List<IBook> list = bookManager.exportBooks();
+			if (list != null) {
+				return listToString(list);
 			} else {
-				return Messages.BOOK_NOT_EXPORTED;
+				return ERROR_LIST;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Messages.BOOK_NOT_EXPORTED;
+			return ERROR_LIST;
 		}
 	}
 
 	@Override
-	public String exportBuyer(Integer id) {
+	public List<String> exportBuyers() {
 		try {
-			int buyerId = buyerManager.getBuyers().get(id).getId();
-			if (buyerManager.exportBuyer(buyerId) != null) {
-				return Messages.BUYER_EXPORTED;
+			List<IBuyer> list = buyerManager.exportBuyers();
+			if (list != null) {
+				return listToString(list);
 			} else {
-				return Messages.BUYER_NOT_EXPORTED;
+				return ERROR_LIST;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Messages.BUYER_NOT_EXPORTED;
+			return ERROR_LIST;
 		}
 	}
 
@@ -356,10 +329,14 @@ public class Shop implements IShop {
 	public String importOrder(Integer id) {
 		try {
 			int orderId = orderManager.getOrders().get(id).getId();
-			orderManager.importOrder(orderId);
-			return Messages.ORDER_IMPORTED;
+			if (orderManager.importOrder(orderId) != null) {
+				return Messages.ORDER_IMPORTED;
+			} else {
+				return Messages.ORDER_NOT_IMPORTED;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e);
 			return Messages.ORDER_NOT_IMPORTED;
 		}
 	}
@@ -368,10 +345,13 @@ public class Shop implements IShop {
 	public String importBook(Integer id) {
 		try {
 			int bookId = bookManager.getBooks().get(id).getId();
-			bookManager.importBook(bookId);
-			return Messages.BOOK_IMPORTED;
+			if (bookManager.importBook(bookId) != null) {
+				return Messages.BOOK_IMPORTED;
+			} else {
+				return Messages.BOOK_NOT_IMPORTED;
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return Messages.BOOK_NOT_IMPORTED;
 		}
 	}
@@ -380,11 +360,26 @@ public class Shop implements IShop {
 	public String importBuyer(Integer id) {
 		try {
 			int buyerId = buyerManager.getBuyers().get(id).getId();
-			buyerManager.importBuyer(buyerId);
-			return Messages.BUYER_IMPORTED;
+			if (buyerManager.importBuyer(buyerId) != null) {
+				return Messages.BUYER_IMPORTED;
+			} else {
+				return Messages.BUYER_NOT_IMPORTED;
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e);
 			return Messages.BUYER_NOT_IMPORTED;
+		}
+	}
+
+	private static List<String> listToString(List<?> entities) {
+		if (entities != null) {
+			List<String> array = new ArrayList<String>();
+			for (Object entity : entities) {
+				array.add(((IBaseEntity) entity).getDescription());
+			}
+			return array;
+		} else {
+			return null;
 		}
 	}
 

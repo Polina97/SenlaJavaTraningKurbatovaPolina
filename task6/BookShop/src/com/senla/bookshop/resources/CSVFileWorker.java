@@ -41,7 +41,7 @@ public class CSVFileWorker {
 		}
 	}
 
-	public void writeToCSV(List<String> objects, String headString) {
+	public void writeToCSV(List<String> objects, String headString) throws Exception {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
 			objects.add(0, headString);
 			for (String object : objects) {
@@ -49,7 +49,7 @@ public class CSVFileWorker {
 				bw.newLine();
 			}
 		} catch (NullPointerException | ClassCastException | IOException e) {
-			log.error(e);
+			throw new Exception(e);
 		}
 	}
 

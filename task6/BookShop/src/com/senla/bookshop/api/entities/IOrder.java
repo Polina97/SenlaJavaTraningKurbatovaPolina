@@ -30,6 +30,6 @@ public interface IOrder extends IBaseEntity {
 
 	public void addBook(IBook book);
 
-	public IOrder clone(Integer id) throws CloneNotSupportedException;
+	public IOrder clone() throws CloneNotSupportedException;
 
 }
