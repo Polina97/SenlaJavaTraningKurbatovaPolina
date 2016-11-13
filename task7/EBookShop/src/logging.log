@@ -1,0 +1,54 @@
+2016-10-24 13:04:16,698 [main] ERROR (Shop.java:26) - java.lang.ArrayIndexOutOfBoundsException: 0
+2016-11-02 18:41:14 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not found
+2016-11-02 18:42:21 ERROR FileWorker:60 - java.lang.IllegalArgumentException: File not founds
+2016-11-05 00:26:32 ERROR Shop:188 - java.lang.IndexOutOfBoundsException: Index: 107, Size: 7
+2016-11-05 00:42:42 ERROR Shop:188 - java.lang.IndexOutOfBoundsException: Index: 107, Size: 7
+2016-11-05 00:43:07 ERROR Shop:188 - java.lang.IndexOutOfBoundsException: Index: 107, Size: 7
+2016-11-06 13:18:1744 ERROR BookManager:44 - java.lang.NullPointerException
+2016-11-06 13:18:1754 ERROR Shop:54 - Parameters not found!java.lang.Exception: Object was not added.
+2016-11-06 13:20:3854 ERROR Shop:54 - Parameters not found!java.lang.RuntimeException: File not found
+2016-11-06 13:21:4454 ERROR Shop:54 - Parameters not found!java.lang.RuntimeException: File not found
+2016-11-06 13:22:0128 ERROR Serializator:28 - java.io.EOFException
+2016-11-06 13:22:0128 ERROR Serializator:28 - java.io.EOFException
+2016-11-06 13:45:0129 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 13:45:0129 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 13:45:0129 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 13:45:0159 ERROR Shop:59 - Parameters not found!java.lang.NullPointerException
+2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 13:45:5429 ERROR Serializator:29 - java.io.EOFException
+2016-11-06 14:41:1528 ERROR SerialWorker:28 - java.lang.IllegalArgumentException: File not found
+2016-11-06 14:41:1557 ERROR Shop:57 - Parameters not found!java.lang.RuntimeException: File not found
+2016-11-06 14:42:2033 ERROR Serializator:33 - java.io.EOFException
+2016-11-06 14:42:2028 ERROR SerialWorker:28 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:45:1328 ERROR SerialWorker:28 - java.lang.NullPointerException
+2016-11-06 14:46:3328 ERROR SerialWorker:28 - java.lang.NullPointerException
+2016-11-06 14:46:5329 ERROR SerialWorker:29 - java.lang.NullPointerException
+2016-11-06 14:47:3335 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:47:3329 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:48:3635 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:48:3629 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:58:5635 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:58:5629 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:59:3035 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:59:3029 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 14:59:5535 ERROR Serializator:35 - java.io.EOFException
+2016-11-06 14:59:5529 ERROR SerialWorker:29 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:04:5037 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:04:5030 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:04:5537 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:04:5530 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:05:5537 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:05:5530 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:07:3637 ERROR Serializator:37 - java.io.EOFException
+2016-11-06 15:07:3630 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.EOFException
+2016-11-06 15:14:5936 ERROR Serializator:36 - java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:14:5930 ERROR SerialWorker:30 - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-08 23:51:26201 ERROR BookManager:201 - java.lang.NullPointerException
+2016-11-08 23:51:59201 ERROR BookManager:201 - java.lang.NullPointerException
+2016-11-09 00:09:5642 ERROR Parser:42 - java.lang.ArrayIndexOutOfBoundsException: 9
+2016-11-09 00:09:56205 ERROR BookManager:205 - java.lang.NullPointerException
+2016-11-09 00:10:2942 ERROR Parser:42 - java.lang.ArrayIndexOutOfBoundsException: 9
+2016-11-09 00:10:29205 ERROR BookManager:205 - java.lang.NullPointerException
+2016-11-09 00:44:4882 ERROR Parser:82 - java.lang.NullPointerException
+2016-11-09 00:44:48168 ERROR OrderManager:168 - java.lang.NullPointerException
