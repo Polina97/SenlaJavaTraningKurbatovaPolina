@@ -1,0 +1,86 @@
+2016-11-05 01:15:35,877 [main] ERROR (OrderManager.java:64) - java.lang.IndexOutOfBoundsException: Index: 6, Size: 6
+2016-11-06 12:34:44,208 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:34:44,211 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:39:51,956 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:39:51,960 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:42:05,539 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "srcbookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:42:05,542 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "srcorderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:42:05,547 [main] ERROR (OrderManager.java:85) - java.lang.NullPointerException
+2016-11-06 12:44:36,065 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:44:36,069 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:44:36,074 [main] ERROR (OrderManager.java:85) - java.lang.NullPointerException
+2016-11-06 12:45:41,206 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:45:41,209 [main] ERROR (Serializator.java:28) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:45:41,215 [main] ERROR (OrderManager.java:85) - java.lang.NullPointerException
+2016-11-06 12:50:15,565 [main] ERROR (Serializator.java:29) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:50:15,570 [main] ERROR (Serializator.java:29) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:50:15,575 [main] ERROR (OrderManager.java:85) - java.lang.NullPointerException
+2016-11-06 12:55:15,070 [main] ERROR (Serializator.java:30) - java.io.FileNotFoundException: "src\bookManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:55:15,074 [main] ERROR (Serializator.java:30) - java.io.FileNotFoundException: "src\orderManager.bin" (Синтаксическая ошибка в имени файла, имени папки или метке тома)
+2016-11-06 12:55:15,080 [main] ERROR (OrderManager.java:84) - java.lang.NullPointerException
+2016-11-06 12:56:23,639 [main] ERROR (Serializator.java:30) - java.io.EOFException
+2016-11-06 12:56:23,643 [main] ERROR (Serializator.java:30) - java.io.EOFException
+2016-11-06 12:56:23,648 [main] ERROR (OrderManager.java:84) - java.lang.NullPointerException
+2016-11-06 13:05:05,928 [main] ERROR (Serializator.java:29) - java.io.EOFException
+2016-11-06 13:05:05,931 [main] ERROR (Serializator.java:29) - java.io.EOFException
+2016-11-06 13:05:05,937 [main] ERROR (OrderManager.java:84) - java.lang.NullPointerException
+2016-11-06 13:06:05,756 [main] ERROR (Serializator.java:28) - java.io.EOFException
+2016-11-06 13:06:05,759 [main] ERROR (Serializator.java:28) - java.io.EOFException
+2016-11-06 13:06:05,764 [main] ERROR (OrderManager.java:84) - java.lang.NullPointerException
+2016-11-06 13:07:29,692 [main] ERROR (IdGenerator.java:21) - java.lang.NullPointerException
+2016-11-06 13:07:29,692 [main] ERROR (BookManager.java:44) - java.lang.NullPointerException
+2016-11-06 13:07:29,692 [main] ERROR (Shop.java:181) - java.lang.Exception: Object was not added.
+2016-11-06 13:41:26,716 [main] ERROR (IdGenerator.java:21) - java.lang.NullPointerException
+2016-11-06 13:48:02,735 [main] ERROR (IdGenerator.java:21) - java.lang.NullPointerException
+2016-11-06 15:12:35,879 [main] ERROR (Serializator.java:37) - java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:12:35,883 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.FileNotFoundException: src\managers.bin (Не удается найти указанный файл)
+2016-11-06 15:15:17,772 [main] ERROR (Serializator.java:36) - java.io.StreamCorruptedException: invalid stream header: ACED2005
+2016-11-06 15:15:17,777 [main] ERROR (SerialWorker.java:30) - java.lang.RuntimeException: java.io.StreamCorruptedException: invalid stream header: ACED2005
+2016-11-10 23:36:56,791 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:37:46,623 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:37:46,624 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:39:26,849 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:39:26,852 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:41:02,532 [main] ERROR (Parser.java:82) - java.lang.NullPointerException
+2016-11-10 23:41:02,534 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:44:13,763 [main] ERROR (Parser.java:83) - java.lang.NullPointerException
+2016-11-10 23:44:13,764 [main] ERROR (Shop.java:336) - java.lang.Exception: java.lang.NullPointerException
+2016-11-10 23:50:20,292 [main] ERROR (Order.java:35) - java.lang.NullPointerException
+2016-11-10 23:50:20,294 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-11 00:03:17,876 [main] ERROR (Order.java:35) - java.lang.NullPointerException
+2016-11-11 00:03:17,880 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-11 00:04:20,050 [main] ERROR (Shop.java:338) - java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.senla.bookshop.api.entities.IOrder
+2016-11-11 00:05:01,883 [main] ERROR (Shop.java:339) - java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.senla.bookshop.api.entities.IOrder
+2016-11-14 00:50:15,043 [main] ERROR (PropertyWorker.java:55) - java.lang.NumberFormatException: For input string: "true"
+2016-11-14 00:50:15,046 [main] ERROR (ConfigPropertyWorker.java:55) - java.lang.IllegalArgumentException: Can not set static java.lang.Integer field com.senla.bookshop.resources.Config.MONTH_OLD to (int)0
+2016-11-17 23:50:25,608 [main] ERROR (DIBookShop.java:39) - java.lang.InstantiationException: com.senla.bookshop.manager.BuyerManager
+2016-11-17 23:50:25,623 [main] ERROR (PropertyWorker.java:55) - java.lang.NumberFormatException: For input string: "true"
+2016-11-17 23:50:25,625 [main] ERROR (ConfigPropertyWorker.java:55) - java.lang.IllegalArgumentException: Can not set static java.lang.Integer field com.senla.bookshop.config.Config.MONTH_OLD to (int)0
+2016-11-17 23:57:12,838 [main] ERROR (ConfigPropertyWorker.java:55) - java.lang.IllegalArgumentException: Can not set static java.lang.Integer field com.senla.bookshop.config.Config.MONTH_OLD to (int)6
+2016-11-17 23:57:40,945 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Integer field com.senla.bookshop.config.Config.MONTH_OLD to (int)6
+2016-11-17 23:58:57,329 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:00:33,611 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:01:37,247 [main] ERROR (ConfigPropertyWorker.java:57) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:02:50,737 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:03:26,440 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)false
+2016-11-18 00:07:17,861 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set static java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:08:15,105 [main] ERROR (ConfigPropertyWorker.java:56) - java.lang.IllegalArgumentException: Can not set java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to (boolean)true
+2016-11-18 00:08:56,032 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 11, Size: 5
+2016-11-18 00:09:03,587 [main] ERROR (Navigator.java:39) - java.lang.IndexOutOfBoundsException: Index: 22, Size: 5
+2016-11-18 00:09:30,387 [main] ERROR (Serializator.java:36) - java.io.NotSerializableException: com.senla.bookshop.storage.BookShopStorage
+2016-11-18 00:09:30,389 [main] ERROR (Navigator.java:39) - java.lang.RuntimeException: File not found
+2016-11-18 00:10:58,582 [main] ERROR (Serializator.java:36) - java.io.NotSerializableException: org.apache.log4j.Logger
+2016-11-18 00:10:58,584 [main] ERROR (Navigator.java:37) - java.lang.RuntimeException: File not found
+2016-11-18 00:11:27,090 [main] ERROR (Serializator.java:36) - java.io.NotSerializableException: org.apache.log4j.Logger
+2016-11-18 00:11:27,094 [main] ERROR (Navigator.java:37) - java.lang.RuntimeException: File not found
+2016-11-18 00:12:47,407 [main] ERROR (Navigator.java:37) - java.lang.IndexOutOfBoundsException: Index: 32, Size: 15
+2016-11-18 00:35:44,246 [main] ERROR (AddToStock.java:31) - java.lang.ArrayIndexOutOfBoundsException: 2
+2016-11-18 00:39:36,432 [main] ERROR (Shop.java:204) - java.lang.NullPointerException
+2016-11-18 00:40:49,319 [main] ERROR (Shop.java:205) - java.lang.NullPointerException
+2016-11-18 00:41:58,502 [main] ERROR (Shop.java:205) - java.lang.NullPointerException
+2016-11-18 00:42:47,526 [main] ERROR (Shop.java:205) - java.lang.NullPointerException
+2016-11-18 00:50:59,768 [main] ERROR (Shop.java:206) - java.lang.NullPointerException
+2016-11-18 00:54:33,633 [main] ERROR (ConfigPropertyWorker.java:59) - java.lang.IllegalArgumentException: Can not set java.lang.Integer field com.senla.bookshop.config.Config.MONTH_OLD to (int)6
+2016-11-18 00:57:26,178 [main] ERROR (Shop.java:217) - java.lang.Exception: java.lang.NullPointerException
+2016-11-18 01:09:48,410 [main] ERROR (Runner.java:18) - java.lang.NullPointerException
+2016-11-18 01:10:10,464 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
