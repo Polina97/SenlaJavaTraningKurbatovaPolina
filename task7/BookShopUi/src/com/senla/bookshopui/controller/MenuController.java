@@ -1,5 +1,6 @@
 package com.senla.bookshopui.controller;
 
+
 import com.senla.bookshopui.api.IBaseBuilder;
 import com.senla.bookshopui.api.IBaseController;
 import com.senla.bookshopui.api.INavigator;
@@ -17,12 +18,12 @@ public class MenuController implements IBaseController {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws Exception {
 		this.builder.buildMenu();
 		navigator = new Navigator(this.builder.getRootMenu());
 		navigator.printMenu();
 		while (MyScanner.isNext()) {
-			this.index = MyScanner.positive();
+			index = MyScanner.positive();
 			navigator.navigate(index);
 		}
 	}

@@ -3,10 +3,11 @@ package com.senla.bookshopui.resources;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MyScanner {
-	private static String MESSAGE = "Try again!";
+	public static String MESSAGE = "Try again!";
 	private static String SLASH = "/";
 	private static Scanner scn = new Scanner(System.in);
 	private static Boolean isNext = scn.hasNext();
@@ -18,30 +19,30 @@ public class MyScanner {
 			return a;
 		} else {
 			scn = new Scanner(System.in);
-			Printer.print(MESSAGE);
-			return scanInt();
+			return 0;
 		}
 	}
 
-	public static int positive() {
-		int a = scanInt();
-		if (a > 0)
-			return a;
-		else {
-			Printer.print(MESSAGE);
-			return positive();
+	public static int positive() throws Exception {
+		try {
+			int a = scanInt();
+			if (a > 0)
+				return a;
+			else {
+				return 0;
+			}
+		} catch (NoSuchElementException e) {
+			throw new Exception(e);
 		}
 	}
 
-	public static String scanString() {
+	public static String scanString() throws Exception {
 		if (scn.hasNext()) {
 			String a = scn.nextLine();
 			scn = new Scanner(System.in);
 			return a;
 		} else {
-			scn = new Scanner(System.in);
-			Printer.print(MESSAGE);
-			return scanString();
+			throw new Exception();
 		}
 	}
 
@@ -51,11 +52,9 @@ public class MyScanner {
 			scn = new Scanner(System.in);
 			return new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
 					Integer.parseInt(date[0]));
-			
+
 		} catch (Exception e) {
-			scn = new Scanner(System.in);
-			Printer.print(MESSAGE);
-			return scanDate();
+			return (GregorianCalendar) GregorianCalendar.getInstance();
 		}
 	}
 

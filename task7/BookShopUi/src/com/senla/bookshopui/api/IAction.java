@@ -5,7 +5,7 @@ import com.senla.bookshop.main.Shop;
 
 public interface IAction {
 
-	public static IShop shop = Shop.getShop(); 
+	public static IShop shop = Shop.getShop();
 
 	public void execute();
 }

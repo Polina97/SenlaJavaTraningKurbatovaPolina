@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 public class PropertyWorker {
 	private static PropertyWorker propertyWorker;
 	private final static String PROPERTY_FILE = "src/configuration.properties";
-	private final static String DEFAULT_CONFIG_NAME = "Book configuration";
 	private final static String DEFAULT_STRING = "";
 	private final static Integer DEFAULT_NUMBER = 0;
 	private static Loader loader;
@@ -29,24 +28,11 @@ public class PropertyWorker {
 
 	}
 
-	public String getConfigName() {
-		try {
-			if (properties != null) {
-				return properties.get(0);
-			} else {
-				return DEFAULT_CONFIG_NAME;
-			}
-
-		} catch (NumberFormatException | NullPointerException e) {
-			log.error(e);
-			return DEFAULT_CONFIG_NAME;
-		}
-	}
 
 	public Integer getMonthOld() {
 		try {
 			if (properties != null) {
-				return Integer.parseInt(properties.get(1));
+				return Integer.parseInt(properties.get(0));
 			} else {
 				return DEFAULT_NUMBER;
 			}
@@ -61,7 +47,7 @@ public class PropertyWorker {
 	public Boolean getIsApplication() {
 		try {
 			if (properties != null) {
-				return Boolean.parseBoolean(properties.get(2));
+				return Boolean.parseBoolean(properties.get(1));
 			} else {
 				return false;
 			}
@@ -74,7 +60,7 @@ public class PropertyWorker {
 	public String getFilePath() {
 		try {
 			if (properties != null) {
-				return properties.get(3);
+				return properties.get(2);
 			} else {
 				return DEFAULT_STRING;
 			}

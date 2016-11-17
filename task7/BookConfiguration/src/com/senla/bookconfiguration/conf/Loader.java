@@ -9,7 +9,8 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import com.senla.bookconfiguration.annotation.PropertyName;
+
+
 
 public class Loader {
 	private Logger log = Logger.getLogger(Loader.class.getName());

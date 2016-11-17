@@ -2,7 +2,7 @@ package com.senla.bookshopui.action.sorter;
 
 import java.util.List;
 
-import com.senla.bookshop.comparators.TypeBookComparator;
+import com.senla.bookshop.typecomparator.TypeBookComparator;
 import com.senla.bookshopui.api.IAction;
 import com.senla.bookshopui.resources.Printer;
 

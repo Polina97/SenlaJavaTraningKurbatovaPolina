@@ -1,14 +1,24 @@
 package com.senla.bookshopui.controller;
 
+import org.apache.log4j.Logger;
+
 import com.senla.bookshopui.api.IBaseController;
+import com.senla.bookshopui.resources.Printer;
 
 public class Runner {
+	private static Logger log = Logger.getLogger(Runner.class);
 	public static IBaseController controller;
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to our book shop!");
+		Printer.print("Welcome to our book shop!");
 		controller = new MenuController();
-		controller.run();
+		try {
+			controller.run();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e);
+			Printer.print("An error has occurred. Sorry");
+		}
 	}
 
 
