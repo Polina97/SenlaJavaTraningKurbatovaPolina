@@ -197,13 +197,17 @@ public class Shop implements IShop {
 	@Override
 	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price) {
 		try {
-			IBook book = new Book(IdGenerator.getId(TypeId.BOOK), name, author, datePublication, TODAY, price);
+			IBook book = (IBook) DIBookShop.load(IBook.class.getName());
+			book.setId(IdGenerator.getId(TypeId.BOOK));
+			book.setName(name);
+			book.setAuthor(author);
+			book.setDatePublication(datePublication);
+			book.setDateOld(TODAY);
+			book.setPrice(price);
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
 		} catch (Exception e) {
-			/////////////////////////////////////////////////
-			e.printStackTrace();
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
 		}
@@ -234,15 +238,21 @@ public class Shop implements IShop {
 	@Override
 	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status) {
 		try {
-			IOrder order;
-			IBuyer buyer = new Buyer(IdGenerator.getId(TypeId.BUYER) + 1, nameBuyer);
+			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName());
+			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName());
+			buyer.setId(IdGenerator.getId(TypeId.BUYER));
+			buyer.setName(nameBuyer);
 			buyerManager.add((BaseEntity) buyer);
 			List<IBook> books = new ArrayList<IBook>();
 			List<IBook> listBooks = bookManager.getBooks();
 			for (int i = 0; i < ids.size(); i++) {
 				books.add(listBooks.get(ids.get(i) - 1));
 			}
-			order = new Order(IdGenerator.getId(TypeId.ORDER) + 1, buyer, books, TODAY, status);
+			order.setId(IdGenerator.getId(TypeId.ORDER));
+			order.setBuyer(buyer);
+			order.setBooks(books);
+			order.setDate(TODAY);
+			order.setStatus(status);
 			orderManager.add((BaseEntity) order);
 			buyerManager.getById(buyer.getId()).setOrder(order);
 			return Messages.ORDER_ADD;
