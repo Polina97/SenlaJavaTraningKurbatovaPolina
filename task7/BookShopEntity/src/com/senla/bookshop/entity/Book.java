@@ -22,6 +22,10 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	private Integer requests;
 	private Boolean application;
 	private Integer monthOld;
+	
+
+	public Book() {
+	}
 
 	public Book(Integer id, String name, String author, GregorianCalendar datePublication, GregorianCalendar dateSupply,
 			Integer price) {
@@ -179,6 +183,14 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	@Override
 	public void setRequests(Integer requests) {
 		this.requests = requests;
+	}
+
+	@Override
+	public void setDateSupply(GregorianCalendar dateSupply) {
+		this.dateOld = dateSupply;
+		this.monthOld = Config.getInstance().MONTH_OLD;
+		this.dateOld.roll(Calendar.MONTH, monthOld);
+		
 	}
 
 }

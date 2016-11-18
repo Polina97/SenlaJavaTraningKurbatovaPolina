@@ -49,7 +49,6 @@ public class Parser {
 			return book;
 		} catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
 			log.error(e);
-			e.printStackTrace();
 			return null;
 		}
 	}

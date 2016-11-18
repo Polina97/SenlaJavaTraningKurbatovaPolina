@@ -60,6 +60,7 @@ public class CSVWorker {
 			fileWorker.writeToCSV(list, HEAD_ORDER.toString());
 			return entities;
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e);
 			return null;
 		}

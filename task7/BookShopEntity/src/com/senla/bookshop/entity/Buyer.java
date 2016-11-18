@@ -4,6 +4,7 @@ import com.senla.bookshop.api.entity.IBuyer;
 import com.senla.bookshop.api.entity.IOrder;
 import com.senla.bookshop.idgenerator.IdGenerator;
 import com.senla.bookshop.idgenerator.TypeId;
+
 public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 
 	private static final long serialVersionUID = 1L;
@@ -11,14 +12,7 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 	private String name;
 	private IOrder order;
 
-	public Buyer(Integer id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public Buyer(Integer id, String name, IOrder orders) {
-		this(id, name);
-		this.order = orders;
+	public Buyer() {
 	}
 
 	public Integer getId() {
@@ -79,6 +73,5 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 		buyer.setOrder(null);
 		return buyer;
 	}
-
 
 }
