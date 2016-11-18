@@ -345,7 +345,6 @@ public class Shop implements IShop {
 				return Messages.ORDER_NOT_IMPORTED;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e);
 			return Messages.ORDER_NOT_IMPORTED;
 		}

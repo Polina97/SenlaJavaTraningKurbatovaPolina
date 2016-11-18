@@ -10,6 +10,10 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 	private Integer id;
 	private String name;
 	private IOrder order;
+	
+
+	public Buyer() {
+	}
 
 	public Buyer(Integer id, String name) {
 		this.id = id;

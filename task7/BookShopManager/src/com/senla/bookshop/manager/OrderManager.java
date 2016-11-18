@@ -64,8 +64,9 @@ public class OrderManager extends BaseManager implements IOrderManager, Serializ
 	}
 
 	@Override
-	public void changeStatus(Integer id, StatusOrder statusOrder) throws Exception {
+	public void changeStatus(Integer index, StatusOrder statusOrder) throws Exception {
 		try {
+			int id = storage.getOrders().get(index).getId();
 			getOrderById(id).setStatus(statusOrder);
 		} catch (Exception e) {
 			throw new Exception(e);

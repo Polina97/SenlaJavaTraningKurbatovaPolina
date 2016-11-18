@@ -11,7 +11,7 @@ import com.senla.bookshop.idgenerator.IdGenerator;
 import com.senla.bookshop.idgenerator.TypeId;
 
 public class Order extends BaseEntity implements IOrder {
-	private Logger log = Logger.getLogger(Order.class);
+	private transient Logger log = Logger.getLogger(Order.class);
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -20,6 +20,9 @@ public class Order extends BaseEntity implements IOrder {
 	private Integer price;
 	private GregorianCalendar date;
 	private StatusOrder status;
+
+	public Order() {
+	}
 
 	public Order(Integer id, IBuyer buyer, List<IBook> books, GregorianCalendar date, StatusOrder status) {
 		this.id = id;
@@ -127,14 +130,18 @@ public class Order extends BaseEntity implements IOrder {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(id).append(SPLITTER).append(buyer.getId()).append(SPLITTER).append(price).append(SPLITTER)
-				.append(dateToString(date)).append(SPLITTER).append(status.toString()).append(SPLITTER)
-				.append(books.size()).append(SPLITTER);
-		for (IBook book : books) {
-			builder.append(book.getId()).append(SECOND_SPLITTER);
+		try {
+			StringBuilder builder = new StringBuilder();
+			builder.append(id).append(SPLITTER).append(buyer.getId()).append(SPLITTER).append(price).append(SPLITTER)
+					.append(dateToString(date)).append(SPLITTER).append(status.toString()).append(SPLITTER)
+					.append(books.size()).append(SPLITTER);
+			for (IBook book : books) {
+				builder.append(book.getId()).append(SECOND_SPLITTER);
+			}
+			return builder.toString();
+		} catch (NullPointerException e) {
+			return null;
 		}
-		return builder.toString();
 	}
 
 	@Override

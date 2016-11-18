@@ -84,3 +84,22 @@
 2016-11-18 00:57:26,178 [main] ERROR (Shop.java:217) - java.lang.Exception: java.lang.NullPointerException
 2016-11-18 01:09:48,410 [main] ERROR (Runner.java:18) - java.lang.NullPointerException
 2016-11-18 01:10:10,464 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-18 13:39:12,602 [main] ERROR (DIBookShop.java:39) - java.lang.InstantiationException: com.senla.bookshop.entity.Book
+2016-11-18 13:39:12,649 [main] ERROR (Parser.java:51) - java.lang.NullPointerException
+2016-11-18 13:42:32,074 [main] ERROR (Shop.java:261) - java.lang.Exception: java.lang.NullPointerException
+2016-11-18 13:48:53,379 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-18 13:50:06,322 [main] ERROR (CSVWorker.java:63) - java.lang.NullPointerException
+2016-11-18 13:50:32,679 [main] ERROR (Navigator.java:37) - java.lang.RuntimeException: File not found
+2016-11-18 13:51:16,495 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found
+2016-11-18 13:51:47,197 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found
+2016-11-18 13:52:21,843 [main] ERROR (Shop.java:250) - java.lang.IndexOutOfBoundsException: Index: 1, Size: 0
+2016-11-18 13:54:39,976 [main] ERROR (CSVWorker.java:64) - java.lang.NullPointerException
+2016-11-18 13:55:50,608 [main] ERROR (Navigator.java:38) - java.lang.RuntimeException: File not found
+2016-11-18 13:56:20,226 [main] ERROR (Navigator.java:38) - java.lang.RuntimeException: File not found
+2016-11-18 13:56:22,356 [main] ERROR (Navigator.java:38) - java.lang.RuntimeException: File not found
+2016-11-18 14:02:48,193 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found
+2016-11-18 14:04:10,426 [main] ERROR (Navigator.java:38) - java.lang.RuntimeException: File not found
+2016-11-18 14:07:00,780 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found
+2016-11-18 14:07:20,023 [main] ERROR (StorageLoader.java:18) - java.lang.RuntimeException: File not found
+2016-11-18 14:07:48,237 [main] ERROR (StorageLoader.java:18) - java.lang.RuntimeException: File not found
+2016-11-18 14:09:38,558 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found

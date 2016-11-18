@@ -15,7 +15,6 @@ public class Runner {
 		try {
 			controller.run();
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e);
 			Printer.print("An error has occurred. Sorry");
 		}
