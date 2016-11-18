@@ -185,4 +185,12 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 		this.requests = requests;
 	}
 
+	@Override
+	public void setDateSupply(GregorianCalendar dateSupply) {
+		this.dateOld = dateSupply;
+		this.monthOld = Config.getInstance().MONTH_OLD;
+		this.dateOld.roll(Calendar.MONTH, monthOld);
+		
+	}
+
 }

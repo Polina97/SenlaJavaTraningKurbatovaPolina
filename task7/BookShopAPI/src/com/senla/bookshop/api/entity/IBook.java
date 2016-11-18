@@ -21,6 +21,8 @@ public interface IBook extends IBaseEntity {
 
 	public void setDateOld(GregorianCalendar dateOld);
 
+	public void setDateSupply(GregorianCalendar dateSupply);
+
 	public Integer getPrice();
 
 	public void setPrice(int price);
@@ -32,6 +34,7 @@ public interface IBook extends IBaseEntity {
 	public Integer getRequests();
 
 	public void addRequest();
+
 	public void setRequests(Integer id);
 
 	public Boolean isApplication();
@@ -39,6 +42,5 @@ public interface IBook extends IBaseEntity {
 	public void setApplication(Boolean application);
 
 	public IBook clone() throws CloneNotSupportedException;
-
 
 }

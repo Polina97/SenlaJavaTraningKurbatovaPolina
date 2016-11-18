@@ -202,7 +202,7 @@ public class Shop implements IShop {
 			book.setName(name);
 			book.setAuthor(author);
 			book.setDatePublication(datePublication);
-			book.setDateOld(TODAY);
+			book.setDateSupply(TODAY);
 			book.setPrice(price);
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
@@ -248,11 +248,20 @@ public class Shop implements IShop {
 			for (int i = 0; i < ids.size(); i++) {
 				books.add(listBooks.get(ids.get(i) - 1));
 			}
+			int price =0;
+			try {
+				for (IBook book : books) {
+					price += book.getPrice();
+				}
+			} catch (NullPointerException e) {
+				log.error(e);
+			}
 			order.setId(IdGenerator.getId(TypeId.ORDER));
 			order.setBuyer(buyer);
 			order.setBooks(books);
 			order.setDate(TODAY);
 			order.setStatus(status);
+			order.setPrice(price);
 			orderManager.add((BaseEntity) order);
 			buyerManager.getById(buyer.getId()).setOrder(order);
 			return Messages.ORDER_ADD;
