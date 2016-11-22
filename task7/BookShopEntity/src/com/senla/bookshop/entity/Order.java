@@ -10,7 +10,7 @@ import com.senla.bookshop.api.entity.*;
 import com.senla.bookshop.idgenerator.IdGenerator;
 import com.senla.bookshop.idgenerator.TypeId;
 
-public class Order extends BaseEntity implements IOrder {
+public class Order extends BaseEntity implements IOrder, Cloneable {
 	private transient Logger log = Logger.getLogger(Order.class);
 
 	private static final long serialVersionUID = 1L;

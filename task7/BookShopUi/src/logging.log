@@ -103,3 +103,9 @@
 2016-11-18 14:07:20,023 [main] ERROR (StorageLoader.java:18) - java.lang.RuntimeException: File not found
 2016-11-18 14:07:48,237 [main] ERROR (StorageLoader.java:18) - java.lang.RuntimeException: File not found
 2016-11-18 14:09:38,558 [main] ERROR (StorageLoader.java:17) - java.lang.RuntimeException: File not found
+2016-11-18 20:20:51,790 [main] ERROR (Shop.java:310) - java.lang.Exception: java.lang.CloneNotSupportedException: com.senla.bookshop.entity.Order
+2016-11-18 20:22:14,028 [main] ERROR (Shop.java:311) - java.lang.Exception: java.lang.CloneNotSupportedException: com.senla.bookshop.entity.Order
+2016-11-18 20:24:12,850 [main] ERROR (Navigator.java:38) - java.lang.ArrayIndexOutOfBoundsException: -1
+2016-11-18 20:24:32,009 [main] ERROR (Navigator.java:38) - java.lang.ArrayIndexOutOfBoundsException: -1
+2016-11-18 20:24:46,942 [main] ERROR (Navigator.java:37) - java.lang.ArrayIndexOutOfBoundsException: -1
+2016-11-18 20:24:50,514 [main] ERROR (Navigator.java:37) - java.lang.ArrayIndexOutOfBoundsException: -1
