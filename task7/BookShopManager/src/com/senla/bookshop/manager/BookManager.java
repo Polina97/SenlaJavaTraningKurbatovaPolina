@@ -10,17 +10,17 @@ import org.apache.log4j.Logger;
 import com.senla.bookshop.api.entity.IBaseEntity;
 import com.senla.bookshop.api.entity.IBook;
 import com.senla.bookshop.api.manager.IBookManager;
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.comparators.BookComparator;
 import com.senla.bookshop.config.Config;
 import com.senla.bookshop.serialization.StorageLoader;
-import com.senla.bookshop.storage.BookShopStorage;
 import com.senla.bookshop.typecomparator.TypeBookComparator;
 
 public class BookManager extends BaseManager implements IBookManager, Serializable {
 	private static final long serialVersionUID = 1L;
 	private final GregorianCalendar TODAY = new GregorianCalendar();
 	private static Logger log = Logger.getLogger(BookManager.class);
-	private BookShopStorage storage;
+	private IBookShopStorage storage;
 
 	public BookManager() {
 		this.storage =  StorageLoader.getStorage();

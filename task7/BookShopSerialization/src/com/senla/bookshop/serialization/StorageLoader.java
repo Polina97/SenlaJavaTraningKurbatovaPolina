@@ -2,14 +2,16 @@ package com.senla.bookshop.serialization;
 
 import org.apache.log4j.Logger;
 
-import com.senla.bookshop.storage.BookShopStorage;
+import com.senla.bookshop.api.storage.IBookShopStorage;
+import com.senla.bookshop.di.DIBookShop;
 
-public class StorageLoader {
+
+public class StorageLoader{
 	private static Logger log = Logger.getLogger(StorageLoader.class);
-	private static BookShopStorage bookShopStorage;
+	private static IBookShopStorage bookShopStorage;
 	private static SerialWorker serialWorker = new SerialWorker();
 
-	public static BookShopStorage getStorage(){
+	public static IBookShopStorage getStorage(){
 		if(bookShopStorage == null){
 			try{
 				bookShopStorage = serialWorker.getStorage();
@@ -17,7 +19,7 @@ public class StorageLoader {
 				log.error(e);
 			}
 			if(bookShopStorage == null){
-				bookShopStorage = BookShopStorage.getInstance();
+				bookShopStorage = (IBookShopStorage) DIBookShop.load(IBookShopStorage.class.getName(), false);
 			}
 		}
 		return bookShopStorage;

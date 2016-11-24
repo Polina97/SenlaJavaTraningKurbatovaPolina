@@ -12,6 +12,12 @@ import com.senla.bookshop.idgenerator.TypeId;
 
 public class Order extends BaseEntity implements IOrder, Cloneable {
 	private transient Logger log = Logger.getLogger(Order.class);
+	private static final String NAME ="Name of Buyer: ";
+	private static final String BOOKS =" Books: ";
+	private static final String PRICE = "Price: ";
+	private static final String DATE =", Date: ";
+	private static final String STATUS =" Status: ";
+	
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -114,11 +120,11 @@ public class Order extends BaseEntity implements IOrder, Cloneable {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		str.append("Name of Buyer: ").append(this.buyer.getName()).append(" Books: ");
+		str.append(NAME).append(this.buyer.getName()).append(BOOKS);
 		for (IBook book : this.books) {
 			str.append(book.getName()).append(", ");
 		}
-		str.append("Price: ").append(this.price).append(", Date: ").append(dateToString(this.date)).append(" Status: ")
+		str.append(PRICE).append(this.price).append(DATE).append(dateToString(this.date)).append(STATUS)
 				.append(this.status);
 		return str.toString();
 	}
@@ -159,5 +165,6 @@ public class Order extends BaseEntity implements IOrder, Cloneable {
 		order.getBuyer().setOrder(order);
 		return order;
 	}
+
 
 }

@@ -10,16 +10,16 @@ import com.senla.bookshop.api.entity.IBaseEntity;
 import com.senla.bookshop.api.entity.IOrder;
 import com.senla.bookshop.api.entity.StatusOrder;
 import com.senla.bookshop.api.manager.IOrderManager;
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.comparators.OrderComparator;
 import com.senla.bookshop.serialization.StorageLoader;
-import com.senla.bookshop.storage.BookShopStorage;
 import com.senla.bookshop.typecomparator.TypeOrderComparator;
 
 public class OrderManager extends BaseManager implements IOrderManager, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static Logger log = Logger.getLogger(OrderManager.class);
-	private BookShopStorage storage;
+	private IBookShopStorage storage;
 
 	public OrderManager() {
 		this.storage =  StorageLoader.getStorage();

@@ -9,13 +9,13 @@ import org.apache.log4j.Logger;
 import com.senla.bookshop.api.entity.IBaseEntity;
 import com.senla.bookshop.api.entity.IBuyer;
 import com.senla.bookshop.api.manager.IBuyerManager;
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.serialization.StorageLoader;
-import com.senla.bookshop.storage.BookShopStorage;
 
 public class BuyerManager extends BaseManager implements IBuyerManager, Serializable {
 	private static final Logger log = Logger.getLogger(BuyerManager.class);
 	private static final long serialVersionUID = 1L;
-	private BookShopStorage storage;
+	private IBookShopStorage storage;
 
 
 	public BuyerManager() {

@@ -19,12 +19,12 @@ public class Parser {
 	private static final String SECOND_SPLITTER = "/";
 	private static final String SPLITTER = ",";
 	private static Logger log = Logger.getLogger(Parser.class);
-	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName());
-	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName());
-	private static IBuyerManager buyerManager = (IBuyerManager) DIBookShop.load(IBuyerManager.class.getName());
+	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName(),false);
+	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName(),false);
+	private static IBuyerManager buyerManager = (IBuyerManager) DIBookShop.load(IBuyerManager.class.getName(),false);
 
 	public static IBook bookParser(String description) {
-		IBook book = (IBook) DIBookShop.load(IBook.class.getName());
+		IBook book = (IBook) DIBookShop.load(IBook.class.getName(),true);
 		try {
 			String[] bookString = description.split(SPLITTER);
 			book.setId(Integer.parseInt(bookString[0]));
@@ -55,7 +55,7 @@ public class Parser {
 
 	public static IBuyer buyerParser(String description) {
 		try {
-			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName());
+			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName(),true);
 			String[] stringBuyer = description.split(SPLITTER);
 			buyer.setId(Integer.parseInt(stringBuyer[0]));
 			buyer.setName(stringBuyer[1]);
@@ -71,7 +71,7 @@ public class Parser {
 	}
 
 	public static IOrder orderParser(String description) {
-		IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName());
+		IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName(),true);
 		try {
 			String[] stringOrder = description.split(SPLITTER);
 			order.setId(Integer.parseInt(stringOrder[0]));

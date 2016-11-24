@@ -5,13 +5,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.senla.bookshop.api.entity.IBaseEntity;
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.serialization.StorageLoader;
-import com.senla.bookshop.storage.BookShopStorage;
 
 public class IdGenerator {
 	private static Integer id = 0;
 	private static Logger log = Logger.getLogger(IdGenerator.class);
-	private static BookShopStorage storage =  StorageLoader.getStorage();
+	private static IBookShopStorage storage =  StorageLoader.getStorage();
 
 	public static Integer getId(TypeId typeId) {
 		List<?> listEntity = null;

@@ -8,7 +8,6 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.senla.bookconfiguration.conf.PropertyName;
 
 
 @Inherited
@@ -18,8 +17,8 @@ public @interface ConfigProperty {
 
 	String configName() default "src/configuration.properties";
 
-	PropertyName propertyName() default PropertyName.FILE_PATH;
+	String propertyName() default "FILE_PATH";
 
-	PropertyType type() default PropertyType.STRING;
+	String type() default "String";
 
 }
