@@ -2,8 +2,8 @@ package com.senla.bookshop.serialization;
 
 import org.apache.log4j.Logger;
 
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.config.Config;
-import com.senla.bookshop.storage.BookShopStorage;
 
 public class SerialWorker {
 	public String PATH_FILE;
@@ -25,15 +25,15 @@ public class SerialWorker {
 
 	}
 
-	public BookShopStorage getStorage() {
+	public IBookShopStorage getStorage() {
 		try {
-			return (BookShopStorage) serializator.readFromFile();
+			return (IBookShopStorage) serializator.readFromFile();
 		} catch (RuntimeException e) {
 			throw new RuntimeException(FILE_NOT_FOUND_ERROR);
 		}
 	}
 
-	public void writeStorage(BookShopStorage storage) {
+	public void writeStorage(IBookShopStorage storage) {
 		try {
 			serializator.writeToFile(storage);
 		} catch (RuntimeException e) {

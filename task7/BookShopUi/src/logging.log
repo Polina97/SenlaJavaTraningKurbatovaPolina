@@ -109,3 +109,63 @@
 2016-11-18 20:24:32,009 [main] ERROR (Navigator.java:38) - java.lang.ArrayIndexOutOfBoundsException: -1
 2016-11-18 20:24:46,942 [main] ERROR (Navigator.java:37) - java.lang.ArrayIndexOutOfBoundsException: -1
 2016-11-18 20:24:50,514 [main] ERROR (Navigator.java:37) - java.lang.ArrayIndexOutOfBoundsException: -1
+2016-11-23 22:28:03,999 [main] ERROR (DIBookShop.java:26) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 22:28:04,001 [main] ERROR (Runner.java:18) - java.lang.NullPointerException
+2016-11-23 22:28:46,874 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 22:28:46,877 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:35:14,602 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 23:35:14,605 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:35:48,542 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 23:35:48,544 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:36:15,948 [main] ERROR (DIBookShop.java:28) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 23:36:15,950 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:37:56,500 [main] ERROR (DIBookShop.java:28) - java.lang.ClassNotFoundException: com.senla.bookshop.main.Shop
+2016-11-23 23:37:56,502 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:38:40,194 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:40,198 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:40,205 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:40,206 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:40,211 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:40,213 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:40,224 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:40,226 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:40,242 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-23 23:38:40,243 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:38:58,886 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:58,890 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:58,897 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:58,898 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:58,905 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:58,906 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:58,912 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:38:58,913 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:38:58,923 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-23 23:38:58,924 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:39:36,749 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:39:36,754 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:39:36,762 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:39:36,763 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:39:36,770 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:39:36,771 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:39:36,776 [main] ERROR (StorageLoader.java:19) - java.lang.RuntimeException: File not found
+2016-11-23 23:39:36,777 [main] ERROR (DIBookShop.java:27) - java.lang.ClassNotFoundException: com.senla.bookshop.storage.BookShopStorage
+2016-11-23 23:39:36,786 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-23 23:39:36,787 [main] ERROR (Runner.java:19) - java.lang.NullPointerException
+2016-11-23 23:40:32,487 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-23 23:44:24,685 [main] ERROR (ConfigPropertyWorker.java:37) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-23 23:47:32,672 [main] ERROR (Shop.java:40) - java.lang.ClassCastException: Cannot cast java.lang.String to boolean
+2016-11-23 23:55:25,371 [main] ERROR (ConfigPropertyWorker.java:37) - java.lang.IllegalArgumentException: Can not set boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-24 00:03:58,405 [main] ERROR (ConfigPropertyWorker.java:37) - java.lang.IllegalArgumentException: Can not set java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-24 00:16:06,592 [main] ERROR (Shop.java:40) - java.lang.ClassCastException: Cannot cast java.lang.String to java.lang.Boolean
+2016-11-24 00:16:24,368 [main] ERROR (ConfigPropertyWorker.java:37) - java.lang.IllegalArgumentException: Can not set java.lang.Boolean field com.senla.bookshop.config.Config.SWITCH_OFF_APPLICATION to java.lang.String
+2016-11-24 00:22:31,578 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.ClassNotFoundException: Boolean
+2016-11-24 00:23:04,005 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.ClassNotFoundException: class java.lang.Boolean
+2016-11-24 00:25:27,728 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.ClassNotFoundException: class java.lang.Boolean
+2016-11-24 00:26:12,125 [main] ERROR (ConfigPropertyWorker.java:38) - java.lang.ClassNotFoundException: class java.lang.Boolean
+2016-11-25 01:26:45,926 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:29:08,122 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:30:41,716 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:31:26,217 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:32:08,018 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:32:25,293 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null
+2016-11-25 01:32:47,087 [main] ERROR (ConfigPropertyWorker.java:39) - java.lang.NumberFormatException: null

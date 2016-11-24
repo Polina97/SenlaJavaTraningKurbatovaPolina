@@ -6,13 +6,22 @@ import com.senla.bookshop.idgenerator.IdGenerator;
 import com.senla.bookshop.idgenerator.TypeId;
 
 public class Buyer extends BaseEntity implements IBuyer, Cloneable {
+	private final String NAME = "Name: ";
+	private final String ORDER = " Number of order: ";
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private IOrder order;
 
-	public Buyer() {
+	public Buyer(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public Buyer(Integer id, String name, IOrder orders) {
+		this(id, name);
+		this.order = orders;
 	}
 
 	public Integer getId() {
@@ -46,7 +55,7 @@ public class Buyer extends BaseEntity implements IBuyer, Cloneable {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		return str.append(" Name: ").append(name).append(" Number of orders: ").append(order.getId()).toString();
+		return str.append(NAME).append(name).append(ORDER).append(order.getId()).toString();
 	}
 
 	@Override

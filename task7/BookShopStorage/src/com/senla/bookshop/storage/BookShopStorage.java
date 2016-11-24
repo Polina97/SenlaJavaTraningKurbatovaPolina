@@ -20,8 +20,6 @@ public class BookShopStorage implements IBookShopStorage, Serializable {
 	private List<IBuyer> buyers = new ArrayList<IBuyer>();
 	private List<IOrder> orders = new ArrayList<IOrder>();
 
-	private BookShopStorage() {
-	}
 	
 
 	@Override
@@ -120,7 +118,7 @@ public class BookShopStorage implements IBookShopStorage, Serializable {
 		}
 	}
 
-	public static BookShopStorage getInstance() {
+	public static BookShopStorage newInstance() {
 		if (storage == null) {
 			storage = new BookShopStorage();
 		}

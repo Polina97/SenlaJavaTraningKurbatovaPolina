@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.senla.bookshop.api.entity.*;
 import com.senla.bookshop.api.manager.*;
 import com.senla.bookshop.api.shop.IShop;
+import com.senla.bookshop.api.storage.IBookShopStorage;
 import com.senla.bookshop.config.Config;
 import com.senla.bookshop.di.DIBookShop;
 import com.senla.bookshop.entity.*;
@@ -16,22 +17,20 @@ import com.senla.bookshop.idgenerator.IdGenerator;
 import com.senla.bookshop.idgenerator.TypeId;
 import com.senla.bookshop.serialization.SerialWorker;
 import com.senla.bookshop.serialization.StorageLoader;
-import com.senla.bookshop.storage.BookShopStorage;
 import com.senla.bookshop.typecomparator.TypeBookComparator;
 import com.senla.bookshop.typecomparator.TypeOrderComparator;
 import com.senla.bookshop.worker.ConfigPropertyWorker;
 
 public class Shop implements IShop {
-	private static IShop shop;
 	private static Logger log = Logger.getLogger(Shop.class);
 	private static List<String> ERROR_LIST = new ArrayList<String>();
 	private static final GregorianCalendar TODAY = new GregorianCalendar();
 	private static final String SPACE = " ";
 	private static SerialWorker serialWorker = new SerialWorker();
-	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName());
-	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName());
-	private static IBuyerManager buyerManager = (IBuyerManager) DIBookShop.load(IBuyerManager.class.getName());
-	private static BookShopStorage storage;
+	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName(), false);
+	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName(), false);
+	private static IBuyerManager buyerManager = (IBuyerManager) DIBookShop.load(IBuyerManager.class.getName(), false);
+	private static IBookShopStorage storage;
 
 	static {
 		try {
@@ -43,15 +42,6 @@ public class Shop implements IShop {
 		ERROR_LIST.add(Messages.ERROR);
 	}
 
-	private Shop() {
-	}
-
-	public static IShop getShop() {
-		if (shop == null) {
-			shop = new Shop();
-		}
-		return shop;
-	}
 
 	@Override
 	public List<String> getBooks() {
@@ -197,7 +187,7 @@ public class Shop implements IShop {
 	@Override
 	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price) {
 		try {
-			IBook book = (IBook) DIBookShop.load(IBook.class.getName());
+			IBook book = (IBook) DIBookShop.load(IBook.class.getName(), true);
 			book.setId(IdGenerator.getId(TypeId.BOOK));
 			book.setName(name);
 			book.setAuthor(author);
@@ -238,8 +228,8 @@ public class Shop implements IShop {
 	@Override
 	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status) {
 		try {
-			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName());
-			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName());
+			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName(), true);
+			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName(), true);
 			buyer.setId(IdGenerator.getId(TypeId.BUYER));
 			buyer.setName(nameBuyer);
 			buyerManager.add((BaseEntity) buyer);
@@ -248,7 +238,7 @@ public class Shop implements IShop {
 			for (int i = 0; i < ids.size(); i++) {
 				books.add(listBooks.get(ids.get(i) - 1));
 			}
-			int price =0;
+			int price = 0;
 			try {
 				for (IBook book : books) {
 					price += book.getPrice();
