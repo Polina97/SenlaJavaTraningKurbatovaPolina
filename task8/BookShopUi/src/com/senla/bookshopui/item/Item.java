@@ -1,7 +1,7 @@
 package com.senla.bookshopui.item;
 
 
-import com.senla.bookshop.client.ClientThread;
+import com.senla.bookshop.api.client.IClientWorker;
 import com.senla.bookshopui.api.IAction;
 import com.senla.bookshopui.api.IItem;
 
@@ -16,8 +16,8 @@ public class Item implements IItem {
 	}
 
 	@Override
-	public void doAction(ClientThread thread) {
-		action.execute(thread);
+	public void doAction(IClientWorker worker) {
+		action.execute(worker);
 	}
 
 	@Override

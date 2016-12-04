@@ -6,7 +6,8 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-public class BookServer {
+
+public class BookServer{
 	private static Logger log = Logger.getLogger(BookServer.class);
 	public static void main(String[] args){
 		try{

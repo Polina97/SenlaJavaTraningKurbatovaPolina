@@ -4,18 +4,18 @@ import org.apache.log4j.Logger;
 
 import com.senla.bookshopui.api.INavigator;
 import com.senla.bookshopui.resources.Printer;
-import com.senla.bookshop.client.ClientThread;
+import com.senla.bookshop.api.client.IClientWorker;
 import com.senla.bookshopui.api.IMenu;
 
 public class Navigator implements INavigator {
 	private static final String ERROR = "Sorry! An error has occurred!";
 	private static Logger log = Logger.getLogger(Navigator.class.getName());
-	private ClientThread clientThread;
+	private IClientWorker clientWorker;
 	public IMenu currentMenu;
 
-	public Navigator(IMenu currentMenu, ClientThread clientThread) {
+	public Navigator(IMenu currentMenu, IClientWorker clientWorker) {
 		this.currentMenu = currentMenu;
-		this.clientThread = clientThread;
+		this.clientWorker = clientWorker;
 	}
 
 	public IMenu getCurrentMenu() {
@@ -35,9 +35,10 @@ public class Navigator implements INavigator {
 	@Override
 	public void navigate(Integer index) {
 		try {
-			this.currentMenu.getItems().get(index - 1).doAction(clientThread);
+			this.currentMenu.getItems().get(index - 1).doAction(clientWorker);
 		} catch (Exception e) {
 			log.error(e);
+			e.printStackTrace();
 			Printer.print(ERROR);
 		}
 	}

@@ -1,14 +1,13 @@
 package com.senla.bookshopui.resources;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MyScanner {
+	private static final Object COMA = ",";
 	public static String MESSAGE = "Try again!";
-	private static String SLASH = "/";
 	private static Scanner scn = new Scanner(System.in);
 	private static Boolean isNext = scn.hasNext();
 
@@ -46,26 +45,20 @@ public class MyScanner {
 		}
 	}
 
-	public static GregorianCalendar scanDate() {
-		try {
-			String[] date = scn.next().split(SLASH);
-			scn = new Scanner(System.in);
-			return new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
-					Integer.parseInt(date[0]));
 
-		} catch (Exception e) {
-			return (GregorianCalendar) GregorianCalendar.getInstance();
-		}
-	}
-
-	public static List<Integer> scanIds() {
-		List<Integer> ids = new ArrayList<>();
+	public static String scanIds() {
+		List<Integer> ids = new ArrayList<Integer>();
 		int id = scanInt();
 		while (id != -1) {
 			ids.add(id);
 			id = scanInt();
 		}
-		return ids;
+		StringBuilder builder = new StringBuilder();
+		for (Integer i : ids) {
+			builder.append(i).append(COMA);
+		}
+		builder.delete(builder.length() - 2, builder.length() - 1);
+		return builder.toString();
 	}
 
 	public static boolean isNext() {

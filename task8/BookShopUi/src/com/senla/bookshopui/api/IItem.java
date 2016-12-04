@@ -1,10 +1,10 @@
 package com.senla.bookshopui.api;
 
-import com.senla.bookshop.client.ClientThread;
+import com.senla.bookshop.api.client.IClientWorker;
 
 public interface IItem {
 
 	public String getName();
 
-	public void doAction(ClientThread thread);
+	public void doAction(IClientWorker worker);
 }

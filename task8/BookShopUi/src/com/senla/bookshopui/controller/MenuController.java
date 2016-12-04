@@ -1,7 +1,6 @@
 package com.senla.bookshopui.controller;
 
-
-import com.senla.bookshop.client.ClientThread;
+import com.senla.bookshop.api.client.IClientWorker;
 import com.senla.bookshopui.api.IBaseBuilder;
 import com.senla.bookshopui.api.IBaseController;
 import com.senla.bookshopui.api.INavigator;
@@ -19,9 +18,9 @@ public class MenuController implements IBaseController {
 	}
 
 	@Override
-	public void run(ClientThread thread) throws Exception {
+	public void run(IClientWorker worker) throws Exception {
 		this.builder.buildMenu();
-		navigator = new Navigator(this.builder.getRootMenu(),thread);
+		navigator = new Navigator(this.builder.getRootMenu(), worker);
 		navigator.printMenu();
 		while (MyScanner.isNext()) {
 			index = MyScanner.positive();

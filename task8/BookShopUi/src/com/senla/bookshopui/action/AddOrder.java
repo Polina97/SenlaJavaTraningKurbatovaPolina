@@ -1,11 +1,10 @@
 package com.senla.bookshopui.action;
 
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.senla.bookshop.api.client.IClientWorker;
 import com.senla.bookshop.api.entity.StatusOrder;
-import com.senla.bookshop.client.ClientThread;
 import com.senla.bookshopui.api.IAction;
 import com.senla.bookshopui.resources.MyScanner;
 import com.senla.bookshopui.resources.Printer;
@@ -13,16 +12,16 @@ import com.senla.bookshopui.resources.Printer;
 public class AddOrder implements IAction {
 	private Logger log = Logger.getLogger(AddOrder.class);
 	private String nameBuyer;
-	private List<Integer> ids;
+	private String ids;
 	private StatusOrder status;
 
 	@Override
-	public void execute(ClientThread thread) {
+	public void execute(IClientWorker worker) {
 		Printer.print("Enter buyer name: ");
 		try {
 			this.nameBuyer = MyScanner.scanString();
 			Printer.print("Choise the books. When we can stoper, enter \"-1\": ");
-			Printer.printArray(shop.getBooks());
+			Printer.printArray(worker.runShop(new String("getBooks")));
 			this.ids = MyScanner.scanIds();
 			Printer.print("Choise status: 1) CANCELED, 2) KIT, 3)DELIVERED");
 			switch (MyScanner.positive()) {
@@ -39,8 +38,9 @@ public class AddOrder implements IAction {
 				this.status = StatusOrder.CANCELED;
 				break;
 			}
-			
-			Printer.print(shop.addOrder(nameBuyer, ids, status));
+			StringBuilder builder = new StringBuilder();
+			builder.append("addOrder").append(nameBuyer).append(SLASH).append(ids).append(SLASH).append(status);
+			Printer.print(worker.runShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);
 			Printer.print(MyScanner.MESSAGE);
