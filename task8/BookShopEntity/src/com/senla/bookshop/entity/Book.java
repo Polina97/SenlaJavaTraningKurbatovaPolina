@@ -14,9 +14,9 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	private static final String AUTHOR = ", Author: ";
 	private static final String PRICE = ", Price ";
 	private static final String STOCK = ", is in Stock: ";
-	private static final String DATE =", Date: ";
+	private static final String DATE = ", Date: ";
 	private static final String REQUEST = ", Requests: ";
-	private static final String APPLICATION =", Application: ";
+	private static final String APPLICATION = ", Application: ";
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
@@ -29,7 +29,11 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	private Integer requests;
 	private Boolean application;
 	private Integer monthOld;
-	
+
+	public Book() {
+
+	}
+
 	public Book(Integer id, String name, String author, GregorianCalendar datePublication, GregorianCalendar dateSupply,
 			Integer price) {
 		this.id = id;
@@ -154,9 +158,9 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 	@Override
 	public String getDescription() {
 		StringBuilder str = new StringBuilder();
-		str.append(NAME).append(name).append(AUTHOR).append(author).append(PRICE).append(price)
-				.append(STOCK).append(inStock).append(DATE).append(dateToString(datePublication))
-				.append(REQUEST).append(requests).append(APPLICATION).append(application);
+		str.append(NAME).append(name).append(AUTHOR).append(author).append(PRICE).append(price).append(STOCK)
+				.append(inStock).append(DATE).append(dateToString(datePublication)).append(REQUEST).append(requests)
+				.append(APPLICATION).append(application);
 		return str.toString();
 	}
 
@@ -193,8 +197,7 @@ public class Book extends BaseEntity implements IBook, Cloneable {
 		this.dateOld = dateSupply;
 		this.monthOld = Config.getInstance().MONTH_OLD;
 		this.dateOld.roll(Calendar.MONTH, monthOld);
-		
-	}
 
+	}
 
 }

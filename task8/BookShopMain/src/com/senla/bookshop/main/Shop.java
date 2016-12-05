@@ -26,6 +26,9 @@ public class Shop implements IShop {
 	private static List<String> ERROR_LIST = new ArrayList<String>();
 	private static final GregorianCalendar TODAY = new GregorianCalendar();
 	private static final String SPACE = " ";
+	private static final String COMA = ",";
+	private static final String POINT = ".";
+	private static final Object SLASH = "/";
 	private static SerialWorker serialWorker = new SerialWorker();
 	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName(), false);
 	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName(), false);
@@ -42,9 +45,8 @@ public class Shop implements IShop {
 		ERROR_LIST.add(Messages.ERROR);
 	}
 
-
 	@Override
-	public List<String> getBooks() {
+	public String getBooks() {
 		try {
 			StringBuilder builder = new StringBuilder();
 			List<String> books = new ArrayList<String>();
@@ -53,119 +55,119 @@ public class Shop implements IShop {
 				books.add(builder.toString());
 				builder.delete(0, builder.length());
 			}
-			return books;
+			return listToStr(books);
 		} catch (Exception e) {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> getBuyers() {
+	public String getBuyers() {
 		try {
 			List<String> buyers = new ArrayList<String>();
 			for (IBuyer buyer : buyerManager.getBuyers()) {
 				buyers.add(buyer.getName());
 			}
-			return buyers;
+			return listToStr(buyers);
 		} catch (Exception e) {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 
 	}
 
 	@Override
-	public List<String> sortBooks(String comparator) {
+	public String sortBooks(String comparator) {
 		try {
-			
 			return listToString(bookManager.sortBooks(TypeBookComparator.valueOf(comparator)));
 		} catch (Exception e) {
 			log.error(e);
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> getOldBooks() {
-		List<String> oldBooks = listToString(bookManager.getOldBooks());
+	public String getOldBooks() {
+		String oldBooks = listToString(bookManager.getOldBooks());
 		if (oldBooks != null) {
 			return listToString(bookManager.getOldBooks());
 		} else {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> sortOldBooks(String comparator) {
+	public String sortOldBooks(String comparator) {
 		try {
-			List<String> oldBooks = listToString(bookManager.sortOldBooks(TypeBookComparator.valueOf(comparator)));
+			String oldBooks = listToString(bookManager.sortOldBooks(TypeBookComparator.valueOf(comparator)));
 			if (oldBooks != null)
 				return oldBooks;
 			else {
-				return ERROR_LIST;
+				return Messages.ERROR;
 			}
 		} catch (Exception e) {
 			log.error(e);
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> getOrders() {
-		List<String> orders = listToString(orderManager.getOrders());
+	public String getOrders() {
+		String orders = listToString(orderManager.getOrders());
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> sortOrders(String comparator) {
-		List<String> orders = listToString(orderManager.sortOrders(TypeOrderComparator.valueOf(comparator)));
+	public String sortOrders(String comparator) {
+		String orders = listToString(orderManager.sortOrders(TypeOrderComparator.valueOf(comparator)));
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> getDeliveredOrders() {
-		List<String> orders = listToString(orderManager.getDeliveredOrders());
+	public String getDeliveredOrders() {
+		String orders = listToString(orderManager.getDeliveredOrders());
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> sortDeliveredOrders(String comparator) {
-		List<String> orders = listToString(orderManager.sortDeliveredOrders(TypeOrderComparator.valueOf(comparator)));
+	public String sortDeliveredOrders(String comparator) {
+		String orders = listToString(orderManager.sortDeliveredOrders(TypeOrderComparator.valueOf(comparator)));
 		if (orders != null) {
 			return orders;
 		} else {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public Integer getPrice() {
-		return orderManager.getGeneralPrice();
+	public String getPrice() {
+		return orderManager.getGeneralPrice().toString();
 	}
 
 	@Override
-	public Integer countOrders() {
+	public String countOrders() {
 		try {
-			return orderManager.getDeliveredOrders().size();
+			return new Integer(orderManager.getDeliveredOrders().size()).toString();
 		} catch (Exception e) {
-			return 0;
+			return null;
 		}
 	}
 
 	@Override
-	public String getDescriptionBook(Integer index) {
+	public String getDescriptionBook(String indexStr) {
 		try {
+			Integer index = Integer.parseInt(indexStr);
 			String description = bookManager.getBooks().get(index).getDescription();
 			return description;
 		} catch (Exception e) {
@@ -175,8 +177,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String getDescriptionOrder(Integer index) {
+	public String getDescriptionOrder(String indexStr) {
 		try {
+			Integer index = Integer.parseInt(indexStr);
 			String description = orderManager.getOrderById(index).getDescription();
 			return description;
 		} catch (Exception e) {
@@ -186,27 +189,29 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price) {
+	public String addToStock(String name, String author, String datePublication, String price) {
 		try {
 			IBook book = (IBook) DIBookShop.load(IBook.class.getName(), true);
 			book.setId(IdGenerator.getId(TypeId.BOOK));
 			book.setName(name);
 			book.setAuthor(author);
-			book.setDatePublication(datePublication);
+			book.setDatePublication(toGregorianCalendar(datePublication));
 			book.setDateSupply(TODAY);
-			book.setPrice(price);
+			book.setPrice(Integer.parseInt(price));
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
 		}
 	}
 
 	@Override
-	public String deleteFromStock(Integer index) {
+	public String deleteFromStock(String indexStr) {
 		try {
+			Integer index = Integer.parseInt(indexStr);
 			bookManager.deleteFromStock(index);
 			return Messages.BOOK_DELETED;
 		} catch (Exception e) {
@@ -216,8 +221,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String submitApp(Integer index) {
+	public String submitApp(String indexStr) {
 		try {
+			Integer index = Integer.parseInt(indexStr);
 			bookManager.submitApplication(index);
 			return Messages.APP_ADD;
 		} catch (Exception e) {
@@ -227,8 +233,13 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status) {
+	public String addOrder(String nameBuyer, String idsSring, String status) {
 		try {
+			List<Integer> ids = new ArrayList<Integer>();
+			String[] idsArray = idsSring.split(COMA);
+			for (String s : idsArray) {
+				ids.add(Integer.parseInt(s));
+			}
 			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName(), true);
 			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName(), true);
 			buyer.setId(IdGenerator.getId(TypeId.BUYER));
@@ -251,7 +262,7 @@ public class Shop implements IShop {
 			order.setBuyer(buyer);
 			order.setBooks(books);
 			order.setDate(TODAY);
-			order.setStatus(status);
+			order.setStatus(StatusOrder.valueOf(status));
 			order.setPrice(price);
 			orderManager.add((BaseEntity) order);
 			buyerManager.getById(buyer.getId()).setOrder(order);
@@ -263,9 +274,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String deliverOrder(Integer index) {
+	public String deliverOrder(String index) {
 		try {
-			orderManager.changeStatus(index, StatusOrder.DELIVERED);
+			orderManager.changeStatus(Integer.parseInt(index), StatusOrder.DELIVERED);
 			return Messages.ORDER_DELIVERED;
 		} catch (Exception e) {
 			log.error(e);
@@ -275,9 +286,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String cancelOrder(Integer index) {
+	public String cancelOrder(String index) {
 		try {
-			orderManager.changeStatus(index, StatusOrder.CANCELED);
+			orderManager.changeStatus(Integer.parseInt(index), StatusOrder.CANCELED);
 			return Messages.ORDER_CANCELED;
 		} catch (Exception e) {
 			log.error(e);
@@ -292,9 +303,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String copyOrder(Integer id) {
+	public String copyOrder(String id) {
 		try {
-			int orderId = orderManager.getOrders().get(id).getId();
+			int orderId = orderManager.getOrders().get(Integer.parseInt(id)).getId();
 			orderManager.cloneOrder(orderId);
 			return Messages.ORDER_COPIED;
 		} catch (Exception e) {
@@ -304,51 +315,51 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public List<String> exportOrders() {
+	public String exportOrders() {
 		try {
 			List<IOrder> list = orderManager.exportOrders();
 			if (list != null) {
 				return listToString(list);
 			} else {
-				return ERROR_LIST;
+				return Messages.ERROR;
 			}
 		} catch (Exception e) {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> exportBooks() {
+	public String exportBooks() {
 		try {
 			List<IBook> list = bookManager.exportBooks();
 			if (list != null) {
 				return listToString(list);
 			} else {
-				return ERROR_LIST;
+				return Messages.ERROR;
 			}
 		} catch (Exception e) {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public List<String> exportBuyers() {
+	public String exportBuyers() {
 		try {
 			List<IBuyer> list = buyerManager.exportBuyers();
 			if (list != null) {
 				return listToString(list);
 			} else {
-				return ERROR_LIST;
+				return Messages.ERROR;
 			}
 		} catch (Exception e) {
-			return ERROR_LIST;
+			return Messages.ERROR;
 		}
 	}
 
 	@Override
-	public String importOrder(Integer id) {
+	public String importOrder(String id) {
 		try {
-			int orderId = orderManager.getOrders().get(id).getId();
+			int orderId = orderManager.getOrders().get(Integer.parseInt(id)).getId();
 			if (orderManager.importOrder(orderId) != null) {
 				return Messages.ORDER_IMPORTED;
 			} else {
@@ -361,9 +372,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String importBook(Integer id) {
+	public String importBook(String id) {
 		try {
-			int bookId = bookManager.getBooks().get(id).getId();
+			int bookId = bookManager.getBooks().get(Integer.parseInt(id)).getId();
 			if (bookManager.importBook(bookId) != null) {
 				return Messages.BOOK_IMPORTED;
 			} else {
@@ -376,9 +387,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String importBuyer(Integer id) {
+	public String importBuyer(String id) {
 		try {
-			int buyerId = buyerManager.getBuyers().get(id).getId();
+			int buyerId = buyerManager.getBuyers().get(Integer.parseInt(id)).getId();
 			if (buyerManager.importBuyer(buyerId) != null) {
 				return Messages.BUYER_IMPORTED;
 			} else {
@@ -390,16 +401,35 @@ public class Shop implements IShop {
 		}
 	}
 
-	private static List<String> listToString(List<?> entities) {
+	private static String listToString(List<?> entities) {
 		if (entities != null) {
-			List<String> array = new ArrayList<String>();
+			StringBuilder array = new StringBuilder();
 			for (Object entity : entities) {
-				array.add(((IBaseEntity) entity).getDescription());
+				array.append(((IBaseEntity) entity).getDescription()).append(SLASH);
 			}
-			return array;
+			return array.toString();
 		} else {
 			return null;
 		}
 	}
 
+	private String listToStr(List<String> list) {
+		StringBuilder builder = new StringBuilder();
+		for (String s : list) {
+			builder.append(s).append(SLASH);
+		}
+		builder.delete(builder.length() - 2, builder.length() - 1);
+		return builder.toString();
+	}
+	private GregorianCalendar toGregorianCalendar(String dateString){
+		String[] date = dateString.split(POINT);
+		try{
+		return new GregorianCalendar(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
+				Integer.parseInt(date[0]));
+		}catch(Exception e){
+			log.error(e);
+			return new GregorianCalendar();
+		}
+	}
+	
 }

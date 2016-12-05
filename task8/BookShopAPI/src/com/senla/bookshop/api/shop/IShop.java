@@ -1,69 +1,61 @@
 package com.senla.bookshop.api.shop;
 
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import com.senla.bookshop.api.entity.StatusOrder;
-
 
 public interface IShop {
 
-	public List<String> getBooks();
+	public String getBooks();
 
-	public List<String> getBuyers();
+	public String getBuyers();
 
-	public List<String> getOldBooks();
+	public String getOldBooks();
 
+	public String getOrders();
 
-	public List<String> getOrders();
+	public String getDeliveredOrders();
 
+	public String getPrice();
 
-	public List<String> getDeliveredOrders();
+	public String countOrders();
 
+	public String addToStock(String name, String author, String datePublication, String price);
 
-	public Integer getPrice();
+	public String addOrder(String nameBuyer, String ids, String status);
 
-	public Integer countOrders();
+	public String deliverOrder(String index);
 
-	public String getDescriptionBook(Integer index);
+	public String cancelOrder(String index);
 
-	public String getDescriptionOrder(Integer index);
+	public String copyOrder(String id);
 
-	public String addToStock(String name, String author, GregorianCalendar datePublication, Integer price);
+	public String exportOrders();
 
-	public String deleteFromStock(Integer index);
+	public String exportBooks();
 
-	public String submitApp(Integer index);
+	public String exportBuyers();
 
-	public String addOrder(String nameBuyer, List<Integer> ids, StatusOrder status);
+	public String importOrder(String id);
 
-	public String deliverOrder(Integer index);
+	public String importBook(String id);
 
-	public String cancelOrder(Integer index);
-
-	public String copyOrder(Integer id);
-
-	public List<String> exportOrders();
-
-	public List<String> exportBooks();
-
-	public List<String> exportBuyers();
-
-	public String importOrder(Integer id);
-
-	public String importBook(Integer id);
-
-	public String importBuyer(Integer id);
+	public String importBuyer(String id);
 
 	public void exit();
 
-	public List<String> sortBooks(String comparator);
+	public String sortBooks(String comparator);
 
-	public List<String> sortOldBooks(String comparator);
+	public String sortOldBooks(String comparator);
 
-	public List<String> sortOrders(String comparator);
+	public String sortOrders(String comparator);
 
-	public List<String> sortDeliveredOrders(String comparator);
+	public String sortDeliveredOrders(String comparator);
+
+	public String getDescriptionBook(String indexStr);
+
+	public String getDescriptionOrder(String indexStr);
+
+	public String deleteFromStock(String index);
+
+	public String submitApp(String index);
 
 
 }

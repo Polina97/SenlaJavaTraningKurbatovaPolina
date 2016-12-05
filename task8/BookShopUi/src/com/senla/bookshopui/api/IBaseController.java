@@ -1,8 +1,8 @@
 package com.senla.bookshopui.api;
 
-import com.senla.bookshop.client.ClientThread;
+import com.senla.bookshop.api.client.IClientWorker;
 
 public interface IBaseController {
 
-	public void run(ClientThread thread) throws Exception;
+	public void run(IClientWorker worker) throws Exception;
 }

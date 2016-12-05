@@ -2,6 +2,7 @@ package com.senla.bookshopui.action;
 
 import org.apache.log4j.Logger;
 
+import com.senla.bookshop.api.client.IClientWorker;
 import com.senla.bookshopui.api.IAction;
 import com.senla.bookshopui.api.IMenu;
 import com.senla.bookshopui.controller.MenuController;
@@ -18,7 +19,7 @@ public class SubmenuCreater implements IAction {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(IClientWorker worker) {
 		MenuController.navigator.setCurrentMenu(menu);
 		MenuController.navigator.printMenu();
 		try {

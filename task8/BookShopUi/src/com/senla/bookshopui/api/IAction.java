@@ -1,11 +1,9 @@
 package com.senla.bookshopui.api;
 
-import com.senla.bookshop.api.shop.IShop;
-import com.senla.bookshop.client.ClientThread;
-import com.senla.bookshop.di.DIBookShop;
+import com.senla.bookshop.api.client.IClientWorker;
 
 public interface IAction {
 	public static final String SLASH = "/";
-	public static IShop shop = (IShop) DIBookShop.load(IShop.class.getName(), false);
-	public void execute(ClientThread thread);
+
+	public void execute(IClientWorker worker);
 }
