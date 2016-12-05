@@ -202,6 +202,7 @@ public class Shop implements IShop {
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e);
 			return Messages.BOOK_NOT_ADD;
 		}
@@ -404,7 +405,7 @@ public class Shop implements IShop {
 		if (entities != null) {
 			StringBuilder array = new StringBuilder();
 			for (Object entity : entities) {
-				array.append(((IBaseEntity) entity).getDescription());
+				array.append(((IBaseEntity) entity).getDescription()).append(SLASH);
 			}
 			return array.toString();
 		} else {

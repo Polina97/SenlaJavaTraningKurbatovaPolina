@@ -39,7 +39,7 @@ public class AddOrder implements IAction {
 				break;
 			}
 			StringBuilder builder = new StringBuilder();
-			builder.append("addOrder").append(nameBuyer).append(SLASH).append(ids).append(SLASH).append(status);
+			builder.append("addOrder").append(SLASH).append(nameBuyer).append(SLASH).append(ids).append(SLASH).append(status);
 			Printer.print(worker.runShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);

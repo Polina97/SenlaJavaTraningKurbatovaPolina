@@ -38,7 +38,6 @@ public class Navigator implements INavigator {
 			this.currentMenu.getItems().get(index - 1).doAction(clientWorker);
 		} catch (Exception e) {
 			log.error(e);
-			e.printStackTrace();
 			Printer.print(ERROR);
 		}
 	}

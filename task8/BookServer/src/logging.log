@@ -49,3 +49,35 @@
 2016-12-04 19:53:01,424 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
 2016-12-04 19:53:25,240 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
 2016-12-04 19:53:44,649 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-04 20:05:22,664 [Thread-0] ERROR (ShopWorker.java:33) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.getBooks(java.lang.String)
+2016-12-04 20:05:26,366 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-04 20:07:36,974 [Thread-0] ERROR (ShopWorker.java:33) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.getBooks(java.lang.String)
+2016-12-04 20:07:57,478 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-04 20:10:31,760 [Thread-0] ERROR (ShopWorker.java:33) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.getBooks(java.lang.String)
+2016-12-04 20:10:38,432 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-04 20:11:07,659 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-04 20:13:22,565 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-04 22:16:07,774 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-04 22:16:41,792 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-04 22:36:43,707 [Thread-0] ERROR (ShopWorker.java:38) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.addOrderSusanna(java.lang.String)
+2016-12-04 22:37:07,243 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-04 22:37:50,581 [Thread-0] ERROR (ShopWorker.java:38) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.addOrderAnna(java.lang.String)
+2016-12-05 12:49:53,147 [Thread-0] ERROR (ShopWorker.java:38) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.addToStockSherlock(java.lang.String)
+2016-12-05 12:51:11,380 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-05 12:56:38,105 [Thread-0] ERROR (ShopWorker.java:38) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.addToStock(java.lang.String)
+2016-12-05 12:56:59,747 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-05 12:59:41,139 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-05 13:04:26,490 [Thread-0] ERROR (ShopWorker.java:38) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.addToStock(java.lang.String)
+2016-12-05 13:29:46,668 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-05 13:30:41,512 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-05 13:31:23,351 [Thread-0] ERROR (DIBookShop.java:27) - java.lang.InstantiationException: com.senla.bookshop.entity.Book
+2016-12-05 13:31:23,355 [Thread-0] ERROR (Shop.java:205) - java.lang.NullPointerException
+2016-12-05 13:33:02,024 [Thread-0] ERROR (DIBookShop.java:27) - java.lang.InstantiationException: com.senla.bookshop.entity.Book
+2016-12-05 13:33:02,028 [Thread-0] ERROR (Shop.java:206) - java.lang.NullPointerException
+2016-12-05 13:35:16,823 [Thread-0] ERROR (Shop.java:430) - java.lang.ArrayIndexOutOfBoundsException: 2
+2016-12-05 13:35:53,984 [Thread-0] ERROR (ShopWorker.java:43) - java.lang.NoSuchMethodException: com.senla.bookshop.main.Shop.getBooks.()
+2016-12-05 13:36:29,635 [Thread-0] ERROR (Shop.java:230) - java.lang.Exception: java.lang.NullPointerException
+2016-12-05 13:37:01,864 [Thread-0] ERROR (CSVFileWorker.java:39) - java.io.FileNotFoundException: src\Books.csv (The system cannot find the file specified)
+2016-12-05 13:37:14,939 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset
+2016-12-05 13:49:07,864 [main] ERROR (BookServer.java:22) - java.net.BindException: Address already in use: JVM_Bind
+2016-12-05 13:49:53,388 [Thread-0] ERROR (ServerThread.java:34) - java.net.SocketException: Connection reset

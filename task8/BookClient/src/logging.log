@@ -1,0 +1,9 @@
+2016-12-04 16:21:34,931 [main] ERROR (Navigator.java:40) - java.lang.NullPointerException
+2016-12-04 16:23:31,181 [main] ERROR (Navigator.java:41) - java.lang.NullPointerException
+2016-12-04 16:23:59,878 [main] ERROR (Navigator.java:40) - java.lang.NullPointerException
+2016-12-04 16:25:04,961 [main] ERROR (Navigator.java:40) - java.lang.NullPointerException
+2016-12-04 16:28:32,158 [main] ERROR (Navigator.java:40) - java.lang.NullPointerException
+2016-12-04 22:16:32,086 [main] ERROR (Navigator.java:40) - java.lang.IndexOutOfBoundsException: Index: 9, Size: 5
+2016-12-04 22:37:19,668 [main] ERROR (BookClient.java:31) - java.net.ConnectException: Connection refused: connect
+2016-12-05 12:59:27,934 [main] ERROR (BookClient.java:31) - java.net.ConnectException: Connection refused: connect
+2016-12-05 13:04:59,074 [main] ERROR (ClientWorker.java:26) - java.net.SocketException: Connection reset

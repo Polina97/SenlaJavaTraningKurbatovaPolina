@@ -14,7 +14,7 @@ public class SubmitApplication implements IAction {
 	@Override
 	public void execute(IClientWorker worker) {
 		Printer.print("Choise the book.");
-		Printer.printArray(worker.runShop("getBooks."));
+		Printer.printArray(worker.runShop("getBooks"));
 		try {
 			StringBuilder builder = new StringBuilder();
 			this.index = MyScanner.positive();
