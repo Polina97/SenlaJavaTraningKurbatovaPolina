@@ -10,7 +10,7 @@ public class OrdersPrinter implements IAction {
 
 	@Override
 	public void execute(IClientWorker worker) {
-		Printer.printArray(worker.runShop("getOrders"));
+		Printer.printArray(worker.sendToShop("getOrders"));
 	}
 	
 

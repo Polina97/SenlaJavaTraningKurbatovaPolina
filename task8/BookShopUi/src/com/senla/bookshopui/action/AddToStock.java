@@ -23,8 +23,8 @@ public class AddToStock implements IAction {
 			String author = MyScanner.scanString();
 			Printer.print("Enter price: ");
 			Integer price = MyScanner.positive();
-			builder.append("addToStock").append(SLASH).append(name).append(SLASH).append(author).append(SLASH).append(calendar).append(SLASH).append(price);
-			Printer.print(worker.runShop(builder.toString()));
+			builder.append("addToStock").append(SLASH).append(name).append(SPLITTER).append(author).append(SPLITTER).append(calendar).append(SPLITTER).append(price);
+			Printer.print(worker.sendToShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);
 			Printer.print(MyScanner.MESSAGE);

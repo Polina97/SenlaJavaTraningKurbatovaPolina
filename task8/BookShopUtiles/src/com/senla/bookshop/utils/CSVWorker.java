@@ -35,7 +35,7 @@ public class CSVWorker {
 				.append("order");
 	}
 
-	public List<IBook> writeBooks(List<IBook> entities) {
+	public synchronized List<IBook> writeBooks(List<IBook> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BOOK);
 			list = new ArrayList<String>();
@@ -50,7 +50,7 @@ public class CSVWorker {
 		}
 	}
 
-	public List<IOrder> writeOrders(List<IOrder> entities) {
+	public synchronized List<IOrder> writeOrders(List<IOrder> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_ORDER);
 			list = new ArrayList<String>();
@@ -66,7 +66,7 @@ public class CSVWorker {
 		}
 	}
 
-	public  List<IBuyer> writeBuyers(List<IBuyer> entities) {
+	public  synchronized List<IBuyer> writeBuyers(List<IBuyer> entities) {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BUYER);
 			list = new ArrayList<String>();
@@ -81,7 +81,7 @@ public class CSVWorker {
 		}
 	}
 
-	public List<IBook> readBooks() {
+	public synchronized List<IBook> readBooks() {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BOOK);
 			list = fileWorker.readeFromCSV();
@@ -101,7 +101,7 @@ public class CSVWorker {
 
 	}
 
-	public List<IOrder> readOrders() {
+	public synchronized List<IOrder> readOrders() {
 		try {
 			fileWorker = new CSVFileWorker(PATH_ORDER);
 			list = fileWorker.readeFromCSV();
@@ -118,7 +118,7 @@ public class CSVWorker {
 		return null;
 	}
 
-	public List<IBuyer> readBuyers() {
+	public synchronized List<IBuyer> readBuyers() {
 		try {
 			fileWorker = new CSVFileWorker(PATH_BUYER);
 			list = fileWorker.readeFromCSV();

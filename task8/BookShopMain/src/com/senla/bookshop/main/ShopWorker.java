@@ -18,21 +18,12 @@ public class ShopWorker implements IShopWorker {
 	}
 
 	@Override
-	public String runShop(String str) {
+	public String workWithShop(String str) {
 		String[] list = str.split(SLASH);
 		try {
 			if (list.length > 1) {
-				Object[] listString = new String[list.length - 1];
-				for (int i = 0; i < listString.length; i++) {
-					listString[i] = list[i + 1];
-				}
-				@SuppressWarnings("unchecked")
-				Class<String>[] listClass = new Class[list.length - 1];
-				for (int i = 0; i < listClass.length; i++) {
-					listClass[i] = String.class;
-				}
-				Method method = shop.getClass().getMethod(list[0], listClass);
-				return (String) method.invoke(shop, listString);
+				Method method = shop.getClass().getMethod(list[0], String.class);
+				return (String) method.invoke(shop, list[1]);
 			} else {
 				Method method = shop.getClass().getMethod(list[0]);
 				return (String) method.invoke(shop);

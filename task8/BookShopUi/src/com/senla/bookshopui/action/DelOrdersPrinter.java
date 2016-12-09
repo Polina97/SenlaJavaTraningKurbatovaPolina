@@ -8,7 +8,7 @@ public class DelOrdersPrinter implements IAction {
 
 	@Override
 	public void execute(IClientWorker worker) {
-		Printer.printArray(worker.runShop("getDeliveredOrders"));
+		Printer.printArray(worker.sendToShop("getDeliveredOrders"));
 	}
 
 }

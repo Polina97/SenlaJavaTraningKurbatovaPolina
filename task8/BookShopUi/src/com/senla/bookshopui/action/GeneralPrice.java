@@ -7,7 +7,7 @@ import com.senla.bookshopui.resources.Printer;
 public class GeneralPrice implements IAction{
 	@Override
 	public void execute(IClientWorker worker) {
-		Printer.print("Amount of money earned: "+ worker.runShop("getPrice"));
+		Printer.print("Amount of money earned: "+ worker.sendToShop("getPrice"));
 		
 	}
 

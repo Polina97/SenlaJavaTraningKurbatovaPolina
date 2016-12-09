@@ -8,7 +8,7 @@ public class ExsportBuyer implements IAction {
 	@Override
 	public void execute(IClientWorker worker) {
 		Printer.print("Exported buyers.");
-		Printer.printArray(worker.runShop("exportBuyers"));
+		Printer.printArray(worker.sendToShop("exportBuyers"));
 	}
 
 }

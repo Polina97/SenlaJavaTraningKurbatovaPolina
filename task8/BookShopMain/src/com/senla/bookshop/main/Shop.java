@@ -29,6 +29,7 @@ public class Shop implements IShop {
 	private static final String COMA = ",";
 	private static final String POINT = ".";
 	private static final Object SLASH = "/";
+	private static final String SPLITTER = "&";
 	private static SerialWorker serialWorker = new SerialWorker();
 	private static IBookManager bookManager = (IBookManager) DIBookShop.load(IBookManager.class.getName(), false);
 	private static IOrderManager orderManager = (IOrderManager) DIBookShop.load(IOrderManager.class.getName(), false);
@@ -189,15 +190,9 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String addToStock(String name, String author, String datePublication, String price) {
+	public synchronized String addToStock(String bookString) {
 		try {
-			IBook book = (IBook) DIBookShop.load(IBook.class.getName(), true);
-			book.setId(IdGenerator.getId(TypeId.BOOK));
-			book.setName(name);
-			book.setAuthor(author);
-			book.setDatePublication(toGregorianCalendar(datePublication));
-			book.setDateSupply(TODAY);
-			book.setPrice(Integer.parseInt(price));
+			IBook book = parseBook(bookString);
 			bookManager.add((BaseEntity) book);
 			bookManager.addToStock(book.getId());
 			return Messages.BOOK_ADD;
@@ -209,7 +204,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String deleteFromStock(String indexStr) {
+	public synchronized String deleteFromStock(String indexStr) {
 		try {
 			Integer index = Integer.parseInt(indexStr);
 			bookManager.deleteFromStock(index);
@@ -233,39 +228,11 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String addOrder(String nameBuyer, String idsSring, String status) {
+	public synchronized String addOrder(String orderString) {
 		try {
-			List<Integer> ids = new ArrayList<Integer>();
-			String[] idsArray = idsSring.split(COMA);
-			for (String s : idsArray) {
-				ids.add(Integer.parseInt(s));
-			}
-			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName(), true);
-			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName(), true);
-			buyer.setId(IdGenerator.getId(TypeId.BUYER));
-			buyer.setName(nameBuyer);
-			buyerManager.add((BaseEntity) buyer);
-			List<IBook> books = new ArrayList<IBook>();
-			List<IBook> listBooks = bookManager.getBooks();
-			for (int i = 0; i < ids.size(); i++) {
-				books.add(listBooks.get(ids.get(i) - 1));
-			}
-			int price = 0;
-			try {
-				for (IBook book : books) {
-					price += book.getPrice();
-				}
-			} catch (NullPointerException e) {
-				log.error(e);
-			}
-			order.setId(IdGenerator.getId(TypeId.ORDER));
-			order.setBuyer(buyer);
-			order.setBooks(books);
-			order.setDate(TODAY);
-			order.setStatus(StatusOrder.valueOf(status));
-			order.setPrice(price);
+			IOrder order = parseOrder(orderString);
 			orderManager.add((BaseEntity) order);
-			buyerManager.getById(buyer.getId()).setOrder(order);
+			buyerManager.getById(order.getBuyer().getId()).setOrder(order);
 			return Messages.ORDER_ADD;
 		} catch (Exception e) {
 			log.error(e);
@@ -274,7 +241,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String deliverOrder(String index) {
+	public  synchronized String deliverOrder(String index) {
 		try {
 			orderManager.changeStatus(Integer.parseInt(index), StatusOrder.DELIVERED);
 			return Messages.ORDER_DELIVERED;
@@ -286,7 +253,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String cancelOrder(String index) {
+	public  synchronized String cancelOrder(String index) {
 		try {
 			orderManager.changeStatus(Integer.parseInt(index), StatusOrder.CANCELED);
 			return Messages.ORDER_CANCELED;
@@ -303,7 +270,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String copyOrder(String id) {
+	public  synchronized String copyOrder(String id) {
 		try {
 			int orderId = orderManager.getOrders().get(Integer.parseInt(id)).getId();
 			orderManager.cloneOrder(orderId);
@@ -315,7 +282,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String exportOrders() {
+	public  synchronized String exportOrders() {
 		try {
 			List<IOrder> list = orderManager.exportOrders();
 			if (list != null) {
@@ -329,7 +296,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String exportBooks() {
+	public  synchronized String exportBooks() {
 		try {
 			List<IBook> list = bookManager.exportBooks();
 			if (list != null) {
@@ -343,7 +310,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String exportBuyers() {
+	public  synchronized String exportBuyers() {
 		try {
 			List<IBuyer> list = buyerManager.exportBuyers();
 			if (list != null) {
@@ -357,7 +324,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String importOrder(String id) {
+	public  synchronized String importOrder(String id) {
 		try {
 			int orderId = orderManager.getOrders().get(Integer.parseInt(id)).getId();
 			if (orderManager.importOrder(orderId) != null) {
@@ -372,7 +339,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String importBook(String id) {
+	public  synchronized String importBook(String id) {
 		try {
 			int bookId = bookManager.getBooks().get(Integer.parseInt(id)).getId();
 			if (bookManager.importBook(bookId) != null) {
@@ -387,7 +354,7 @@ public class Shop implements IShop {
 	}
 
 	@Override
-	public String importBuyer(String id) {
+	public  synchronized String importBuyer(String id) {
 		try {
 			int buyerId = buyerManager.getBuyers().get(Integer.parseInt(id)).getId();
 			if (buyerManager.importBuyer(buyerId) != null) {
@@ -429,6 +396,58 @@ public class Shop implements IShop {
 		}catch(Exception e){
 			log.error(e);
 			return new GregorianCalendar();
+		}
+	}
+	private IOrder parseOrder(String orderString) throws Exception{
+		try {
+			String[] orderArr = orderString.split(SPLITTER);
+			List<Integer> ids = new ArrayList<Integer>();
+			String[] idsArray = orderArr[1].split(COMA);
+			for (String s : idsArray) {
+				ids.add(Integer.parseInt(s));
+			}
+			IOrder order = (IOrder) DIBookShop.load(IOrder.class.getName(), true);
+			IBuyer buyer = (IBuyer) DIBookShop.load(IBuyer.class.getName(), true);
+			buyer.setId(IdGenerator.getId(TypeId.BUYER));
+			buyer.setName(orderArr[0]);
+			buyerManager.add((BaseEntity) buyer);
+			List<IBook> books = new ArrayList<IBook>();
+			List<IBook> listBooks = bookManager.getBooks();
+			for (int i = 0; i < ids.size(); i++) {
+				books.add(listBooks.get(ids.get(i) - 1));
+			}
+			int price = 0;
+			try {
+				for (IBook book : books) {
+					price += book.getPrice();
+				}
+			} catch (NullPointerException e) {
+				log.error(e);
+			}
+			order.setId(IdGenerator.getId(TypeId.ORDER));
+			order.setBuyer(buyer);
+			order.setBooks(books);
+			order.setDate(TODAY);
+			order.setStatus(StatusOrder.valueOf(orderArr[2]));
+			order.setPrice(price);
+			return order;
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+	}
+	private IBook parseBook(String bookString) throws Exception{
+		try {
+			String[] bookArr = bookString.split(SPLITTER);
+			IBook book = (IBook) DIBookShop.load(IBook.class.getName(), true);
+			book.setId(IdGenerator.getId(TypeId.BOOK));
+			book.setName(bookArr[0]);
+			book.setAuthor(bookArr[1]);
+			book.setDatePublication(toGregorianCalendar(bookArr[2]));
+			book.setDateSupply(TODAY);
+			book.setPrice(Integer.parseInt(bookArr[3]));
+			return book;
+		} catch (Exception e) {
+			throw new Exception(e);
 		}
 	}
 	

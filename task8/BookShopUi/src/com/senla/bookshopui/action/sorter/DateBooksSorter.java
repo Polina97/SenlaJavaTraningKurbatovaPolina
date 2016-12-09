@@ -11,7 +11,7 @@ public class DateBooksSorter implements IAction{
 	public void execute(IClientWorker worker) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("sortBooks").append(SLASH).append(TypeBookComparator.DATE);
-		Printer.printArray(worker.runShop(builder.toString()));
+		Printer.printArray(worker.sendToShop(builder.toString()));
 		
 	}
 	

@@ -9,7 +9,7 @@ public class Exit implements IAction{
 
 	@Override
 	public void execute(IClientWorker worker) {
-		worker.runShop("exit");
+		worker.sendToShop("exit");
 		Printer.print("Au revoir!");
 		MyScanner.setIsNext(false);
 	}

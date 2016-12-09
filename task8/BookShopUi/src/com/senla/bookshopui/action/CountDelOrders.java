@@ -8,7 +8,7 @@ public class CountDelOrders implements IAction {
 
 	@Override
 	public void execute(IClientWorker worker) {
-		Printer.print("The number of delivered orders: " + worker.runShop("countOrders"));
+		Printer.print("The number of delivered orders: " + worker.sendToShop("countOrders"));
 
 	}
 
