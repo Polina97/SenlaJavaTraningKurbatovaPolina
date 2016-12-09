@@ -27,7 +27,7 @@ public class ServerThread extends Thread {
 		String str = null;
 		try {
 			while ((str = is.readLine()) != null) {
-				os.println(shopWorker.runShop(str));
+				os.println(shopWorker.workWithShop(str));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

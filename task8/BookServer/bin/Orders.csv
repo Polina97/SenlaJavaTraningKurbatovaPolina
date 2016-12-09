@@ -1,2 +1,3 @@
 id,buyer id,price,date,status,count of books,books
-4,3,120000,2016/4/18,KIT,1,1/
+4,3,120000,2016.4.18,KIT,1,1.
+6,5,660000,2016.10.18,DELIVERED,2,2.3.

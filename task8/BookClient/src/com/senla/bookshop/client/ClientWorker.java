@@ -18,7 +18,7 @@ public class ClientWorker implements IClientWorker{
 		this.br = br;
 	}
 
-	public String runShop(String methodShopSring) {
+	public String sendToShop(String methodShopSring) {
 		try {
 			ps.println(methodShopSring);
 			return br.readLine();

@@ -14,12 +14,12 @@ public class CancelOrder implements IAction {
 	@Override
 	public void execute(IClientWorker worker) {
 		Printer.print("Choise the order.");
-		Printer.printArray(worker.runShop("getOrders"));
+		Printer.printArray(worker.sendToShop("getOrders"));
 		try {
 			StringBuilder builder = new StringBuilder();
 			this.index = MyScanner.positive();
 			builder.append("cancelOrder").append(SLASH).append(index-1);
-			Printer.print(worker.runShop(builder.toString()));
+			Printer.print(worker.sendToShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);
 			Printer.print(MyScanner.MESSAGE);

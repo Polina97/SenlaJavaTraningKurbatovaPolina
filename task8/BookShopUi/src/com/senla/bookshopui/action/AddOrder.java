@@ -21,7 +21,7 @@ public class AddOrder implements IAction {
 		try {
 			this.nameBuyer = MyScanner.scanString();
 			Printer.print("Choise the books. When we can stoper, enter \"-1\": ");
-			Printer.printArray(worker.runShop(new String("getBooks")));
+			Printer.printArray(worker.sendToShop(new String("getBooks")));
 			this.ids = MyScanner.scanIds();
 			Printer.print("Choise status: 1) CANCELED, 2) KIT, 3)DELIVERED");
 			switch (MyScanner.positive()) {
@@ -39,8 +39,8 @@ public class AddOrder implements IAction {
 				break;
 			}
 			StringBuilder builder = new StringBuilder();
-			builder.append("addOrder").append(SLASH).append(nameBuyer).append(SLASH).append(ids).append(SLASH).append(status);
-			Printer.print(worker.runShop(builder.toString()));
+			builder.append("addOrder").append(SLASH).append(nameBuyer).append(SPLITTER).append(ids).append(SPLITTER).append(status);
+			Printer.print(worker.sendToShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);
 			Printer.print(MyScanner.MESSAGE);

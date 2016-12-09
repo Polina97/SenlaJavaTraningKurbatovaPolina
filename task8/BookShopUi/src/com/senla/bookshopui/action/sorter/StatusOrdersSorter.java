@@ -10,7 +10,7 @@ public class StatusOrdersSorter implements IAction {
 	public void execute(IClientWorker worker) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("sortOrders").append(SLASH).append(TypeOrderComparator.STATUS);
-		Printer.printArray(worker.runShop(builder.toString()));
+		Printer.printArray(worker.sendToShop(builder.toString()));
 	}
 
 }

@@ -17,9 +17,9 @@ public interface IShop {
 
 	public String countOrders();
 
-	public String addToStock(String name, String author, String datePublication, String price);
+	public String addToStock(String bookString);
 
-	public String addOrder(String nameBuyer, String ids, String status);
+	public String addOrder(String orderString);
 
 	public String deliverOrder(String index);
 

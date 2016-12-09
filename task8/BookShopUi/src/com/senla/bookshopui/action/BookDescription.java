@@ -14,12 +14,12 @@ public class BookDescription implements IAction {
 	@Override
 	public void execute(IClientWorker worker) {
 		Printer.print("Choise the book.");
-		Printer.printArray(worker.runShop("getBooks"));
+		Printer.printArray(worker.sendToShop("getBooks"));
 		try {
 			this.index = MyScanner.positive();
 			StringBuilder builder = new StringBuilder();
 			builder.append("getDescriptionBook").append(SLASH).append(index - 1);
-			Printer.print(worker.runShop(builder.toString()));
+			Printer.print(worker.sendToShop(builder.toString()));
 		} catch (Exception e) {
 			log.error(e);
 			Printer.print(MyScanner.MESSAGE);
